@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="ko" class="no-js">
     <head>
         <meta charset="utf-8">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
@@ -11,7 +11,7 @@
 var opensdg = {
 
   // A base URL for asynchronous calls to SDG data.
-  remoteDataBaseUrl: 'https://open-sdg.org/open-sdg-data-starter/en',
+  remoteDataBaseUrl: 'https://kostat-gi.github.io/data/ko',
 
   chartConfigAlterations: [],
   // A hook which can be used to modify the configuration for Chart.js.
@@ -42,7 +42,7 @@ var opensdg = {
   // Disaggregations which should be ignored on indicator pages.
   ignoredDisaggregations: null,
 
-  language: 'en',
+  language: 'ko',
 };
 
 </script>
@@ -103,14 +103,12 @@ var translations = {
         ================================================== -->
 
         
-    <title>Goal 9 - Industry, innovation and infrastructure - Indicators For The Sustainable Development Goals</title>
+    <title>영역 9 - 개인생활 - 수도권 광역지표 온라인 서비스</title>
 
 
 
         <meta name="description" content="">
         <meta property="og:description" content="">
-        
-        <meta name="robots" content="noindex, nofollow">
         
         <link rel="canonical" href="/">
 
@@ -129,7 +127,7 @@ var translations = {
         <link res="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" crossorigin="">
         <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.3/css/fixedColumns.dataTables.min.css" crossorigin="">
-        <link rel="stylesheet" href="/site/assets/css/style.css?v=20221212043321">
+        <link rel="stylesheet" href="/site/assets/css/style.css?v=20221212052118">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
           crossorigin=""/>
@@ -147,62 +145,53 @@ var translations = {
         
 
     </head>
-<body class="language-en
+<body class="language-ko
 layout-goal
 ">
 <!-- <div class="container"> -->
 
-<script>translations['header'] = {"alpha":"Alpha","default_contrast":"Default contrast","disable_high_contrast":"Disable high contrast","disclaimer":"This is a development website. We welcome your <a href=\"mailto:%email_contacts.suggestions\">feedback</a>.","enable_high_contrast":"Enable high contrast","hide_menu":"Hide navigation menu","high_contrast":"High contrast","internet_explorer_message":"We have detected that you are using Internet Explorer to visit this website. Internet Explorer is now being phased out by Microsoft. As a result, this website no longer supports any version of Internet Explorer. Some features on this site will not work. You should use a modern browser such as Edge, Chrome, Firefox, or Safari. If you have difficulty installing or accessing a different browser, please contact your IT support team.","internet_explorer_message_title":"This internet browser is no longer supported","logo_title":"Go to homepage","show_menu":"Show navigation menu","skip_link":"Skip to main content","tag_line":"17 Goals to Transform our World","toggle_menu":"Menu toggle. Click to expand or collapse the menu.","toggle_search":"Search toggle. Click to expand or collapse the search bar."};</script>
+<script>translations['header'] = {"alpha":"테스트중","default_contrast":"원래대로","disable_high_contrast":"고대비 불가","disclaimer":"현재 개발 작업중인 임시 사이트입니다.","enable_high_contrast":"고대비 가능","high_contrast":"고대비","skip_link":"Skip to main content","tag_line":"17 Goals to Transform our World","toggle_menu":"Menu toggle. Click to expand or collapse the menu.","toggle_search":"Search toggle. Click to expand or collapse the search bar."};</script>
 
 <a class="sr-only-focusable" id="skiplink" href="#main-content" tabindex="0">Skip to main content</a>
 <div class="container internet-explorer-message">
-    <h2 class="internet-explorer-message-title">This internet browser is no longer supported</h2>
-    <p class="internet-explorer-message-body">We have detected that you are using Internet Explorer to visit this website. Internet Explorer is now being phased out by Microsoft. As a result, this website no longer supports any version of Internet Explorer. Some features on this site will not work. You should use a modern browser such as Edge, Chrome, Firefox, or Safari. If you have difficulty installing or accessing a different browser, please contact your IT support team.</p>
+    <h2 class="internet-explorer-message-title"></h2>
+    <p class="internet-explorer-message-body"></p>
 </div>
 <div id="disclaimer">
     
-<div class="container">
-  <div class="disclaimer-alert">
-    <strong class="phase-tag">Alpha</strong>
-    
-    This is a development website. We welcome your <a href="mailto:test@example.com">feedback</a>.
-    
-  </div>
-</div>
-
 </div>
 
 <header role="banner" class="">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light flex-wrap align-items-start">
-            <a class="navbar-brand" href="/site/" id="home" aria-label="Go to homepage" title="Go to homepage">
-    <img src="/site/assets/img/SDG_logo.png" alt="Sustainable Development Goals - 17 Goals to Transform our World" />
+            <a class="navbar-brand" href="/site/" id="home" aria-label="" title="">
+    <img src="/site/assets/img/SDG_logo.png" alt="지속가능발전목표 - 17 Goals to Transform our World" />
 </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Show navigation menu">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="d-flex flex-wrap w-100 justify-content-between">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav" id="menu"><li class="nav-item ">
-    <a class="nav-link" href="/site/goals">Goals</a>
+    <a class="nav-link" href="/site/about">수도권 광역지표 소개</a>
 </li><li class="nav-item ">
-    <a class="nav-link" href="/site/reporting-status">Reporting Status</a>
+    <a class="nav-link" href="/site/goals">수도권 광역지표</a>
 </li><li class="nav-item ">
-    <a class="nav-link" href="/site/about">About</a>
+    <a class="nav-link" href="/site/reporting-status">데이터 제공현황</a>
+</li><li class="nav-item ">
+    <a class="nav-link" href="/site/publications">발간(참고)자료</a>
 </li><li class="nav-item ">
     <a class="nav-link" href="/site/faq">FAQ</a>
-</li><li class="nav-item ">
-    <a class="nav-link" href="/site/news">Updates</a>
 </li></ul>
     
                 </div>
                 <div class="header-search-bar">
                     <form class="align-self-lg-end" id="search" action="/site/search/">
     <div class="input-group">
-        <label class="visually-hidden" for="indicator_search">Search</label>
-        <input class="form-control" type="search" name="q" id="indicator_search" title="Search">
+        <label class="visually-hidden" for="indicator_search">검색</label>
+        <input class="form-control" type="search" name="q" id="indicator_search" title="검색">
         <span class="input-group-append">
-            <button class="btn btn-outline-secondary ms-n5" aria-label="Site search" id="search-btn" type="submit">
+            <button class="btn btn-outline-secondary ms-n5" aria-label="" id="search-btn" type="submit">
                 <i class="fa fa-search"></i>
             </button>
         </span>
@@ -210,37 +199,7 @@ layout-goal
 </form>
 
                 </div>
-                <div class="header-toggles d-flex">
-
-
-
-
-
-  <div class="language-toggle-container">
-  
-  <div class="btn-group language-toggle-dropdown  dropdown">
-    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      <i class="fa fa-globe"></i>
-      English
-    </button>
-    <ul class="dropdown-menu"><li>
-            <a class="dropdown-item" href="/site/es/9/">
-              Español
-            </a>
-          </li></ul>
-  </div>
-</div>
-
-
-
-                    <span class="no-js-language-toggle"><div class="language-toggle-container d-flex">
-    <i class="fa fa-globe language-toggle-globe-links"></i>
-    <ul class="language-toggle-links list-unstyled list-inline"><li class="language-option-es list-inline-item">
-            <a class="language-toggle-link" href="/site/es/9/">
-                Español
-            </a>
-        </li></ul>
-</div></span><a title="Enable high contrast" aria-label="Enable high contrast"
+                <div class="header-toggles d-flex"><a title="고대비 가능" aria-label="고대비 가능"
     data-contrast-switch-to="" href="javascript:void(0)" data-on="click"
 data-event-category="Accessibility"
 data-event-action="Change contrast setting"
@@ -263,7 +222,7 @@ data-event-label="high"
             <a href="/site/">Home</a>
         </li>
         <li class="breadcrumb-item" >
-            <a href="/site/goals">Goals</a>
+            <a href="/site/goals">수도권 광역지표</a>
         </li>
         
         
@@ -276,10 +235,10 @@ data-event-label="high"
     <div class="container">
         <div class="row">
             <div class="col-4 col-md-3 col-lg-2 goal-icon goal-tiles">
-                <img src="https://open-sdg.org/sdg-translations/assets/img/goals/en/9.png" alt="Industry, innovation and infrastructure - Goal 9" id="goal-9" class="goal-icon-image goal-icon-image-" />
+                <img src="https://kostat-gi.github.io/site/assets/img/goals/ko/9.png" alt="개인생활 - 영역 9" id="goal-9" class="goal-icon-image goal-icon-image-" />
             </div>
             <div class="col-8 col-md-9 col-lg-10 goal-details">
-                <h1>Build resilient infrastructure, promote inclusive and sustainable industrialization and foster innovation</h1>
+                <h1>생활 지표 - 개인생활 영역</h1>
             </div>
         </div>
     </div>
@@ -309,11 +268,11 @@ data-event-label="high"
       <div class="row align-items-start goal-target">
           <div class="col-auto goal-page-target-number">
             <h3 class="goal-target">
-              <span class="target-number"><span class="visually-hidden">Target</span> 9.1</span>
+              <span class="target-number"><span class="visually-hidden">하위영역</span> 9.1</span>
             </h3>
           </div>
           <div class="col goal-page-target-name">
-            <span class="target-name">Develop quality, reliable, sustainable and resilient infrastructure, including regional and transborder infrastructure, to support economic development and human well-being, with a focus on affordable and equitable access for all</span>
+            <span class="target-name">건강</span>
           </div>
           
       </div>
@@ -328,12 +287,12 @@ data-event-label="high"
           
             <div class="col-auto goal-page-indicator-number">
               <h4>
-                <span class="indicator-number"><span class="visually-hidden">Indicator</span> 9.1.1</span>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.1.1</span>
               </h4>
             </div>
             <div class="col goal-page-indicator-name">
               
-              <span class="indicator-name"><a href="/site/9-1-1">Proportion of the rural population who live within 2 km of an all-season road</a></span>
+              <span class="indicator-name"><a href="/site/9-1-1">건강관련 삶의 질(EQ-5D)</a></span>
               
 
 
@@ -345,8 +304,8 @@ data-event-label="high"
 
 
 
-<span class="status notstarted">
-    <span class="status-inner">Exploring data sources</span>
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
 </span>
 
 
@@ -368,12 +327,12 @@ data-event-label="high"
           
             <div class="col-auto goal-page-indicator-number">
               <h4>
-                <span class="indicator-number"><span class="visually-hidden">Indicator</span> 9.1.2</span>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.1.2</span>
               </h4>
             </div>
             <div class="col goal-page-indicator-name">
               
-              <span class="indicator-name"><a href="/site/9-1-2">Passenger and freight volumes, by mode of transport</a></span>
+              <span class="indicator-name"><a href="/site/9-1-2">인구 십만 명당 자살률</a></span>
               
 
 
@@ -385,8 +344,168 @@ data-event-label="high"
 
 
 
-<span class="status notstarted">
-    <span class="status-inner">Exploring data sources</span>
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </li></ul>
+
+
+            </div>
+            
+            
+          </div>
+        
+
+          
+          
+          
+          
+
+          <div class="row align-items-start goal-indicator">
+          
+            <div class="col-auto goal-page-indicator-number">
+              <h4>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.1.3</span>
+              </h4>
+            </div>
+            <div class="col goal-page-indicator-name">
+              
+              <span class="indicator-name"><a href="/site/9-1-3">인구 천 명당 의사 수</a></span>
+              
+
+
+
+
+    <ul class="tags list-unstyled list-inline" aria-label="Tags"><li class="list-inline-item">
+        <span class="visually-hidden">Indicator status</span>
+        
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </li></ul>
+
+
+            </div>
+            
+            
+          </div>
+        
+
+          
+          
+          
+          
+
+          <div class="row align-items-start goal-indicator">
+          
+            <div class="col-auto goal-page-indicator-number">
+              <h4>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.1.4</span>
+              </h4>
+            </div>
+            <div class="col goal-page-indicator-name">
+              
+              <span class="indicator-name"><a href="/site/9-1-4">스트레스 인지율</a></span>
+              
+
+
+
+
+    <ul class="tags list-unstyled list-inline" aria-label="Tags"><li class="list-inline-item">
+        <span class="visually-hidden">Indicator status</span>
+        
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </li></ul>
+
+
+            </div>
+            
+            
+          </div>
+        
+
+          
+          
+          
+          
+
+          <div class="row align-items-start goal-indicator">
+          
+            <div class="col-auto goal-page-indicator-number">
+              <h4>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.1.5</span>
+              </h4>
+            </div>
+            <div class="col goal-page-indicator-name">
+              
+              <span class="indicator-name"><a href="/site/9-1-5">주관적 건강수준</a></span>
+              
+
+
+
+
+    <ul class="tags list-unstyled list-inline" aria-label="Tags"><li class="list-inline-item">
+        <span class="visually-hidden">Indicator status</span>
+        
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </li></ul>
+
+
+            </div>
+            
+            
+          </div>
+        
+
+          
+          
+          
+          
+
+          <div class="row align-items-start goal-indicator">
+          
+            <div class="col-auto goal-page-indicator-number">
+              <h4>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.1.6</span>
+              </h4>
+            </div>
+            <div class="col goal-page-indicator-name">
+              
+              <span class="indicator-name"><a href="/site/9-1-6">비만 유병률</a></span>
+              
+
+
+
+
+    <ul class="tags list-unstyled list-inline" aria-label="Tags"><li class="list-inline-item">
+        <span class="visually-hidden">Indicator status</span>
+        
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
 </span>
 
 
@@ -404,11 +523,11 @@ data-event-label="high"
       <div class="row align-items-start goal-target">
           <div class="col-auto goal-page-target-number">
             <h3 class="goal-target">
-              <span class="target-number"><span class="visually-hidden">Target</span> 9.2</span>
+              <span class="target-number"><span class="visually-hidden">하위영역</span> 9.2</span>
             </h3>
           </div>
           <div class="col goal-page-target-name">
-            <span class="target-name">Promote inclusive and sustainable industrialization and, by 2030, significantly raise industry’s share of employment and gross domestic product, in line with national circumstances, and double its share in least developed countries</span>
+            <span class="target-name">교육/훈련</span>
           </div>
           
       </div>
@@ -423,12 +542,12 @@ data-event-label="high"
           
             <div class="col-auto goal-page-indicator-number">
               <h4>
-                <span class="indicator-number"><span class="visually-hidden">Indicator</span> 9.2.1</span>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.2.1</span>
               </h4>
             </div>
             <div class="col goal-page-indicator-name">
               
-              <span class="indicator-name"><a href="/site/9-2-1">Manufacturing value added as a proportion of GDP and per capita</a></span>
+              <span class="indicator-name"><a href="/site/9-2-1">학교생활 만족도</a></span>
               
 
 
@@ -440,8 +559,8 @@ data-event-label="high"
 
 
 
-<span class="status notstarted">
-    <span class="status-inner">Exploring data sources</span>
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
 </span>
 
 
@@ -463,12 +582,12 @@ data-event-label="high"
           
             <div class="col-auto goal-page-indicator-number">
               <h4>
-                <span class="indicator-number"><span class="visually-hidden">Indicator</span> 9.2.2</span>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.2.2</span>
               </h4>
             </div>
             <div class="col goal-page-indicator-name">
               
-              <span class="indicator-name"><a href="/site/9-2-2">Manufacturing employment as a proportion of total employment</a></span>
+              <span class="indicator-name"><a href="/site/9-2-2">학급당 학생 수</a></span>
               
 
 
@@ -480,8 +599,128 @@ data-event-label="high"
 
 
 
-<span class="status notstarted">
-    <span class="status-inner">Exploring data sources</span>
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </li></ul>
+
+
+            </div>
+            
+            
+          </div>
+        
+
+          
+          
+          
+          
+
+          <div class="row align-items-start goal-indicator">
+          
+            <div class="col-auto goal-page-indicator-number">
+              <h4>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.2.3</span>
+              </h4>
+            </div>
+            <div class="col goal-page-indicator-name">
+              
+              <span class="indicator-name"><a href="/site/9-2-3">고등교육이수자 비율</a></span>
+              
+
+
+
+
+    <ul class="tags list-unstyled list-inline" aria-label="Tags"><li class="list-inline-item">
+        <span class="visually-hidden">Indicator status</span>
+        
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </li></ul>
+
+
+            </div>
+            
+            
+          </div>
+        
+
+          
+          
+          
+          
+
+          <div class="row align-items-start goal-indicator">
+          
+            <div class="col-auto goal-page-indicator-number">
+              <h4>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.2.4</span>
+              </h4>
+            </div>
+            <div class="col goal-page-indicator-name">
+              
+              <span class="indicator-name"><a href="/site/9-2-4">학교교육의 효과</a></span>
+              
+
+
+
+
+    <ul class="tags list-unstyled list-inline" aria-label="Tags"><li class="list-inline-item">
+        <span class="visually-hidden">Indicator status</span>
+        
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </li></ul>
+
+
+            </div>
+            
+            
+          </div>
+        
+
+          
+          
+          
+          
+
+          <div class="row align-items-start goal-indicator">
+          
+            <div class="col-auto goal-page-indicator-number">
+              <h4>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.2.5</span>
+              </h4>
+            </div>
+            <div class="col goal-page-indicator-name">
+              
+              <span class="indicator-name"><a href="/site/9-2-5">1인당 사교육비</a></span>
+              
+
+
+
+
+    <ul class="tags list-unstyled list-inline" aria-label="Tags"><li class="list-inline-item">
+        <span class="visually-hidden">Indicator status</span>
+        
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
 </span>
 
 
@@ -499,11 +738,11 @@ data-event-label="high"
       <div class="row align-items-start goal-target">
           <div class="col-auto goal-page-target-number">
             <h3 class="goal-target">
-              <span class="target-number"><span class="visually-hidden">Target</span> 9.3</span>
+              <span class="target-number"><span class="visually-hidden">하위영역</span> 9.3</span>
             </h3>
           </div>
           <div class="col goal-page-target-name">
-            <span class="target-name">Increase the access of small-scale industrial and other enterprises, in particular in developing countries, to financial services, including affordable credit, and their integration into value chains and markets</span>
+            <span class="target-name">일</span>
           </div>
           
       </div>
@@ -518,12 +757,12 @@ data-event-label="high"
           
             <div class="col-auto goal-page-indicator-number">
               <h4>
-                <span class="indicator-number"><span class="visually-hidden">Indicator</span> 9.3.1</span>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.3.1</span>
               </h4>
             </div>
             <div class="col goal-page-indicator-name">
               
-              <span class="indicator-name"><a href="/site/9-3-1">Proportion of small-scale industries in total industry value added</a></span>
+              <span class="indicator-name"><a href="/site/9-3-1">월평균 임금</a></span>
               
 
 
@@ -535,8 +774,8 @@ data-event-label="high"
 
 
 
-<span class="status notstarted">
-    <span class="status-inner">Exploring data sources</span>
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
 </span>
 
 
@@ -558,12 +797,12 @@ data-event-label="high"
           
             <div class="col-auto goal-page-indicator-number">
               <h4>
-                <span class="indicator-number"><span class="visually-hidden">Indicator</span> 9.3.2</span>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.3.2</span>
               </h4>
             </div>
             <div class="col goal-page-indicator-name">
               
-              <span class="indicator-name"><a href="/site/9-3-2">Proportion of small-scale industries with a loan or line of credit</a></span>
+              <span class="indicator-name"><a href="/site/9-3-2">근로여건만족도</a></span>
               
 
 
@@ -575,8 +814,168 @@ data-event-label="high"
 
 
 
-<span class="status notstarted">
-    <span class="status-inner">Exploring data sources</span>
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </li></ul>
+
+
+            </div>
+            
+            
+          </div>
+        
+
+          
+          
+          
+          
+
+          <div class="row align-items-start goal-indicator">
+          
+            <div class="col-auto goal-page-indicator-number">
+              <h4>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.3.3</span>
+              </h4>
+            </div>
+            <div class="col goal-page-indicator-name">
+              
+              <span class="indicator-name"><a href="/site/9-3-3">고용률</a></span>
+              
+
+
+
+
+    <ul class="tags list-unstyled list-inline" aria-label="Tags"><li class="list-inline-item">
+        <span class="visually-hidden">Indicator status</span>
+        
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </li></ul>
+
+
+            </div>
+            
+            
+          </div>
+        
+
+          
+          
+          
+          
+
+          <div class="row align-items-start goal-indicator">
+          
+            <div class="col-auto goal-page-indicator-number">
+              <h4>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.3.4</span>
+              </h4>
+            </div>
+            <div class="col goal-page-indicator-name">
+              
+              <span class="indicator-name"><a href="/site/9-3-4">근로시간</a></span>
+              
+
+
+
+
+    <ul class="tags list-unstyled list-inline" aria-label="Tags"><li class="list-inline-item">
+        <span class="visually-hidden">Indicator status</span>
+        
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </li></ul>
+
+
+            </div>
+            
+            
+          </div>
+        
+
+          
+          
+          
+          
+
+          <div class="row align-items-start goal-indicator">
+          
+            <div class="col-auto goal-page-indicator-number">
+              <h4>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.3.5</span>
+              </h4>
+            </div>
+            <div class="col goal-page-indicator-name">
+              
+              <span class="indicator-name"><a href="/site/9-3-5">실업률</a></span>
+              
+
+
+
+
+    <ul class="tags list-unstyled list-inline" aria-label="Tags"><li class="list-inline-item">
+        <span class="visually-hidden">Indicator status</span>
+        
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </li></ul>
+
+
+            </div>
+            
+            
+          </div>
+        
+
+          
+          
+          
+          
+
+          <div class="row align-items-start goal-indicator">
+          
+            <div class="col-auto goal-page-indicator-number">
+              <h4>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.3.6</span>
+              </h4>
+            </div>
+            <div class="col goal-page-indicator-name">
+              
+              <span class="indicator-name"><a href="/site/9-3-6">비정규직 근로자 비율</a></span>
+              
+
+
+
+
+    <ul class="tags list-unstyled list-inline" aria-label="Tags"><li class="list-inline-item">
+        <span class="visually-hidden">Indicator status</span>
+        
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
 </span>
 
 
@@ -594,11 +993,11 @@ data-event-label="high"
       <div class="row align-items-start goal-target">
           <div class="col-auto goal-page-target-number">
             <h3 class="goal-target">
-              <span class="target-number"><span class="visually-hidden">Target</span> 9.4</span>
+              <span class="target-number"><span class="visually-hidden">하위영역</span> 9.4</span>
             </h3>
           </div>
           <div class="col goal-page-target-name">
-            <span class="target-name">By 2030, upgrade infrastructure and retrofit industries to make them sustainable, with increased resource-use efficiency and greater adoption of clean and environmentally sound technologies and industrial processes, with all countries taking action in accordance with their respective capabilities</span>
+            <span class="target-name">소득/소비</span>
           </div>
           
       </div>
@@ -613,12 +1012,12 @@ data-event-label="high"
           
             <div class="col-auto goal-page-indicator-number">
               <h4>
-                <span class="indicator-number"><span class="visually-hidden">Indicator</span> 9.4.1</span>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.4.1</span>
               </h4>
             </div>
             <div class="col goal-page-indicator-name">
               
-              <span class="indicator-name"><a href="/site/9-4-1">CO2 emission per unit of value added</a></span>
+              <span class="indicator-name"><a href="/site/9-4-1">가구당 연평균 경상소득</a></span>
               
 
 
@@ -630,8 +1029,88 @@ data-event-label="high"
 
 
 
-<span class="status notstarted">
-    <span class="status-inner">Exploring data sources</span>
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </li></ul>
+
+
+            </div>
+            
+            
+          </div>
+        
+
+          
+          
+          
+          
+
+          <div class="row align-items-start goal-indicator">
+          
+            <div class="col-auto goal-page-indicator-number">
+              <h4>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.4.2</span>
+              </h4>
+            </div>
+            <div class="col goal-page-indicator-name">
+              
+              <span class="indicator-name"><a href="/site/9-4-2">소비생활 만족도</a></span>
+              
+
+
+
+
+    <ul class="tags list-unstyled list-inline" aria-label="Tags"><li class="list-inline-item">
+        <span class="visually-hidden">Indicator status</span>
+        
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </li></ul>
+
+
+            </div>
+            
+            
+          </div>
+        
+
+          
+          
+          
+          
+
+          <div class="row align-items-start goal-indicator">
+          
+            <div class="col-auto goal-page-indicator-number">
+              <h4>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.4.3</span>
+              </h4>
+            </div>
+            <div class="col goal-page-indicator-name">
+              
+              <span class="indicator-name"><a href="/site/9-4-3">주관적 소득수준</a></span>
+              
+
+
+
+
+    <ul class="tags list-unstyled list-inline" aria-label="Tags"><li class="list-inline-item">
+        <span class="visually-hidden">Indicator status</span>
+        
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
 </span>
 
 
@@ -649,11 +1128,11 @@ data-event-label="high"
       <div class="row align-items-start goal-target">
           <div class="col-auto goal-page-target-number">
             <h3 class="goal-target">
-              <span class="target-number"><span class="visually-hidden">Target</span> 9.5</span>
+              <span class="target-number"><span class="visually-hidden">하위영역</span> 9.5</span>
             </h3>
           </div>
           <div class="col goal-page-target-name">
-            <span class="target-name">Enhance scientific research, upgrade the technological capabilities of industrial sectors in all countries, in particular developing countries, including, by 2030, encouraging innovation and substantially increasing the number of research and development workers per 1 million people and public and private research and development spending</span>
+            <span class="target-name">문화/여가</span>
           </div>
           
       </div>
@@ -668,12 +1147,12 @@ data-event-label="high"
           
             <div class="col-auto goal-page-indicator-number">
               <h4>
-                <span class="indicator-number"><span class="visually-hidden">Indicator</span> 9.5.1</span>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.5.1</span>
               </h4>
             </div>
             <div class="col goal-page-indicator-name">
               
-              <span class="indicator-name"><a href="/site/9-5-1">Research and development expenditure as a proportion of GDP</a></span>
+              <span class="indicator-name"><a href="/site/9-5-1">여가활용 만족도</a></span>
               
 
 
@@ -685,8 +1164,8 @@ data-event-label="high"
 
 
 
-<span class="status notstarted">
-    <span class="status-inner">Exploring data sources</span>
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
 </span>
 
 
@@ -708,12 +1187,12 @@ data-event-label="high"
           
             <div class="col-auto goal-page-indicator-number">
               <h4>
-                <span class="indicator-number"><span class="visually-hidden">Indicator</span> 9.5.2</span>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.5.2</span>
               </h4>
             </div>
             <div class="col goal-page-indicator-name">
               
-              <span class="indicator-name"><a href="/site/9-5-2">Researchers (in full-time equivalent) per million inhabitants</a></span>
+              <span class="indicator-name"><a href="/site/9-5-2">1일 평균 여가시간</a></span>
               
 
 
@@ -725,8 +1204,8 @@ data-event-label="high"
 
 
 
-<span class="status notstarted">
-    <span class="status-inner">Exploring data sources</span>
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
 </span>
 
 
@@ -738,21 +1217,6 @@ data-event-label="high"
             
           </div>
         
-        <hr class="goal-page-target-rule" />
-    
-      
-      <div class="row align-items-start goal-target">
-          <div class="col-auto goal-page-target-number">
-            <h3 class="goal-target">
-              <span class="target-number"><span class="visually-hidden">Target</span> 9.a</span>
-            </h3>
-          </div>
-          <div class="col goal-page-target-name">
-            <span class="target-name">Facilitate sustainable and resilient infrastructure development in developing countries through enhanced financial, technological and technical support to African countries, least developed countries, landlocked developing countries and small island developing States</span>
-          </div>
-          
-      </div>
-        
 
           
           
@@ -763,12 +1227,12 @@ data-event-label="high"
           
             <div class="col-auto goal-page-indicator-number">
               <h4>
-                <span class="indicator-number"><span class="visually-hidden">Indicator</span> 9.a.1</span>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.5.3</span>
               </h4>
             </div>
             <div class="col goal-page-indicator-name">
               
-              <span class="indicator-name"><a href="/site/9-a-1">Total official international support (official development assistance plus other official flows) to infrastructure</a></span>
+              <span class="indicator-name"><a href="/site/9-5-3">인구 십만 명당 문화기반시설 수</a></span>
               
 
 
@@ -780,8 +1244,8 @@ data-event-label="high"
 
 
 
-<span class="status notstarted">
-    <span class="status-inner">Exploring data sources</span>
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
 </span>
 
 
@@ -799,11 +1263,11 @@ data-event-label="high"
       <div class="row align-items-start goal-target">
           <div class="col-auto goal-page-target-number">
             <h3 class="goal-target">
-              <span class="target-number"><span class="visually-hidden">Target</span> 9.b</span>
+              <span class="target-number"><span class="visually-hidden">하위영역</span> 9.6</span>
             </h3>
           </div>
           <div class="col goal-page-target-name">
-            <span class="target-name">Support domestic technology development, research and innovation in developing countries, including by ensuring a conducive policy environment for, inter alia, industrial diversification and value addition to commodities</span>
+            <span class="target-name">주거</span>
           </div>
           
       </div>
@@ -818,12 +1282,12 @@ data-event-label="high"
           
             <div class="col-auto goal-page-indicator-number">
               <h4>
-                <span class="indicator-number"><span class="visually-hidden">Indicator</span> 9.b.1</span>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.6.1</span>
               </h4>
             </div>
             <div class="col goal-page-indicator-name">
               
-              <span class="indicator-name"><a href="/site/9-b-1">Proportion of medium and high-tech industry value added in total value added</a></span>
+              <span class="indicator-name"><a href="/site/9-6-1">주거환경 만족도</a></span>
               
 
 
@@ -835,8 +1299,8 @@ data-event-label="high"
 
 
 
-<span class="status notstarted">
-    <span class="status-inner">Exploring data sources</span>
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
 </span>
 
 
@@ -848,21 +1312,6 @@ data-event-label="high"
             
           </div>
         
-        <hr class="goal-page-target-rule" />
-    
-      
-      <div class="row align-items-start goal-target">
-          <div class="col-auto goal-page-target-number">
-            <h3 class="goal-target">
-              <span class="target-number"><span class="visually-hidden">Target</span> 9.c</span>
-            </h3>
-          </div>
-          <div class="col goal-page-target-name">
-            <span class="target-name">Significantly increase access to information and communications technology and strive to provide universal and affordable access to the Internet in least developed countries by 2020</span>
-          </div>
-          
-      </div>
-        
 
           
           
@@ -873,12 +1322,12 @@ data-event-label="high"
           
             <div class="col-auto goal-page-indicator-number">
               <h4>
-                <span class="indicator-number"><span class="visually-hidden">Indicator</span> 9.c.1</span>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.6.2</span>
               </h4>
             </div>
             <div class="col goal-page-indicator-name">
               
-              <span class="indicator-name"><a href="/site/9-c-1">Proportion of population covered by a mobile network, by technology</a></span>
+              <span class="indicator-name"><a href="/site/9-6-2">PIR</a></span>
               
 
 
@@ -890,8 +1339,168 @@ data-event-label="high"
 
 
 
-<span class="status notstarted">
-    <span class="status-inner">Exploring data sources</span>
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </li></ul>
+
+
+            </div>
+            
+            
+          </div>
+        
+
+          
+          
+          
+          
+
+          <div class="row align-items-start goal-indicator">
+          
+            <div class="col-auto goal-page-indicator-number">
+              <h4>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.6.3</span>
+              </h4>
+            </div>
+            <div class="col goal-page-indicator-name">
+              
+              <span class="indicator-name"><a href="/site/9-6-3">자가 보유율</a></span>
+              
+
+
+
+
+    <ul class="tags list-unstyled list-inline" aria-label="Tags"><li class="list-inline-item">
+        <span class="visually-hidden">Indicator status</span>
+        
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </li></ul>
+
+
+            </div>
+            
+            
+          </div>
+        
+
+          
+          
+          
+          
+
+          <div class="row align-items-start goal-indicator">
+          
+            <div class="col-auto goal-page-indicator-number">
+              <h4>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.6.4</span>
+              </h4>
+            </div>
+            <div class="col goal-page-indicator-name">
+              
+              <span class="indicator-name"><a href="/site/9-6-4">주택당 평균 거주인 수</a></span>
+              
+
+
+
+
+    <ul class="tags list-unstyled list-inline" aria-label="Tags"><li class="list-inline-item">
+        <span class="visually-hidden">Indicator status</span>
+        
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </li></ul>
+
+
+            </div>
+            
+            
+          </div>
+        
+
+          
+          
+          
+          
+
+          <div class="row align-items-start goal-indicator">
+          
+            <div class="col-auto goal-page-indicator-number">
+              <h4>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.6.5</span>
+              </h4>
+            </div>
+            <div class="col goal-page-indicator-name">
+              
+              <span class="indicator-name"><a href="/site/9-6-5">공공임대주택 수</a></span>
+              
+
+
+
+
+    <ul class="tags list-unstyled list-inline" aria-label="Tags"><li class="list-inline-item">
+        <span class="visually-hidden">Indicator status</span>
+        
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </li></ul>
+
+
+            </div>
+            
+            
+          </div>
+        
+
+          
+          
+          
+          
+
+          <div class="row align-items-start goal-indicator">
+          
+            <div class="col-auto goal-page-indicator-number">
+              <h4>
+                <span class="indicator-number"><span class="visually-hidden">지표</span> 9.6.6</span>
+              </h4>
+            </div>
+            <div class="col goal-page-indicator-name">
+              
+              <span class="indicator-name"><a href="/site/9-6-6">월세/전세 가격지수</a></span>
+              
+
+
+
+
+    <ul class="tags list-unstyled list-inline" aria-label="Tags"><li class="list-inline-item">
+        <span class="visually-hidden">Indicator status</span>
+        
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
 </span>
 
 
@@ -920,30 +1529,6 @@ data-event-label="high"
                             <a href="https://open-sdg.org">Built using Open SDG</a>
                         </li>
                         
-                        <li>
-                            <a href="/site/contact-us">Contact us</a>
-                            
-                        </li>
-                        <li>
-                            
-                            <a href="https://twitter.com/MyTwitterAccount" target="_blank">Twitter</a>
-                            
-                        </li>
-                        <li>
-                            
-                            <a href="https://facebook.com/MyFacebookAccount" target="_blank">Facebook</a>
-                            
-                        </li>
-                        <li>
-                            <a href="/site/about/cookies-and-privacy/">Cookies</a>
-                            
-                        </li>
-                        
-                        
-                        
-                        <li>
-                            <a href="/site/config">Configuration</a>
-                        </li>
                         </ul>
                 </div>
             </div>
@@ -976,14 +1561,14 @@ data-event-label="high"
     translations['general']['hide'] = 'hide';</script>
 
 <script>translations['search'] = translations['search'] || {};
-    translations['search']['search'] = 'Search';</script>
+    translations['search']['search'] = '검색';</script>
 
-<script src='/site/assets/js/sdg.js?v=20221212043321'></script>
+<script src='/site/assets/js/sdg.js?v=20221212052118'></script>
 
 
     
     
-    <script src="/site/assets/js/custom.js?v=20221212043321"></script><script>
+    <script src="/site/assets/js/custom.js?v=20221212052118"></script><script>
     new indicatorInit();
     new accessibilitySwitcher();
 </script>
