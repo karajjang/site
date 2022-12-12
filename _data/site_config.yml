@@ -120,7 +120,7 @@ frontpage_instructions: ''
 frontpage_introduction_banner:
   title: frontpage.intro_title
   description: frontpage.intro_body
-goal_image_base: 'https://kostat-gi.github.io/site/assets/img/goals'
+goal_image_base: 'https://karajjang.github.io/site/assets/img/goals'
 goal_image_extension: ''
 goals_page:
   title: general.goals
@@ -234,7 +234,7 @@ non_global_metadata: indicator.national_metadata
 progress_status:
   status_heading: ''
   status_types: []
-remote_data_prefix: 'https://kostat-gi.github.io/data'
+remote_data_prefix: 'https://karajjang.github.io/data'
 reporting_status:
   title: status.reporting_status
   description: status.description
@@ -249,8 +249,8 @@ reporting_status:
     - value: notapplicable
       label: status.not_applicable
       hide_on_goal_pages: false
-repository_url_data: 'https://github.com/kostat-gi/data'
-repository_url_site: 'https://github.com/kostat-gi/site'
+repository_url_data: 'https://github.com/karajjang/data'
+repository_url_site: 'https://github.com/karajjang/site'
 search_index_boost: []
 search_index_extra_fields: []
 series_toggle: true
