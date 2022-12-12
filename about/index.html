@@ -127,7 +127,7 @@ var translations = {
         <link res="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" crossorigin="">
         <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.3/css/fixedColumns.dataTables.min.css" crossorigin="">
-        <link rel="stylesheet" href="/site/assets/css/style.css?v=20221212063159">
+        <link rel="stylesheet" href="/site/assets/css/style.css?v=20221212063539">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
           crossorigin=""/>
@@ -218,23 +218,16 @@ layout-page
 <div id="top" tabindex=-1></div>
 
 
-<div class="container">
-    <nav>
-    <ol aria-label="breadcrumb" class="breadcrumb" style="--bs-breadcrumb-divider: '&rsaquo;';">
-        <li class="breadcrumb-item" >
-            <a href="/site/">Home</a>
-        </li>
-        <li class="breadcrumb-item active">About</li>
-    </ol>
-</nav>
-</div>
-<div id="main-content" class="container" role="main">
-    <div>
-        <h1>About</h1>
+<!-- _layouts/page.html //-->
+
+
+
+
+	
+
+	    <!--        <h1>About</h1>-->
         
-
-
-    <p>The <a href="http://www.un.org/sustainabledevelopment/sustainable-development-goals/">Sustainable Development Goals</a> (SDGs) are a universal call to action to:</p>
+            <p>The <a href="http://www.un.org/sustainabledevelopment/sustainable-development-goals/">Sustainable Development Goals</a> (SDGs) are a universal call to action to:</p>
 
 <ul>
   <li>
@@ -264,10 +257,9 @@ layout-page
 <p>To provide feedback on our SDG data please <a href="/site/contact-us">contact us</a></p>
 
 
+        
 
 
-    </div>
-</div>
 
 <footer role="contentinfo">
   <div class="container">
@@ -312,12 +304,12 @@ layout-page
 <script>translations['search'] = translations['search'] || {};
     translations['search']['search'] = '검색';</script>
 
-<script src='/site/assets/js/sdg.js?v=20221212063159'></script>
+<script src='/site/assets/js/sdg.js?v=20221212063539'></script>
 
 
     
     
-    <script src="/site/assets/js/custom.js?v=20221212063159"></script><script>
+    <script src="/site/assets/js/custom.js?v=20221212063539"></script><script>
 $(function() {
     if($('#indicatorData').length) {
       var domData = $('#indicatorData').data();
