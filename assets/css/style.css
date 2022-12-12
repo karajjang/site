@@ -26,6 +26,13 @@
   font-weight: 700;
   src: local(""), url("../fonts/open-sans-v20-latin-700italic.woff2") format("woff2"), url("../fonts/open-sans-v20-latin-700italic.woff") format("woff");
   /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */ }
+/**
+ * variables.scss
+ *
+ * This file left blank intentionally. Implementations of Open SDG can use
+ * a similarly named file to override any "default" variables in the "variables"
+ * folder.
+ */
 .js #headlineTable {
   display: none; }
 .js .no-js-language-toggle {
@@ -1645,8 +1652,8 @@ body.contrast-high #main-content .nav-tabs {
     margin-top: 20px; } }
 
 .layout-indicator #page-content {
-  border-top: 1px solid transparent;
-  border-bottom: 1px solid transparent;
+  border-top: 1px solid #faebcc;
+  border-bottom: 1px solid #faebcc;
   padding-top: 10px; }
 .layout-indicator.contrast-high canvas,
 .layout-indicator canvas {
