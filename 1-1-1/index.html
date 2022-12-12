@@ -11,7 +11,7 @@
 var opensdg = {
 
   // A base URL for asynchronous calls to SDG data.
-  remoteDataBaseUrl: 'https://kostat-gi.github.io/data/ko',
+  remoteDataBaseUrl: 'https://karajjang.github.io/data/ko',
 
   chartConfigAlterations: [],
   // A hook which can be used to modify the configuration for Chart.js.
@@ -132,7 +132,7 @@ var translations = {
         <link res="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" crossorigin="">
         <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.3/css/fixedColumns.dataTables.min.css" crossorigin="">
-        <link rel="stylesheet" href="/site/assets/css/style.css?v=20221212052118">
+        <link rel="stylesheet" href="/site/assets/css/style.css?v=20221212052644">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
           crossorigin=""/>
@@ -335,7 +335,7 @@ data-event-label="high"
             
             <div class="col-4 col-md-3 col-lg-2 goal-icon goal-tiles">
                 <a href="/site/1" aria-label=" 1" title=" 1">
-                    <img src="https://kostat-gi.github.io/site/assets/img/goals/ko/1.png"
+                    <img src="https://karajjang.github.io/site/assets/img/goals/ko/1.png"
                         alt="자원 - 영역 1"
                         id="goal-1"
                         class="goal-icon-image goal-icon-image-" />
@@ -376,278 +376,26 @@ data-event-label="high"
   data-country="Korea"
   data-charttitle="인구성장지수"
   data-charttitles="[]"
-  data-measurementunit="2001년 = 100"
+  data-measurementunit=""
   data-xaxislabel=""
-  data-showdata="true"
+  data-showdata="false"
   data-graphtype="line"
   data-graphtypes="null"
   data-geocoderegex=""
   data-showmap="false"
-  data-startvalues="[{&quot;field&quot;:&quot;지역&quot;,&quot;value&quot;:&quot;0.전국&quot;},{&quot;field&quot;:&quot;지역&quot;,&quot;value&quot;:&quot;1.수도권&quot;}]"
+  data-startvalues="[]"
   data-graphlimits="[]"
   data-stackeddisaggregation=""
   data-graphannotations="[]"
   data-graphtargetlines="null"
   data-graphseriesbreaks="null"
   data-indicatordownloads="null"
-  data-dataschema="{&quot;fields&quot;:[{&quot;name&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;number&quot;,&quot;title&quot;:&quot;Value&quot;},{&quot;name&quot;:&quot;Year&quot;,&quot;type&quot;:&quot;integer&quot;,&quot;title&quot;:&quot;Year&quot;},{&quot;name&quot;:&quot;지역&quot;,&quot;type&quot;:&quot;string&quot;,&quot;constraints&quot;:{&quot;enum&quot;:[&quot;&quot;,&quot;0.전국&quot;,&quot;1.수도권&quot;,&quot;2.충청권&quot;,&quot;3.호남권&quot;,&quot;4.대경권&quot;,&quot;5.동남권&quot;,&quot;6.강원권&quot;,&quot;7.제주권&quot;]},&quot;title&quot;:&quot;지역&quot;}]}"
+  data-dataschema="{&quot;fields&quot;:[{&quot;name&quot;:&quot;Year&quot;,&quot;type&quot;:&quot;integer&quot;,&quot;title&quot;:&quot;Year&quot;},{&quot;name&quot;:&quot;Group&quot;,&quot;type&quot;:&quot;string&quot;,&quot;constraints&quot;:{&quot;enum&quot;:[&quot;A&quot;,&quot;B&quot;,&quot;&quot;]},&quot;title&quot;:&quot;Group&quot;},{&quot;name&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;integer&quot;,&quot;title&quot;:&quot;Value&quot;}]}"
   data-compositebreakdownlabel=""
   data-precision="[]"
 >
   
-  <span role="status" class="visually-hidden" id="indicator-data-view-status"></span>
-  <div id="indicator-sidebar" class="indicator-sidebar col-md-3">
-    <div id="serieses"></div>
-<div id="units"></div>
-<div id="toolbar">
-  <span id="series-help">
-    <h4>데이터 세분화</h4>
-    <p>타 지역 지표값을 보려면 해당 항목을 선택해 주십시오.</p>
-  </span>
-  <div id="fields">
-    <p class="async-loading" data-img="/site/assets/img/loading-small.gif"></p>
-  </div>
-</div>
-
-  </div>
-  <div id="indicator-main" class="indicator-main col-md-9">
-    
-
-
-
-
-<div id="headlineTable">
-
-  <div id="datatables">
-
-    
-    <a href="https://kostat-gi.github.io/data/ko/data/1-1-1.csv" class="btn btn-primary btn-download" download='indicator_1-1-1.csv' tabindex='0' role='button'>원본 CSV 내려받기</a>
-
-    <p class="no-js-disaggregation-hint"></p>
-
-    
-    <h3></h3>
-    
-  </div>
-
-  
-
-</div>
-
-
-<section>
-
-  <p class="async-loading" data-img="/site/assets/img/loading-small.gif"></p>
-
-  <div class="async-loaded mt-4" style="display:none;">
-
-    <div style="display: none;">
-    <span id="table-alternative">For tabular data alternative see Table tab.</span>
-  </div>
-  <ul class="nav nav-tabs non-stacking-tabs data-view" role="tablist">
-    
-    <li role="presentation"
-      class="
-        nav-item
-        
-        
-      ">
-      <button
-        class="nav-link active"
-        data-bs-toggle="tab"
-        role="tab"
-        type="button"
-        
-          id="tab-chartview"
-          data-bs-target="#chartview"
-          aria-controls="chartview"
-          aria-describedby="table-alternative"
-          data-on="click"
-data-event-category="Tab change"
-data-event-action="Change data view"
-data-event-label="Change to Chart tab"
-
-        
-      >그래프</button>
-    </li>
-    
-    <li role="presentation"
-      class="
-        nav-item
-        
-        
-      ">
-      <button
-        class="nav-link "
-        data-bs-toggle="tab"
-        role="tab"
-        type="button"
-        
-          id="tab-tableview"
-          data-bs-target="#tableview"
-          aria-controls="tableview"
-          data-on="click"
-data-event-category="Tab change"
-data-event-action="Change data view"
-data-event-label="Change to Table tab"
-
-        
-      >표</button>
-    </li>
-    
-  </ul>
-  
-    <div class="tab-content data-view">
-    
-      
-        <div role="tabpanel" class="tab-pane active" id="chartview">
-          
-
-    <div id="dataset-size-warning" style="display:none" role="alert">
-      <i class="fa fa-bolt"><span class="sr-only">Warning:</span></i>
-      너무 많은 항목이 선택되었습니다. 선택을 취소해 주시기 바랍니다.
-    </div>
-
-    
-    <div id="selectionsChart">
-      <figure role="group">
-        <div id="chart-canvas">
-          <h4 id="chart-heading" class="chart-title">인구성장지수</h4>
-          <div id="chart" class="plot-container">
-            <canvas
-    role="img"
-    aria-labelledby="chart-heading"
-    aria-describedby="table-alternative chart-annotations"
-    tabindex="0"
- ></canvas>
-
-          </div>
-          <div id="plotLegend"></div>
-          
-
-
-
-<div id="selectionChartFooter" class="table-footer-text">
-  <h5 class="sr-only">Chart details</h5>
-    <dl>
-        
-
-        
-
-        <dt class="data-controlled-footer-field unit-from-data">세부지표:</dt>
-        <dd class="data-controlled-footer-field unit-from-data"></dd>
-
-        
-
-        
-
-        
-
-        
-        
-        <dt
-          class="data-controlled-footer-field"
-          data-ts-attribute="COMMENT_TS"
-        >주석:</dt>
-        <dd
-          class="data-controlled-footer-field"
-          data-ts-attribute="COMMENT_TS"
-        ></dd>
-        
-        <dt
-          class="data-controlled-footer-field"
-          data-ts-attribute="DATA_LAST_UPDATE"
-        >데이터 갱신 이력:</dt>
-        <dd
-          class="data-controlled-footer-field"
-          data-ts-attribute="DATA_LAST_UPDATE"
-        ></dd>
-        
-        
-    </dl>
-</div>
-
-        </div>
-      </figure>
-      <div id="chartSelectionDownload" class="clearfix">
-        <button
-          id="btnSave"
-          title="그래프 이미지 내려받기"
-          aria-label="그래프 이미지 내려받기"
-          class='btn btn-primary btn-download'>
-          그래프 이미지 내려받기
-        </button><!--
-   --></div>
-    </div>
-
-
-
-        </div>
-      
-    
-      
-        <div role="tabpanel" class="tab-pane " id="tableview">
-          <div style="display: none;">
-            <span id="column-sort-info">Click to sort by this column</span>
-          </div>
-          <div id="selectionsTable"></div>
-<dl id="tableTargetLines" class="clearfix"></dl>
-
-
-
-
-<div id="selectionTableFooter" class="table-footer-text">
-  <h5 class="sr-only">Chart details</h5>
-    <dl>
-        
-
-        
-
-        <dt class="data-controlled-footer-field unit-from-data">세부지표:</dt>
-        <dd class="data-controlled-footer-field unit-from-data"></dd>
-
-        
-
-        
-
-        
-
-        
-        
-        <dt
-          class="data-controlled-footer-field"
-          data-ts-attribute="COMMENT_TS"
-        >주석:</dt>
-        <dd
-          class="data-controlled-footer-field"
-          data-ts-attribute="COMMENT_TS"
-        ></dd>
-        
-        <dt
-          class="data-controlled-footer-field"
-          data-ts-attribute="DATA_LAST_UPDATE"
-        >데이터 갱신 이력:</dt>
-        <dd
-          class="data-controlled-footer-field"
-          data-ts-attribute="DATA_LAST_UPDATE"
-        ></dd>
-        
-        
-    </dl>
-</div>
-
-<div id="tableSelectionDownload" class="clearfix"></div>
-
-        </div>
-      
-    
-  </div>
-  
-
-  </div>
-
-</section>
-
+  <div id="indicator-main" class="indicator-main col-md-12">
   
   <div class="mt-4">
 <ul class="nav nav-tabs" role="tablist">
@@ -701,53 +449,36 @@ data-event-label="Change to indicator.national_metadata tab"
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+      
+      
+      
+        
+          
+      
+      
+      
+      
+      <tr>
+        <th scope="row">영   역 </th>
+        <td>
+          
+            <p>Goal 1: End poverty in all its forms everywhere</p>
+
+          
+        </td>
+        </tr>
+        
+      
   
       
       
       
       
       <tr>
-        <th scope="row">지표분류 </th>
+        <th scope="row">하위영역 </th>
         <td>
           
-            <p><b>영   역</b>: 자원<br /> <b>하위영역</b>: 인적 자원</p>
+            <p>Target 1.1: By 2030, eradicate extreme poverty for all people everywhere, currently measured as people living on less than $1.25 a day</p>
 
           
         </td>
@@ -763,7 +494,7 @@ data-event-label="Change to indicator.national_metadata tab"
         <th scope="row">지 표 명 </th>
         <td>
           
-            <p>인구성장지수: growth/shrinking index of the total population(2001=100)</p>
+            <p>Indicator 1.1.1: Proportion of the population living below the international poverty line by sex, age, employment status and geographic location (urban/rural)</p>
 
           
         </td>
@@ -774,83 +505,48 @@ data-event-label="Change to indicator.national_metadata tab"
       
       
       
-      
-      <tr>
-        <th scope="row">정   의 </th>
-        <td>
-          
-            <p>인구성장률은 자연증가율과 사회적 증가율의 합으로 특정시점(2001년)을 기준으로 인구의 증감률을 나타내는 지표임</p>
-
-          
-        </td>
-        </tr>
         
-      
-  
-      
-      
-      
-      
-      <tr>
-        <th scope="row">의   의 </th>
-        <td>
           
-            <p>한 국가의 인구 및 인구성장률은 그 국가의  장·단기 국가발전 계획수립에 있어 가장 기본적이고 근원적인 기초자료로서 인구와 관련된 각종 경제·사회 정책을 수립하는데 활용됨</p>
-
-          
-        </td>
-        </tr>
+      
+      
+      
         
-      
-  
-      
-      
-      
-      
-      <tr>
-        <th scope="row">측   정 </th>
-        <td>
           
-            <p>(당해년 전체인구수÷2001년 전체인구수) x 100</p>
-
-          
-        </td>
-        </tr>
+      
+      
+      
         
-      
-  
-      
-      
-      
-      
-      <tr>
-        <th scope="row">자료출처 </th>
-        <td>
           
-            <p>OECD.stat &gt; Regions and Cities &gt; Regional Statistics &gt; Regional Demography &gt; demographic indicators by access to city typology. country level</p>
-
-          
-        </td>
-        </tr>
+      
+      
+      
         
-      
-  
-      
-      
-      
-      
-      <tr>
-        <th scope="row">공표단위 </th>
-        <td>
           
-            <p>2001년 = 100</p>
-
-          
-        </td>
-        </tr>
+      
+      
+      
         
+          
       
-  
+      
+      
+        
+          
+      
+      
+      
+        
+          
+      
+      
+      
+        
+          
+      
+      
+      
+        
+          
       
       
       
@@ -871,10 +567,19 @@ data-event-label="Change to indicator.national_metadata tab"
       
       
       <tr>
-        <th scope="row">자료작성년도 </th>
+        <th scope="row">Definition and concepts </th>
         <td>
           
-            <p>2001년 ~ 2021년</p>
+            <h2 id="definition">Definition:</h2>
+<p>The proportion of the employed population below the international poverty line of US$1.90 per day, also referred to as the working poverty rate, is defined as the share of employed persons living in households with per-capita consumption or income that is below the international poverty line of US$1.90.</p>
+<h2 id="concepts">Concepts:</h2>
+<p><strong>Employment:</strong> All persons of working age who, during a short reference period (one week), were engaged in any activity to produce goods or provide services for pay or profit.</p>
+
+<p><strong>Poverty Line:</strong> Threshold below which individuals in the reference population are considered poor and above which they are considered non-poor. The threshold is generally defined as the per-capita monetary requirements an individual needs to afford the purchase of a basic bundle of goods and services. For the purpose of this indicator, an absolute international poverty line of US$1.90 per day is used.</p>
+
+<p><strong>Household in poverty:</strong> Households are defined as poor if their income or consumption expenditure is below the poverty line taking into account the number of household members and composition (e.g., number of adults and children).</p>
+
+<p><strong>Working poor:</strong> Employed persons living in households that are classified as poor, that is, that have income or consumption levels below the poverty line used for measurement.</p>
 
           
         </td>
@@ -882,76 +587,6 @@ data-event-label="Change to indicator.national_metadata tab"
         
       
   
-      
-      
-      
-        
-          
-      
-      
-      
-        
-          
-      
-      
-      
-        
-          
-      
-      
-      
-        
-          
-      
-      
-      
-        
-          
-      
-      
-      
-        
-          
-      
-      
-      
-        
-          
-      
-      
-      
-        
-          
-      
-      
-      
-        
-          
-      
-      
-      
-        
-          
-      
-      
-      
-        
-          
-      
-      
-      
-        
-          
-      
-      
-      
-        
-          
-      
-      
-      
-        
-          
       
       
       
@@ -1070,16 +705,22 @@ data-event-label="Change to indicator.national_metadata tab"
         <th scope="row">데이터 갱신 이력 </th>
         <td>
           
-            
-            
-            
-            
-            
-              <a href="https://github.com/kostat-gi/data/commit/c859dddcd410ba43aad36f10bf227d416a6430dd" target="_blank">
-                2022-10-26: see changes on GitHub <span class="visuallyhidden">새 창에서 열기</span>
-              </a>
-            
-
+            Dec 12, 2022
+          
+        </td>
+        </tr>
+        
+      
+  
+      
+      
+      
+      
+      <tr>
+        <th scope="row">메타데이터 갱신 이력 </th>
+        <td>
+          
+            Dec 12, 2022
           
         </td>
         </tr>
@@ -1159,21 +800,6 @@ data-event-label="Change to indicator.national_metadata tab"
   
   
   
-      
-      
-      
-        
-          
-      
-      
-      
-        
-          
-      
-      
-      
-        
-          
   </tbody>
 </table>
 
@@ -1237,12 +863,12 @@ data-event-label="Change to indicator.national_metadata tab"
 <script>translations['search'] = translations['search'] || {};
     translations['search']['search'] = '검색';</script>
 
-<script src='/site/assets/js/sdg.js?v=20221212052118'></script>
+<script src='/site/assets/js/sdg.js?v=20221212052644'></script>
 
 
     
     
-    <script src="/site/assets/js/custom.js?v=20221212052118"></script><script>
+    <script src="/site/assets/js/custom.js?v=20221212052644"></script><script>
     new indicatorInit();
     new accessibilitySwitcher();
 </script>

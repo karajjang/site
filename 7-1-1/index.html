@@ -11,7 +11,7 @@
 var opensdg = {
 
   // A base URL for asynchronous calls to SDG data.
-  remoteDataBaseUrl: 'https://kostat-gi.github.io/data/ko',
+  remoteDataBaseUrl: 'https://karajjang.github.io/data/ko',
 
   chartConfigAlterations: [],
   // A hook which can be used to modify the configuration for Chart.js.
@@ -132,7 +132,7 @@ var translations = {
         <link res="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" crossorigin="">
         <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.3/css/fixedColumns.dataTables.min.css" crossorigin="">
-        <link rel="stylesheet" href="/site/assets/css/style.css?v=20221212052118">
+        <link rel="stylesheet" href="/site/assets/css/style.css?v=20221212052644">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
           crossorigin=""/>
@@ -335,7 +335,7 @@ data-event-label="high"
             
             <div class="col-4 col-md-3 col-lg-2 goal-icon goal-tiles">
                 <a href="/site/7" aria-label=" 7" title=" 7">
-                    <img src="https://kostat-gi.github.io/site/assets/img/goals/ko/7.png"
+                    <img src="https://karajjang.github.io/site/assets/img/goals/ko/7.png"
                         alt="지속가능성 - 영역 7"
                         id="goal-7"
                         class="goal-icon-image goal-icon-image-" />
@@ -376,278 +376,26 @@ data-event-label="high"
   data-country="Korea"
   data-charttitle="인구 천 명당 도시공원조성면적"
   data-charttitles="[]"
-  data-measurementunit="천㎡"
+  data-measurementunit=""
   data-xaxislabel=""
-  data-showdata="true"
+  data-showdata="false"
   data-graphtype="line"
   data-graphtypes="null"
   data-geocoderegex=""
   data-showmap="false"
-  data-startvalues="[{&quot;field&quot;:&quot;시도&quot;,&quot;value&quot;:&quot;0.전국&quot;},{&quot;field&quot;:&quot;시도&quot;,&quot;value&quot;:&quot;1.수도권&quot;}]"
+  data-startvalues="[]"
   data-graphlimits="[]"
   data-stackeddisaggregation=""
   data-graphannotations="[]"
   data-graphtargetlines="null"
   data-graphseriesbreaks="null"
   data-indicatordownloads="null"
-  data-dataschema="{&quot;fields&quot;:[{&quot;name&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;number&quot;,&quot;title&quot;:&quot;Value&quot;},{&quot;name&quot;:&quot;Year&quot;,&quot;type&quot;:&quot;integer&quot;,&quot;title&quot;:&quot;Year&quot;},{&quot;name&quot;:&quot;시도&quot;,&quot;type&quot;:&quot;string&quot;,&quot;constraints&quot;:{&quot;enum&quot;:[&quot;&quot;,&quot;0.전국&quot;,&quot;1.수도권&quot;,&quot;2.서울특별시&quot;,&quot;3.인천광역시&quot;,&quot;4.경기도&quot;]},&quot;title&quot;:&quot;시도&quot;}]}"
+  data-dataschema="{&quot;fields&quot;:[{&quot;name&quot;:&quot;Year&quot;,&quot;type&quot;:&quot;number&quot;,&quot;title&quot;:&quot;Year&quot;},{&quot;name&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;number&quot;,&quot;title&quot;:&quot;Value&quot;}]}"
   data-compositebreakdownlabel=""
   data-precision="[]"
 >
   
-  <span role="status" class="visually-hidden" id="indicator-data-view-status"></span>
-  <div id="indicator-sidebar" class="indicator-sidebar col-md-3">
-    <div id="serieses"></div>
-<div id="units"></div>
-<div id="toolbar">
-  <span id="series-help">
-    <h4>데이터 세분화</h4>
-    <p>타 지역 지표값을 보려면 해당 항목을 선택해 주십시오.</p>
-  </span>
-  <div id="fields">
-    <p class="async-loading" data-img="/site/assets/img/loading-small.gif"></p>
-  </div>
-</div>
-
-  </div>
-  <div id="indicator-main" class="indicator-main col-md-9">
-    
-
-
-
-
-<div id="headlineTable">
-
-  <div id="datatables">
-
-    
-    <a href="https://kostat-gi.github.io/data/ko/data/7-1-1.csv" class="btn btn-primary btn-download" download='indicator_7-1-1.csv' tabindex='0' role='button'>원본 CSV 내려받기</a>
-
-    <p class="no-js-disaggregation-hint"></p>
-
-    
-    <h3></h3>
-    
-  </div>
-
-  
-
-</div>
-
-
-<section>
-
-  <p class="async-loading" data-img="/site/assets/img/loading-small.gif"></p>
-
-  <div class="async-loaded mt-4" style="display:none;">
-
-    <div style="display: none;">
-    <span id="table-alternative">For tabular data alternative see Table tab.</span>
-  </div>
-  <ul class="nav nav-tabs non-stacking-tabs data-view" role="tablist">
-    
-    <li role="presentation"
-      class="
-        nav-item
-        
-        
-      ">
-      <button
-        class="nav-link active"
-        data-bs-toggle="tab"
-        role="tab"
-        type="button"
-        
-          id="tab-chartview"
-          data-bs-target="#chartview"
-          aria-controls="chartview"
-          aria-describedby="table-alternative"
-          data-on="click"
-data-event-category="Tab change"
-data-event-action="Change data view"
-data-event-label="Change to Chart tab"
-
-        
-      >그래프</button>
-    </li>
-    
-    <li role="presentation"
-      class="
-        nav-item
-        
-        
-      ">
-      <button
-        class="nav-link "
-        data-bs-toggle="tab"
-        role="tab"
-        type="button"
-        
-          id="tab-tableview"
-          data-bs-target="#tableview"
-          aria-controls="tableview"
-          data-on="click"
-data-event-category="Tab change"
-data-event-action="Change data view"
-data-event-label="Change to Table tab"
-
-        
-      >표</button>
-    </li>
-    
-  </ul>
-  
-    <div class="tab-content data-view">
-    
-      
-        <div role="tabpanel" class="tab-pane active" id="chartview">
-          
-
-    <div id="dataset-size-warning" style="display:none" role="alert">
-      <i class="fa fa-bolt"><span class="sr-only">Warning:</span></i>
-      너무 많은 항목이 선택되었습니다. 선택을 취소해 주시기 바랍니다.
-    </div>
-
-    
-    <div id="selectionsChart">
-      <figure role="group">
-        <div id="chart-canvas">
-          <h4 id="chart-heading" class="chart-title">인구 천 명당 도시공원조성면적</h4>
-          <div id="chart" class="plot-container">
-            <canvas
-    role="img"
-    aria-labelledby="chart-heading"
-    aria-describedby="table-alternative chart-annotations"
-    tabindex="0"
- ></canvas>
-
-          </div>
-          <div id="plotLegend"></div>
-          
-
-
-
-<div id="selectionChartFooter" class="table-footer-text">
-  <h5 class="sr-only">Chart details</h5>
-    <dl>
-        
-
-        
-
-        <dt class="data-controlled-footer-field unit-from-data">세부지표:</dt>
-        <dd class="data-controlled-footer-field unit-from-data"></dd>
-
-        
-
-        
-
-        
-
-        
-        
-        <dt
-          class="data-controlled-footer-field"
-          data-ts-attribute="COMMENT_TS"
-        >주석:</dt>
-        <dd
-          class="data-controlled-footer-field"
-          data-ts-attribute="COMMENT_TS"
-        ></dd>
-        
-        <dt
-          class="data-controlled-footer-field"
-          data-ts-attribute="DATA_LAST_UPDATE"
-        >데이터 갱신 이력:</dt>
-        <dd
-          class="data-controlled-footer-field"
-          data-ts-attribute="DATA_LAST_UPDATE"
-        ></dd>
-        
-        
-    </dl>
-</div>
-
-        </div>
-      </figure>
-      <div id="chartSelectionDownload" class="clearfix">
-        <button
-          id="btnSave"
-          title="그래프 이미지 내려받기"
-          aria-label="그래프 이미지 내려받기"
-          class='btn btn-primary btn-download'>
-          그래프 이미지 내려받기
-        </button><!--
-   --></div>
-    </div>
-
-
-
-        </div>
-      
-    
-      
-        <div role="tabpanel" class="tab-pane " id="tableview">
-          <div style="display: none;">
-            <span id="column-sort-info">Click to sort by this column</span>
-          </div>
-          <div id="selectionsTable"></div>
-<dl id="tableTargetLines" class="clearfix"></dl>
-
-
-
-
-<div id="selectionTableFooter" class="table-footer-text">
-  <h5 class="sr-only">Chart details</h5>
-    <dl>
-        
-
-        
-
-        <dt class="data-controlled-footer-field unit-from-data">세부지표:</dt>
-        <dd class="data-controlled-footer-field unit-from-data"></dd>
-
-        
-
-        
-
-        
-
-        
-        
-        <dt
-          class="data-controlled-footer-field"
-          data-ts-attribute="COMMENT_TS"
-        >주석:</dt>
-        <dd
-          class="data-controlled-footer-field"
-          data-ts-attribute="COMMENT_TS"
-        ></dd>
-        
-        <dt
-          class="data-controlled-footer-field"
-          data-ts-attribute="DATA_LAST_UPDATE"
-        >데이터 갱신 이력:</dt>
-        <dd
-          class="data-controlled-footer-field"
-          data-ts-attribute="DATA_LAST_UPDATE"
-        ></dd>
-        
-        
-    </dl>
-</div>
-
-<div id="tableSelectionDownload" class="clearfix"></div>
-
-        </div>
-      
-    
-  </div>
-  
-
-  </div>
-
-</section>
-
+  <div id="indicator-main" class="indicator-main col-md-12">
   
   <div class="mt-4">
 <ul class="nav nav-tabs" role="tablist">
@@ -701,214 +449,6 @@ data-event-label="Change to indicator.national_metadata tab"
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-      
-      
-      
-      
-      <tr>
-        <th scope="row">지표분류 </th>
-        <td>
-          
-            <p><b>영   역</b>: 지속가능성<br /> <b>하위영역</b>: 환경</p>
-
-          
-        </td>
-        </tr>
-        
-      
-  
-      
-      
-      
-      
-      <tr>
-        <th scope="row">지 표 명 </th>
-        <td>
-          
-            <p>인구 천 명당 도시공원조성면적</p>
-
-          
-        </td>
-        </tr>
-        
-      
-  
-      
-      
-      
-      
-      <tr>
-        <th scope="row">정   의 </th>
-        <td>
-          
-            <p>인구 천 명당 도시공원의 조성면적 비율(미집행면적 제외)</p>
-
-          
-        </td>
-        </tr>
-        
-      
-  
-      
-      
-      
-      
-      <tr>
-        <th scope="row">의   의 </th>
-        <td>
-          
-            <p>여가생활 측면에서 주민의 정주환경 수준을 가늠할 수 있음</p>
-
-          
-        </td>
-        </tr>
-        
-      
-  
-      
-      
-      
-      
-      <tr>
-        <th scope="row">측   정 </th>
-        <td>
-          
-            <p>(총공원면적÷도시지역인구)×1,000<br /> * 인구: 행정안전부, 주민등록인구현황</p>
-
-          
-        </td>
-        </tr>
-        
-      
-  
-      
-      
-      
-      
-      <tr>
-        <th scope="row">자료출처 </th>
-        <td>
-          
-            <p>한국토지주택공사(도시계획현황)<br /> https://kosis.kr/statHtml/statHtml.do?orgId=101&amp;tblId=DT_1YL21281&amp;conn_path=I3</p>
-
-          
-        </td>
-        </tr>
-        
-      
-  
-      
-      
-      
-      
-      <tr>
-        <th scope="row">공표단위 </th>
-        <td>
-          
-            <p>천㎡</p>
-
-          
-        </td>
-        </tr>
-        
-      
-  
-      
-      
-      
-      
-      <tr>
-        <th scope="row">공표범위 </th>
-        <td>
-          
-            <p>시도</p>
-
-          
-        </td>
-        </tr>
-        
-      
-  
-      
-      
-      
-        
-          
-      
-      
-      
-        
-          
-      
-      
-      
-      
-      <tr>
-        <th scope="row">자료작성년도 </th>
-        <td>
-          
-            <p>2008년~2020년</p>
-
-          
-        </td>
-        </tr>
-        
-      
-  
-      
-      
-      
-      
-      <tr>
-        <th scope="row">자료생성주기 </th>
-        <td>
-          
-            <p>1년</p>
-
-          
-        </td>
-        </tr>
-        
-      
-  
       
       
       
@@ -1087,100 +627,18 @@ data-event-label="Change to indicator.national_metadata tab"
       
       
       
-      
-      <tr>
-        <th scope="row">데이터 갱신 이력 </th>
-        <td>
-          
-            
-            
-            
-            
-            
-              <a href="https://github.com/kostat-gi/data/commit/8419d3a6c23fe984069d4da744d913e9229b51c2" target="_blank">
-                2022-10-26: see changes on GitHub <span class="visuallyhidden">새 창에서 열기</span>
-              </a>
-            
-
-          
-        </td>
-        </tr>
         
+          
       
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+      
+      
+        
+          
+      
+      
+      
+        
+          
       
       
       
@@ -1196,6 +654,79 @@ data-event-label="Change to indicator.national_metadata tab"
       
         
           
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   </tbody>
 </table>
 
@@ -1259,12 +790,12 @@ data-event-label="Change to indicator.national_metadata tab"
 <script>translations['search'] = translations['search'] || {};
     translations['search']['search'] = '검색';</script>
 
-<script src='/site/assets/js/sdg.js?v=20221212052118'></script>
+<script src='/site/assets/js/sdg.js?v=20221212052644'></script>
 
 
     
     
-    <script src="/site/assets/js/custom.js?v=20221212052118"></script><script>
+    <script src="/site/assets/js/custom.js?v=20221212052644"></script><script>
     new indicatorInit();
     new accessibilitySwitcher();
 </script>
