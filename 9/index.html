@@ -133,7 +133,7 @@ var translations = {
         
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" crossorigin="">
         <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.3/css/fixedColumns.dataTables.min.css" crossorigin="">
-        <link rel="stylesheet" href="/site/assets/css/style.css?v=20221213041107">
+        <link rel="stylesheet" href="/site/assets/css/style.css?v=20221213043824">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
           crossorigin=""/>
@@ -156,7 +156,7 @@ var translations = {
 
     </head>
 <body class="language-ko
-layout-goal
+layout-goal-by-target
 ">
 <!-- <div class="container"> -->
 
@@ -260,14 +260,14 @@ layout-goal
 
 
 <div class="container">
-  <ol class="breadcrumb">
+	<!--  <ol class="breadcrumb">
   
   <li><a href="/site/">Home</a></li>
   <li><a href="/site/goals">수도권 광역지표</a></li>
   
   
 </ol>
-
+-->
   
 </div>
 
@@ -285,158 +285,61 @@ layout-goal
 </div>
 
 
-<div id="main-content" class="container goal-indicators goal-9" role="main">
+<div id="main-content" class="container goal-indicators goal-9 goal-by-target" role="main">
+	
+<ol class="breadcrumb">
+  
+  
+  
+  
+  
+  <li><a href="/site/">Home</a></li>
+  <li><a href="/site/goals">수도권 광역지표</a></li>
+  
+    
+    <li>생활 지표 - 개인생활</li>
+    
+
+  
+  
+  
+</ol>
+
 
   
 
 
 
+  <div class="visible-md-block visible-lg-block">
+    <div class="col-md-6">
+      <h2>하위 영역</h2>
+    </div>
+    <div class="col-md-6">
+      <h2>세부 지표</h2>
+    </div>
+  </div>
+
   
   
-
     
-    
-    
-
-    <div class="indicator-cards row no-gutters">
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-1-1">
-            <span class="indicator-card-number">
-              9.1.1
-              
-
-
-
-<span class="status complete">
-    <span class="status-inner">이용가능</span>
-</span>
-
-
-            </span>
-            건강관련 삶의 질(EQ-5D)
-          </a>
-          
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-1-2">
-            <span class="indicator-card-number">
-              9.1.2
-              
-
-
-
-<span class="status complete">
-    <span class="status-inner">이용가능</span>
-</span>
-
-
-            </span>
-            인구 십만 명당 자살률
-          </a>
-          
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-1-3">
-            <span class="indicator-card-number">
-              9.1.3
-              
-
-
-
-<span class="status complete">
-    <span class="status-inner">이용가능</span>
-</span>
-
-
-            </span>
-            인구 천 명당 의사 수
-          </a>
-          
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-1-4">
-            <span class="indicator-card-number">
-              9.1.4
-              
-
-
-
-<span class="status complete">
-    <span class="status-inner">이용가능</span>
-</span>
-
-
-            </span>
-            스트레스 인지율
-          </a>
-          
-
-
-
-
-
-          
-        </div>
+    <div class="indicator-cards target goal-target col-md-6">
+      <span class="indicator-card-number">
+        <label class="hidden-md hidden-lg">하위영역</label>
+        9.1
+      </span>
+      건강
     </div>
+    <div class="indicator-cards col-md-6 row no-gutters">
     
 
-    
-    
-    
+      
+      
+      
 
-    <div class="indicator-cards row no-gutters">
-        <div class="col-md-6 col-lg-3  goal-indicator">
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.1.1
           
-          <a href="/site/9-1-5">
-            <span class="indicator-card-number">
-              9.1.5
-              
 
 
 
@@ -445,31 +348,27 @@ layout-goal
 </span>
 
 
-            </span>
-            주관적 건강수준
-          </a>
+        </span>
+        <a href="/site/9-1-1">
+          건강관련 삶의 질(EQ-5D)
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.1.2
           
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-1-6">
-            <span class="indicator-card-number">
-              9.1.6
-              
 
 
 
@@ -478,31 +377,27 @@ layout-goal
 </span>
 
 
-            </span>
-            비만 유병률
-          </a>
+        </span>
+        <a href="/site/9-1-2">
+          인구 십만 명당 자살률
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.1.3
           
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-2-1">
-            <span class="indicator-card-number">
-              9.2.1
-              
 
 
 
@@ -511,31 +406,27 @@ layout-goal
 </span>
 
 
-            </span>
-            학교생활 만족도
-          </a>
+        </span>
+        <a href="/site/9-1-3">
+          인구 천 명당 의사 수
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.1.4
           
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-2-2">
-            <span class="indicator-card-number">
-              9.2.2
-              
 
 
 
@@ -544,163 +435,97 @@ layout-goal
 </span>
 
 
-            </span>
-            학급당 학생 수
-          </a>
+        </span>
+        <a href="/site/9-1-4">
+          스트레스 인지율
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.1.5
           
 
 
 
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
 
 
+        </span>
+        <a href="/site/9-1-5">
+          주관적 건강수준
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.1.6
           
-        </div>
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </span>
+        <a href="/site/9-1-6">
+          비만 유병률
+        </a>
+        
+
+
+
+
+
+      </div>
+    
     </div>
+  
     
-
-    
-    
-    
-
-    <div class="indicator-cards row no-gutters">
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-2-3">
-            <span class="indicator-card-number">
-              9.2.3
-              
-
-
-
-<span class="status complete">
-    <span class="status-inner">이용가능</span>
-</span>
-
-
-            </span>
-            고등교육이수자 비율
-          </a>
-          
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-2-4">
-            <span class="indicator-card-number">
-              9.2.4
-              
-
-
-
-<span class="status complete">
-    <span class="status-inner">이용가능</span>
-</span>
-
-
-            </span>
-            학교교육의 효과
-          </a>
-          
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-2-5">
-            <span class="indicator-card-number">
-              9.2.5
-              
-
-
-
-<span class="status complete">
-    <span class="status-inner">이용가능</span>
-</span>
-
-
-            </span>
-            1인당 사교육비
-          </a>
-          
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-3-1">
-            <span class="indicator-card-number">
-              9.3.1
-              
-
-
-
-<span class="status complete">
-    <span class="status-inner">이용가능</span>
-</span>
-
-
-            </span>
-            월평균 임금
-          </a>
-          
-
-
-
-
-
-          
-        </div>
+    <div class="indicator-cards target goal-target col-md-6">
+      <span class="indicator-card-number">
+        <label class="hidden-md hidden-lg">하위영역</label>
+        9.2
+      </span>
+      교육/훈련
     </div>
+    <div class="indicator-cards col-md-6 row no-gutters">
     
 
-    
-    
-    
+      
+      
+      
 
-    <div class="indicator-cards row no-gutters">
-        <div class="col-md-6 col-lg-3  goal-indicator">
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.2.1
           
-          <a href="/site/9-3-2">
-            <span class="indicator-card-number">
-              9.3.2
-              
 
 
 
@@ -709,31 +534,27 @@ layout-goal
 </span>
 
 
-            </span>
-            근로여건만족도
-          </a>
+        </span>
+        <a href="/site/9-2-1">
+          학교생활 만족도
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.2.2
           
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-3-3">
-            <span class="indicator-card-number">
-              9.3.3
-              
 
 
 
@@ -742,31 +563,27 @@ layout-goal
 </span>
 
 
-            </span>
-            고용률
-          </a>
+        </span>
+        <a href="/site/9-2-2">
+          학급당 학생 수
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.2.3
           
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-3-4">
-            <span class="indicator-card-number">
-              9.3.4
-              
 
 
 
@@ -775,31 +592,27 @@ layout-goal
 </span>
 
 
-            </span>
-            근로시간
-          </a>
+        </span>
+        <a href="/site/9-2-3">
+          고등교육이수자 비율
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.2.4
           
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-3-5">
-            <span class="indicator-card-number">
-              9.3.5
-              
 
 
 
@@ -808,163 +621,68 @@ layout-goal
 </span>
 
 
-            </span>
-            실업률
-          </a>
+        </span>
+        <a href="/site/9-2-4">
+          학교교육의 효과
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.2.5
           
 
 
 
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
 
 
-          
-        </div>
+        </span>
+        <a href="/site/9-2-5">
+          1인당 사교육비
+        </a>
+        
+
+
+
+
+
+      </div>
+    
     </div>
+  
     
-
-    
-    
-    
-
-    <div class="indicator-cards row no-gutters">
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-3-6">
-            <span class="indicator-card-number">
-              9.3.6
-              
-
-
-
-<span class="status complete">
-    <span class="status-inner">이용가능</span>
-</span>
-
-
-            </span>
-            비정규직 근로자 비율
-          </a>
-          
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-4-1">
-            <span class="indicator-card-number">
-              9.4.1
-              
-
-
-
-<span class="status complete">
-    <span class="status-inner">이용가능</span>
-</span>
-
-
-            </span>
-            가구당 연평균 경상소득
-          </a>
-          
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-4-2">
-            <span class="indicator-card-number">
-              9.4.2
-              
-
-
-
-<span class="status complete">
-    <span class="status-inner">이용가능</span>
-</span>
-
-
-            </span>
-            소비생활 만족도
-          </a>
-          
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-4-3">
-            <span class="indicator-card-number">
-              9.4.3
-              
-
-
-
-<span class="status complete">
-    <span class="status-inner">이용가능</span>
-</span>
-
-
-            </span>
-            주관적 소득수준
-          </a>
-          
-
-
-
-
-
-          
-        </div>
+    <div class="indicator-cards target goal-target col-md-6">
+      <span class="indicator-card-number">
+        <label class="hidden-md hidden-lg">하위영역</label>
+        9.3
+      </span>
+      일
     </div>
+    <div class="indicator-cards col-md-6 row no-gutters">
     
 
-    
-    
-    
+      
+      
+      
 
-    <div class="indicator-cards row no-gutters">
-        <div class="col-md-6 col-lg-3  goal-indicator">
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.3.1
           
-          <a href="/site/9-5-1">
-            <span class="indicator-card-number">
-              9.5.1
-              
 
 
 
@@ -973,31 +691,27 @@ layout-goal
 </span>
 
 
-            </span>
-            여가활용 만족도
-          </a>
+        </span>
+        <a href="/site/9-3-1">
+          월평균 임금
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.3.2
           
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-5-2">
-            <span class="indicator-card-number">
-              9.5.2
-              
 
 
 
@@ -1006,31 +720,27 @@ layout-goal
 </span>
 
 
-            </span>
-            1일 평균 여가시간
-          </a>
+        </span>
+        <a href="/site/9-3-2">
+          근로여건만족도
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.3.3
           
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-5-3">
-            <span class="indicator-card-number">
-              9.5.3
-              
 
 
 
@@ -1039,31 +749,27 @@ layout-goal
 </span>
 
 
-            </span>
-            인구 십만 명당 문화기반시설 수
-          </a>
+        </span>
+        <a href="/site/9-3-3">
+          고용률
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.3.4
           
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-6-1">
-            <span class="indicator-card-number">
-              9.6.1
-              
 
 
 
@@ -1072,163 +778,97 @@ layout-goal
 </span>
 
 
-            </span>
-            주거환경 만족도
-          </a>
+        </span>
+        <a href="/site/9-3-4">
+          근로시간
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.3.5
           
 
 
 
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
 
 
+        </span>
+        <a href="/site/9-3-5">
+          실업률
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.3.6
           
-        </div>
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </span>
+        <a href="/site/9-3-6">
+          비정규직 근로자 비율
+        </a>
+        
+
+
+
+
+
+      </div>
+    
     </div>
+  
     
-
-    
-    
-    
-
-    <div class="indicator-cards row no-gutters">
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-6-2">
-            <span class="indicator-card-number">
-              9.6.2
-              
-
-
-
-<span class="status complete">
-    <span class="status-inner">이용가능</span>
-</span>
-
-
-            </span>
-            PIR
-          </a>
-          
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-6-3">
-            <span class="indicator-card-number">
-              9.6.3
-              
-
-
-
-<span class="status complete">
-    <span class="status-inner">이용가능</span>
-</span>
-
-
-            </span>
-            자가 보유율
-          </a>
-          
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-6-4">
-            <span class="indicator-card-number">
-              9.6.4
-              
-
-
-
-<span class="status complete">
-    <span class="status-inner">이용가능</span>
-</span>
-
-
-            </span>
-            주택당 평균 거주인 수
-          </a>
-          
-
-
-
-
-
-          
-        </div>
-    
-    
-
-    
-    
-    
-
-    
-        <div class="col-md-6 col-lg-3  goal-indicator">
-          
-          <a href="/site/9-6-5">
-            <span class="indicator-card-number">
-              9.6.5
-              
-
-
-
-<span class="status complete">
-    <span class="status-inner">이용가능</span>
-</span>
-
-
-            </span>
-            공공임대주택 수
-          </a>
-          
-
-
-
-
-
-          
-        </div>
+    <div class="indicator-cards target goal-target col-md-6">
+      <span class="indicator-card-number">
+        <label class="hidden-md hidden-lg">하위영역</label>
+        9.4
+      </span>
+      소득/소비
     </div>
+    <div class="indicator-cards col-md-6 row no-gutters">
     
 
-    
-    
-    
+      
+      
+      
 
-    <div class="indicator-cards row no-gutters">
-        <div class="col-md-6 col-lg-3  goal-indicator">
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.4.1
           
-          <a href="/site/9-6-6">
-            <span class="indicator-card-number">
-              9.6.6
-              
 
 
 
@@ -1237,23 +877,363 @@ layout-goal
 </span>
 
 
-            </span>
-            월세/전세 가격지수
-          </a>
+        </span>
+        <a href="/site/9-4-1">
+          가구당 연평균 경상소득
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.4.2
           
 
 
 
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
 
 
+        </span>
+        <a href="/site/9-4-2">
+          소비생활 만족도
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.4.3
           
-        </div>
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </span>
+        <a href="/site/9-4-3">
+          주관적 소득수준
+        </a>
+        
+
+
+
+
+
+      </div>
     
+    </div>
+  
     
-	 	
-		
-			</div>
-		
+    <div class="indicator-cards target goal-target col-md-6">
+      <span class="indicator-card-number">
+        <label class="hidden-md hidden-lg">하위영역</label>
+        9.5
+      </span>
+      문화/여가
+    </div>
+    <div class="indicator-cards col-md-6 row no-gutters">
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.5.1
+          
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </span>
+        <a href="/site/9-5-1">
+          여가활용 만족도
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.5.2
+          
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </span>
+        <a href="/site/9-5-2">
+          1일 평균 여가시간
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.5.3
+          
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </span>
+        <a href="/site/9-5-3">
+          인구 십만 명당 문화기반시설 수
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+    </div>
+  
+    
+    <div class="indicator-cards target goal-target col-md-6">
+      <span class="indicator-card-number">
+        <label class="hidden-md hidden-lg">하위영역</label>
+        9.6
+      </span>
+      주거
+    </div>
+    <div class="indicator-cards col-md-6 row no-gutters">
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.6.1
+          
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </span>
+        <a href="/site/9-6-1">
+          주거환경 만족도
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.6.2
+          
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </span>
+        <a href="/site/9-6-2">
+          PIR
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.6.3
+          
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </span>
+        <a href="/site/9-6-3">
+          자가 보유율
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.6.4
+          
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </span>
+        <a href="/site/9-6-4">
+          주택당 평균 거주인 수
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.6.5
+          
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </span>
+        <a href="/site/9-6-5">
+          공공임대주택 수
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+
+      
+      
+      
+
+      <div class="col-md-12  goal-indicator">
+        <span class="indicator-card-number">
+          9.6.6
+          
+
+
+
+<span class="status complete">
+    <span class="status-inner">이용가능</span>
+</span>
+
+
+        </span>
+        <a href="/site/9-6-6">
+          월세/전세 가격지수
+        </a>
+        
+
+
+
+
+
+      </div>
+    
+    </div>
+  
 </div>
 
 <footer role="contentinfo">
@@ -1299,12 +1279,12 @@ layout-goal
 <script>translations['search'] = translations['search'] || {};
     translations['search']['search'] = '검색';</script>
 
-<script src='/site/assets/js/sdg.js?v=20221213041107'></script>
+<script src='/site/assets/js/sdg.js?v=20221213043824'></script>
 
 
     
     
-    <script src="/site/assets/js/custom.js?v=20221213041107"></script><script>
+    <script src="/site/assets/js/custom.js?v=20221213043824"></script><script>
 $(function() {
     if($('#indicatorData').length) {
       var domData = $('#indicatorData').data();
