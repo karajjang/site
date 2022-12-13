@@ -111,13 +111,8 @@ opensdg.autotrack = function(preset, category, action, label) {
     this.mapLayers = [];
     this.indicatorId = options.indicatorId;
     this._precision = options.precision;
-    this.precisionItems = options.precisionItems;
     this._decimalSeparator = options.decimalSeparator;
     this.currentDisaggregation = 0;
-    this.dataSchema = options.dataSchema;
-    this.viewHelpers = options.viewHelpers;
-    this.modelHelpers = options.modelHelpers;
-    this.chartTitles = options.chartTitles;
 
     // Require at least one geoLayer.
     if (!options.mapLayers || !options.mapLayers.length) {
@@ -146,47 +141,6 @@ opensdg.autotrack = function(preset, category, action, label) {
 
   Plugin.prototype = {
 
-    // Update title.
-    updateTitle: function() {
-      if (!this.modelHelpers) {
-        return;
-      }
-      var currentSeries = this.disaggregationControls.getCurrentSeries(),
-          currentUnit = this.disaggregationControls.getCurrentUnit(),
-          newTitle = null;
-      if (this.modelHelpers.GRAPH_TITLE_FROM_SERIES) {
-        newTitle = currentSeries;
-      }
-      else {
-        var currentTitle = $('#map-heading').text();
-        newTitle = this.modelHelpers.getChartTitle(currentTitle, this.chartTitles, currentUnit, currentSeries);
-      }
-      if (newTitle) {
-        $('#map-heading').text(newTitle);
-      }
-    },
-
-    // Update footer fields.
-    updateFooterFields: function() {
-      if (!this.viewHelpers) {
-        return;
-      }
-      var currentSeries = this.disaggregationControls.getCurrentSeries(),
-          currentUnit = this.disaggregationControls.getCurrentUnit();
-      this.viewHelpers.updateSeriesAndUnitElements(currentSeries, currentUnit);
-      this.viewHelpers.updateUnitElements(currentUnit);
-    },
-
-    // Update precision.
-    updatePrecision: function() {
-      if (!this.modelHelpers) {
-        return;
-      }
-      var currentSeries = this.disaggregationControls.getCurrentSeries(),
-          currentUnit = this.disaggregationControls.getCurrentUnit();
-      this._precision = this.modelHelpers.getPrecision(this.precisionItems, currentUnit, currentSeries);
-    },
-
     // Zoom to a feature.
     zoomToFeature: function(layer) {
       this.map.fitBounds(layer.getBounds());
@@ -196,7 +150,7 @@ opensdg.autotrack = function(preset, category, action, label) {
     getTooltipContent: function(feature) {
       var tooltipContent = feature.properties.name;
       var tooltipData = this.getData(feature.properties);
-      if (typeof tooltipData === 'number') {
+      if (tooltipData) {
         tooltipContent += ': ' + this.alterData(tooltipData);
       }
       return tooltipContent;
@@ -294,38 +248,29 @@ opensdg.autotrack = function(preset, category, action, label) {
 
     // Alter data before displaying it.
     alterData: function(value) {
+      // @deprecated start
+      if (typeof opensdg.dataDisplayAlterations === 'undefined') {
+        opensdg.dataDisplayAlterations = [];
+      }
+      // @deprecated end
       opensdg.dataDisplayAlterations.forEach(function(callback) {
         value = callback(value);
       });
-      if (typeof value !== 'number') {
-        if (this._precision || this._precision === 0) {
-          value = Number.parseFloat(value).toFixed(this._precision);
-        }
-        if (this._decimalSeparator) {
-          value = value.toString().replace('.', this._decimalSeparator);
-        }
+      if (this._precision || this._precision === 0) {
+        value = Number.parseFloat(value).toFixed(this._precision);
       }
-      else {
-        var localeOpts = {};
-        if (this._precision || this._precision === 0) {
-            localeOpts.minimumFractionDigits = this._precision;
-            localeOpts.maximumFractionDigits = this._precision;
-        }
-        value = value.toLocaleString(opensdg.language, localeOpts);
+      if (this._decimalSeparator) {
+        value = value.toString().replace('.', this._decimalSeparator);
       }
       return value;
     },
 
     // Get the data from a feature's properties, according to the current year.
     getData: function(props) {
-      var ret = false;
-      if (props.values && props.values.length && this.currentDisaggregation < props.values.length) {
-        var value = props.values[this.currentDisaggregation][this.currentYear];
-        if (typeof value === 'number') {
-          ret = opensdg.dataRounding(value, { indicatorId: this.indicatorId });
-        }
+      if (props.values && props.values.length && props.values[this.currentDisaggregation][this.currentYear]) {
+        return opensdg.dataRounding(props.values[this.currentDisaggregation][this.currentYear]);
       }
-      return ret;
+      return false;
     },
 
     // Choose a color for a GeoJSON feature.
@@ -337,13 +282,6 @@ opensdg.autotrack = function(preset, category, action, label) {
       else {
         return this.options.noValueColor;
       }
-    },
-
-    // Set (or re-set) the choropleth color scale.
-    setColorScale: function() {
-      this.colorScale = chroma.scale(this.options.colorRange)
-        .domain(this.valueRanges[this.currentDisaggregation])
-        .classes(this.options.colorRange.length);
     },
 
     // Get the (long) URL of a geojson file, given a particular subfolder.
@@ -469,30 +407,25 @@ opensdg.autotrack = function(preset, category, action, label) {
             .attr('download', '')
             .attr('class', 'btn btn-primary btn-download')
             .attr('title', translations.indicator.download_geojson_title + ' - ' + downloadLabel)
-            .attr('aria-label', translations.indicator.download_geojson_title + ' - ' + downloadLabel)
             .text(translations.indicator.download_geojson + ' - ' + downloadLabel);
           $(plugin.element).parent().append(downloadButton);
 
           // Keep track of the minimums and maximums.
           _.each(geoJson.features, function(feature) {
             if (feature.properties.values && feature.properties.values.length > 0) {
-              for (var valueIndex = 0; valueIndex < feature.properties.values.length; valueIndex++) {
-                var validEntries = _.reject(Object.entries(feature.properties.values[valueIndex]), function(entry) {
-                  return isMapValueInvalid(entry[1]);
-                });
+              var validEntries = _.reject(Object.entries(feature.properties.values[0]), function(entry) {
+                return isMapValueInvalid(entry[1]);
+              });
+              if (validEntries.length > 0) {
                 var validKeys = validEntries.map(function(entry) {
                   return entry[0];
                 });
                 var validValues = validEntries.map(function(entry) {
                   return entry[1];
-                });
+                })
                 availableYears = availableYears.concat(validKeys);
-                if (minimumValues.length <= valueIndex) {
-                  minimumValues.push([]);
-                  maximumValues.push([]);
-                }
-                minimumValues[valueIndex].push(_.min(validValues));
-                maximumValues[valueIndex].push(_.max(validValues));
+                minimumValues.push(_.min(validValues));
+                maximumValues.push(_.max(validValues));
               }
             }
           });
@@ -502,40 +435,26 @@ opensdg.autotrack = function(preset, category, action, label) {
         function isMapValueInvalid(val) {
           return _.isNaN(val) || val === '';
         }
-
-        plugin.valueRanges = [];
-        for (var valueIndex = 0; valueIndex < minimumValues.length; valueIndex++) {
-          minimumValues[valueIndex] = _.reject(minimumValues[valueIndex], isMapValueInvalid);
-          maximumValues[valueIndex] = _.reject(maximumValues[valueIndex], isMapValueInvalid);
-          plugin.valueRanges[valueIndex] = [_.min(minimumValues[valueIndex]), _.max(maximumValues[valueIndex])];
-        }
-        plugin.setColorScale();
-
+        minimumValues = _.reject(minimumValues, isMapValueInvalid);
+        maximumValues = _.reject(maximumValues, isMapValueInvalid);
+        plugin.valueRange = [_.min(minimumValues), _.max(maximumValues)];
+        plugin.colorScale = chroma.scale(plugin.options.colorRange)
+          .domain(plugin.valueRange)
+          .classes(plugin.options.colorRange.length);
         plugin.years = _.uniq(availableYears).sort();
-        //Start the map with the most recent year
-        plugin.currentYear = plugin.years.slice(-1)[0];
+        plugin.currentYear = plugin.years[0];
 
         // And we can now update the colors.
         plugin.updateColors();
 
         // Add zoom control.
-        plugin.zoomHome = L.Control.zoomHome({
-          zoomInTitle: translations.indicator.map_zoom_in,
-          zoomOutTitle: translations.indicator.map_zoom_out,
-          zoomHomeTitle: translations.indicator.map_zoom_home,
-        });
-        plugin.map.addControl(plugin.zoomHome);
+        plugin.map.addControl(L.Control.zoomHome());
 
         // Add full-screen functionality.
-        plugin.map.addControl(new L.Control.FullscreenAccessible({
-          title: {
-              'false': translations.indicator.map_fullscreen,
-              'true': translations.indicator.map_fullscreen_exit,
-          },
-        }));
+        plugin.map.addControl(new L.Control.FullscreenAccessible());
 
         // Add the year slider.
-        plugin.yearSlider = L.Control.yearSlider({
+        plugin.map.addControl(L.Control.yearSlider({
           years: plugin.years,
           yearChangeCallback: function(e) {
             plugin.currentYear = plugin.years[e.target._currentTimeIndex];
@@ -543,19 +462,11 @@ opensdg.autotrack = function(preset, category, action, label) {
             plugin.updateTooltips();
             plugin.selectionLegend.update();
           }
-        });
-        plugin.map.addControl(plugin.yearSlider);
+        }));
 
         // Add the selection legend.
         plugin.selectionLegend = L.Control.selectionLegend(plugin);
         plugin.map.addControl(plugin.selectionLegend);
-
-        // Add the disaggregation controls.
-        plugin.disaggregationControls = L.Control.disaggregationControls(plugin);
-        plugin.map.addControl(plugin.disaggregationControls);
-        plugin.updateTitle();
-        plugin.updateFooterFields();
-        plugin.updatePrecision();
 
         // Add the search feature.
         plugin.searchControl = new L.Control.SearchAccessible({
@@ -630,16 +541,10 @@ opensdg.autotrack = function(preset, category, action, label) {
             }
           });
           plugin.updateStaticLayers();
-          if (plugin.disaggregationControls) {
-            plugin.disaggregationControls.update();
-          }
         }
         // Event handler for when a geoJson layer is zoomed into.
         function zoomInHandler(e) {
           plugin.updateStaticLayers();
-          if (plugin.disaggregationControls) {
-            plugin.disaggregationControls.update();
-          }
         }
       });
 
@@ -653,14 +558,6 @@ opensdg.autotrack = function(preset, category, action, label) {
         $('#tab-mapview').parent().click(finalMapPreparation);
       }
       function finalMapPreparation() {
-        // Update the series/unit stuff in case it changed
-        // while on the chart/table.
-        plugin.updateTitle();
-        plugin.updateFooterFields();
-        plugin.updatePrecision();
-        // The year slider does not seem to be correct unless we refresh it here.
-        plugin.yearSlider._timeDimension.setCurrentTimeIndex(plugin.yearSlider._timeDimension.getCurrentTimeIndex());
-        // Delay other things to give time for browser to do stuff.
         setTimeout(function() {
           $('#map #loader-container').hide();
           // Leaflet needs "invalidateSize()" if it was originally rendered in a
@@ -668,8 +565,6 @@ opensdg.autotrack = function(preset, category, action, label) {
           plugin.map.invalidateSize();
           // Also zoom in/out as needed.
           plugin.map.fitBounds(plugin.getVisibleLayers().getBounds());
-          // Set the home button to return to that zoom.
-          plugin.zoomHome.setHomeBounds(plugin.getVisibleLayers().getBounds());
           // Limit the panning to what we care about.
           plugin.map.setMaxBounds(plugin.getVisibleLayers().getBounds());
           // Make sure the info pane is not too wide for the map.
@@ -725,7 +620,7 @@ opensdg.autotrack = function(preset, category, action, label) {
 // This "crops" the charts so that empty years are not displayed
 // at the beginning or end of each dataset. This ensures that the
 // chart will fill all the available space.
-Chart.register({
+Chart.plugins.register({
   id: 'rescaler',
   beforeInit: function (chart, options) {
     chart.config.data.allLabels = chart.config.data.labels.slice(0);
@@ -796,24 +691,23 @@ function getTextLinesOnCanvas(ctx, text, maxWidth) {
   return lines;
 }
 
-function isHighContrast(contrast) {
-  if (contrast) {
-      return contrast === 'high';
-  }
-  else {
-      return $('body').hasClass('contrast-high');
-  }
-}
-
 // This plugin displays a message to the user whenever a chart has no data.
-Chart.register({
+Chart.plugins.register({
   id: 'open-sdg-no-data-message',
   afterDraw: function(chart) {
     if (chart.data.datasets.length === 0) {
 
-      var ctx = chart.ctx;
-      var width = chart.width;
-      var height = chart.height;
+      // @deprecated start
+      if (typeof translations.indicator.data_not_available === 'undefined') {
+        translations.indicator.data_not_available = 'This data is not available. Please choose alternative data to display.';
+      }
+      // @deprecated end
+
+      
+      var ctx = chart.chart.ctx;
+      var width = chart.chart.width;
+      var height = chart.chart.height;
+      
 
       chart.clear();
 
@@ -821,7 +715,6 @@ Chart.register({
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.font = "normal 40px 'Open Sans', Helvetica, Arial, sans-serif";
-      ctx.fillStyle = (isHighContrast()) ? 'white' : 'black';
       var lines = getTextLinesOnCanvas(ctx, translations.indicator.data_not_available, width);
       var numLines = lines.length;
       var lineHeight = 50;
@@ -840,43 +733,27 @@ Chart.register({
     }
   }
 });
+
 // This plugin allows users to cycle through tooltips by keyboard.
-Chart.register({
+Chart.plugins.register({
     id: 'open-sdg-accessible-charts',
     afterInit: function(chart) {
         var plugin = this;
         plugin.chart = chart;
-        plugin.selectedIndex = -1;
-        plugin.currentDataset = 0;
-        plugin.setMeta();
-
-        if (!$(chart.canvas).data('keyboardNavInitialized')) {
-            $(chart.canvas).data('keyboardNavInitialized', true);
-            plugin.initElements();
-            chart.canvas.addEventListener('keydown', function(e) {
-                if (e.key === 'ArrowRight') {
-                    plugin.activateNext();
+        plugin.currentTooltip = null;
+        plugin.initElements();
+        $(chart.canvas).keydown(function(e) {
+            switch (e.which) {
+                case 37:
+                    plugin.previousTooltip();
                     e.preventDefault();
-                }
-                else if (e.key === 'ArrowLeft') {
-                    plugin.activatePrev();
+                    break;
+                case 39:
+                    plugin.nextTooltip();
                     e.preventDefault();
-                }
-            });
-            chart.canvas.addEventListener('focus', function() {
-                if (plugin.selectedIndex === -1) {
-                    plugin.activateNext();
-                } else {
-                    plugin.activate();
-                }
-            });
-        }
-    },
-    afterUpdate: function(chart) {
-        this.setMeta();
-    },
-    setMeta: function() {
-        this.meta = this.chart.getDatasetMeta(this.currentDataset);
+                    break;
+            }
+        });
     },
     initElements: function() {
         $('<span/>')
@@ -902,104 +779,92 @@ Chart.register({
                 .html('<span class="hide-during-image-download">Chart. ' + keyboardInstructions + '</span>')
         }
     },
-    activate: function() {
-        var activeElements = [];
-        if (this.chart.config.type === 'line') {
-            // For line charts, we combined all datasets into a single tooltip.
-            var numDatasets = this.chart.data.datasets.length;
-            for (var i = 0; i < numDatasets; i++) {
-                activeElements.push({datasetIndex: i, index: this.selectedIndex});
-            }
+    afterDatasetsDraw: function() {
+        var plugin = this;
+        if (plugin.allTooltips == null) {
+            plugin.allTooltips = plugin.getAllTooltips();
         }
-        else {
-            activeElements.push({datasetIndex: this.currentDataset, index: this.selectedIndex});
-        }
-        this.chart.tooltip.setActiveElements(activeElements);
-        this.chart.render();
-        this.announceTooltips()
     },
-    isSelectedIndexEmpty: function() {
-        var isEmpty = true;
-        if (this.chart.config.type === 'line') {
-            var numDatasets = this.chart.data.datasets.length;
-            for (var i = 0; i < numDatasets; i++) {
-                var dataset = this.chart.data.datasets[i],
-                    value = dataset.data[this.selectedIndex];
-                if (typeof value !== 'undefined') {
-                    isEmpty = false;
+    afterUpdate: function() {
+        var plugin = this;
+        plugin.allTooltips = null;
+        plugin.currentTooltip = null;
+    },
+    getAllTooltips: function() {
+        var datasets = this.chart.data.datasets;
+        var allTooltips = [];
+        if (datasets.length == 0) {
+            return allTooltips;
+        }
+        // For line charts, we group points into vertical tooltips.
+        if (this.chart.config.type == 'line') {
+            for (var pointIndex = 0; pointIndex < datasets[0].data.length; pointIndex++) {
+                var verticalTooltips = [];
+                for (var datasetIndex = 0; datasetIndex < datasets.length; datasetIndex++) {
+                    var meta = this.chart.getDatasetMeta(datasetIndex);
+                    if (meta.hidden) {
+                        continue;
+                    }
+                    if (datasets[datasetIndex].data[pointIndex] !== null) {
+                        verticalTooltips.push(meta.data[pointIndex]);
+                    }
+                }
+                if (verticalTooltips.length > 0) {
+                    allTooltips.push(verticalTooltips);
                 }
             }
         }
+        // For other charts, each point gets its own tooltip.
         else {
-            var dataset = this.chart.data.datasets[this.currentDataset],
-                value = dataset.data[this.selectedIndex];
-            if (typeof value !== 'undefined') {
-                isEmpty = false;
+            for (var datasetIndex = 0; datasetIndex < datasets.length; datasetIndex++) {
+                var meta = this.chart.getDatasetMeta(datasetIndex);
+                if (meta.hidden) {
+                    continue;
+                }
+                for (var pointIndex = 0; pointIndex < datasets[datasetIndex].data.length; pointIndex++) {
+                    var singleTooltip = meta.data[pointIndex];
+                    allTooltips.push([singleTooltip]);
+                }
             }
         }
-        return isEmpty;
+        return allTooltips;
     },
-    activateNext: function() {
-        // Abort early if no data.
-        if (this.chart.data.datasets.length === 0) {
-            return;
+    previousTooltip: function() {
+        var plugin = this,
+            newTooltip = 0;
+        if (plugin.currentTooltip !== null) {
+            newTooltip = plugin.currentTooltip - 1;
         }
-        this.selectedIndex += 1;
-        if (this.selectedIndex >= this.meta.data.length) {
-            this.selectedIndex = 0;
-            if (this.chart.config.type !== 'line') {
-                this.nextDataset();
-            }
+        if (newTooltip < 0) {
+            newTooltip = plugin.allTooltips.length - 1;
         }
-        while (this.isSelectedIndexEmpty()) {
-            // Skip any empty years.
-            this.activateNext();
-            return;
-        }
-        this.activate();
+        plugin.activateTooltips(plugin.allTooltips[newTooltip]);
+        plugin.currentTooltip = newTooltip;
     },
-    activatePrev: function() {
-        // Abort early if no data.
-        if (this.chart.data.datasets.length === 0) {
-            return;
+    nextTooltip: function() {
+        var plugin = this,
+            newTooltip = 0;
+        if (plugin.currentTooltip !== null) {
+            newTooltip = plugin.currentTooltip + 1;
         }
-        this.selectedIndex -= 1;
-        if (this.selectedIndex < 0) {
-            if (this.chart.config.type !== 'line') {
-                this.prevDataset();
-            }
-            this.selectedIndex = this.meta.data.length - 1;
+        if (newTooltip >= plugin.allTooltips.length) {
+            newTooltip = 0;
         }
-        while (this.isSelectedIndexEmpty()) {
-            // Skip any empty years.
-            this.activatePrev();
-            return;
-        }
-        this.activate();
+        plugin.activateTooltips(plugin.allTooltips[newTooltip]);
+        plugin.currentTooltip = newTooltip;
     },
-    nextDataset: function() {
-        var numDatasets = this.chart.data.datasets.length;
-        this.currentDataset += 1;
-        if (this.currentDataset >= numDatasets) {
-            this.currentDataset = 0;
-        }
-        this.setMeta();
+    activateTooltips: function(tooltips) {
+        this.chart.tooltip._active = tooltips
+        this.chart.tooltip.update(true);
+        this.chart.draw();
+        this.announceTooltips(tooltips);
     },
-    prevDataset: function() {
-        var numDatasets = this.chart.data.datasets.length;
-        this.currentDataset -= 1;
-        if (this.currentDataset < 0) {
-            this.currentDataset = numDatasets - 1;
-        }
-        this.setMeta();
-    },
-    announceTooltips: function() {
-        var tooltips = this.chart.tooltip.getActiveElements();
+    announceTooltips: function(tooltips) {
         if (tooltips.length > 0) {
             var labels = {};
             for (var i = 0; i < tooltips.length; i++) {
-                var datasetIndex = tooltips[i].datasetIndex,
-                    pointIndex = tooltips[i].index,
+                var datasetIndex = tooltips[i]._datasetIndex,
+                    pointIndex = tooltips[i]._index,
                     year = this.chart.data.labels[pointIndex],
                     dataset = this.chart.data.datasets[datasetIndex],
                     label = dataset.label,
@@ -1023,6 +888,7 @@ Chart.register({
         }
     }
 });
+
 function event(sender) {
   this._sender = sender;
   this._listeners = [];
@@ -1040,140 +906,156 @@ event.prototype = {
     }
   }
 };
-var accessibilitySwitcher = function () {
+var accessibilitySwitcher = function() {
 
-    function getActiveContrast() {
-        return $('body').hasClass('contrast-high') ? 'high' : 'default';
+  var contrastIdentifiers = ['default', 'high'],
+      contrastType = "single" || "default",
+      singleToggle = (contrastType === 'long' || contrastType === 'single');
+
+  if (contrastType === 'long') {
+    $('body').addClass('long');
+  }
+  function setActiveContrast(newContrast) {
+    var oldContrast = getActiveContrast();
+    if (oldContrast !== newContrast) {
+      _.each(contrastIdentifiers, function(id) {
+        $('body').removeClass('contrast-' + id);
+      });
+      $('body').addClass('contrast-' + newContrast);
+
+      createCookie("contrast", newContrast, 365);
+
+      if (singleToggle) {
+        flipAllContrastLinks(oldContrast, newContrast);
+      }
     }
+  }
 
-    function setHighContrast() {
-        $('body')
-            .removeClass('contrast-default')
-            .addClass('contrast-high');
-        var title = translations.header.disable_high_contrast;
-        var gaAttributes = opensdg.autotrack('switch_contrast', 'Accessibility', 'Change contrast setting', 'default');
-        $('[data-contrast-switch-to]')
-            .attr('data-contrast-switch-to', 'default')
-            .attr('title', title)
-            .attr('aria-label', title)
-            .attr(gaAttributes);
+  function flipAllContrastLinks(newContrast, oldContrast) {
+    var title = getContrastToggleTitle(newContrast),
+        label = getContrastToggleLabel(newContrast);
+        gaAttributes = opensdg.autotrack('switch_contrast', 'Accessibility', 'Change contrast setting', newContrast);
+    $('[data-contrast-switch-to]')
+      .data('contrast-switch-to', newContrast)
+      .attr('title', title)
+      .attr('aria-label', title)
+      .attr(gaAttributes)
+      .html(label)
+      .parent()
+        .addClass('contrast-' + newContrast)
+        .removeClass('contrast-' + oldContrast);
+  }
 
-        imageFix('high');
-        createCookie('contrast', 'high', 365);
-    }
-
-    function setDefaultContrast() {
-        $('body')
-            .removeClass('contrast-high')
-            .addClass('contrast-default');
-        var title = translations.header.enable_high_contrast;
-        var gaAttributes = opensdg.autotrack('switch_contrast', 'Accessibility', 'Change contrast setting', 'high');
-        $('[data-contrast-switch-to]')
-            .attr('data-contrast-switch-to', 'high')
-            .attr('title', title)
-            .attr('aria-label', title)
-            .attr(gaAttributes);
-
-        imageFix('default');
-        createCookie('contrast', 'default', 365);
-
-    }
-
-    $('[data-contrast-switch-to]').click(function () {
-        var newContrast = $(this).attr('data-contrast-switch-to');
-        var oldContrast = getActiveContrast();
-        if (newContrast === oldContrast) {
-            return;
-        }
-        if (newContrast === 'high') {
-            setHighContrast();
-            broadcastContrastChange('high', this);
-        }
-        else {
-            setDefaultContrast();
-            broadcastContrastChange('default', this);
-        }
-
+  function getActiveContrast() {
+    var contrast = _.filter(contrastIdentifiers, function(id) {
+      return $('body').hasClass('contrast-' + id);
     });
 
-    function createCookie(name, value, days) {
-        if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            var expires = "; expires=" + date.toGMTString();
-        }
-        else expires = "";
-        document.cookie = name + "=" + value + expires + "; path=/";
+    return contrast.length > 0 ? contrast[0] : contrastIdentifiers[0];
+  }
+
+  function createCookie(name,value,days) {
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime()+(days*24*60*60*1000));
+      var expires = "; expires="+date.toGMTString();
     }
+    else expires = "";
+    document.cookie = name+"="+value+expires+"; path=/";
+  }
 
-    function readCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-        }
-        return null;
+  function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
     }
+    return null;
+  }
 
-    function imageFix(contrast) {
-        var doNotSwitchTheseSuffixes = ['.svg'];
-        if (contrast == 'high') {
-            _.each($('img:not([src*=high-contrast])'), function (image) {
-                var src = $(image).attr('src').toLowerCase();
-                var switchThisImage = true;
-                for (var i = 0; i < doNotSwitchTheseSuffixes.length; i++) {
-                    var suffix = doNotSwitchTheseSuffixes[i];
-                    if (src.slice(0 - suffix.length) === suffix) {
-                        switchThisImage = false;
-                    }
-                }
-                if (switchThisImage) {
-                    $(image).attr('src', $(image).attr('src').replace('img/', 'img/high-contrast/'));
-                }
-            });
-        } else {
-            // Remove high-contrast
-            _.each($('img[src*=high-contrast]'), function (goalImage) {
-                $(goalImage).attr('src', $(goalImage).attr('src').replace('high-contrast/', ''));
-            })
-        }
-    };
+  window.onunload = function(e) {
+    var contrast = getActiveContrast();
+    createCookie("contrast", contrast, 365);
+  }
 
-    function broadcastContrastChange(contrast, elem) {
-        var event = new CustomEvent('contrastChange', {
-            bubbles: true,
-            detail: contrast
-        });
-        elem.dispatchEvent(event);
+  var cookie = readCookie("contrast");
+  var contrast = cookie ? cookie : contrastIdentifiers[0];
+  setActiveContrast(contrast);
+  imageFix(contrast);
+
+  ////////////////////////////////////////////////////////////////////////////////////
+
+  $('[data-contrast-switch-to]').click(function() {
+
+    var oldContrast = getActiveContrast();
+    var newContrast = $(this).data('contrast-switch-to');
+
+    if (oldContrast !== newContrast) {
+      setActiveContrast(newContrast);
+      imageFix(newContrast);
+      broadcastContrastChange(newContrast, this);
     }
+  });
 
-    window.onunload = function (e) {
-        var contrast = getActiveContrast();
-        createCookie('contrast', contrast, 365);
-    }
+  function broadcastContrastChange(contrast, elem) {
+    var event = new CustomEvent('contrastChange', {
+      bubbles: true,
+      detail: contrast
+    });
+    elem.dispatchEvent(event);
+  }
 
-    var cookie = readCookie('contrast');
-    var contrast = cookie ? cookie : 'default';
-    if (contrast === 'high') {
-        setHighContrast();
+  function getContrastToggleLabel(identifier){
+    if (contrastType === "long") {
+      if (identifier === "default") {
+        return translations.header.default_contrast.replace(' ', '<br>');
+      }
+      else if (identifier === "high") {
+        return translations.header.high_contrast.replace(' ', '<br>');
+      }
     }
     else {
-        setDefaultContrast();
+      return 'A'
     }
+  }
+
+  function getContrastToggleTitle(identifier){
+    if (identifier === "default") {
+      return translations.header.disable_high_contrast;
+    }
+    else if (identifier === "high") {
+      return translations.header.enable_high_contrast;
+    }
+  }
+
+
+  function imageFix(contrast) {
+    var doNotSwitchTheseSuffixes = ['.svg'];
+    if (contrast == 'high')  {
+      _.each($('img:not([src*=high-contrast])'), function(image) {
+        var src = $(image).attr('src').toLowerCase();
+        var switchThisImage = true;
+        for (var i = 0; i < doNotSwitchTheseSuffixes.length; i++) {
+          var suffix = doNotSwitchTheseSuffixes[i];
+          if (src.slice(0 - suffix.length) === suffix) {
+            switchThisImage = false;
+          }
+        }
+        if (switchThisImage) {
+          $(image).attr('src', $(image).attr('src').replace('img/', 'img/high-contrast/'));
+        }
+      });
+    } else {
+      // Remove high-contrast
+      _.each($('img[src*=high-contrast]'), function(goalImage){
+        $(goalImage).attr('src', $(goalImage).attr('src').replace('high-contrast/', ''));
+      })
+    }
+  };
 
 };
-
-// Dynamic aria labels on navbar toggle.
-$(document).ready(function() {
-    $('#navbarSupportedContent').on('shown.bs.collapse', function() {
-        $('.navbar-toggler').attr('aria-label', translations.header.hide_menu);
-    });
-    $('#navbarSupportedContent').on('hidden.bs.collapse', function() {
-        $('.navbar-toggler').attr('aria-label', translations.header.show_menu);
-    });
-});
 opensdg.chartColors = function(indicatorId) {
   var colorSet = "accessible";
   var numberOfColors = 0;
@@ -1197,13 +1079,13 @@ opensdg.chartColors = function(indicatorId) {
                 ['56c02b', '337319', '99d97f', '112608', 'ddf2d4', '449922', '77cc55', '224c11', 'bbe5aa'],
                 ['00689d', '00293e', '99c2d7', '00486d', '4c95ba', '126b80', 'cce0eb', '5a9fb0', 'a1c8d2'],
                 ['19486a', '0a1c2a', '8ca3b4', '16377c', 'd1dae1', '11324a', '466c87', '5b73a3', '0f2656']];
-  this.colorSets = {'classic':['7e984f', '8d73ca', 'aaa533', 'c65b8a', '4aac8d', 'c95f44'],
+  this.colorSets = {'default':['7e984f', '8d73ca', 'aaa533', 'c65b8a', '4aac8d', 'c95f44'],
                   'sdg':['e5243b', 'dda63a', '4c9f38', 'c5192d', 'ff3a21', '26bde2', 'fcc30b', 'a21942', 'fd6925', 'dd1367','fd9d24','bf8b2e','3f7e44','0a97d9','56c02b','00689d','19486a'],
                   'goal': this.goalColors[this.goalNumber-1],
                   'custom': customColorList,
                   'accessible': ['cd7a00', '339966', '9966cc', '8d4d57', 'A33600', '054ce6']};
   if(Object.keys(this.colorSets).indexOf(colorSet) == -1 || (colorSet=='custom' && customColorList == null)){
-    return this.colorSets['accessible'];
+    return this.colorSets['default'];
   }
   this.numberOfColors = (numberOfColors>this.colorSets[colorSet].length || numberOfColors == null || numberOfColors == 0) ? this.colorSets[colorSet].length : numberOfColors;
   this.colors = this.colorSets[colorSet].slice(0,this.numberOfColors);
@@ -1226,7 +1108,9 @@ var YEAR_COLUMN = 'Year';
 var VALUE_COLUMN = 'Value';
 // Note this headline color is overridden in indicatorView.js.
 var HEADLINE_COLOR = '#777777';
+var SERIES_TOGGLE = true;
 var GRAPH_TITLE_FROM_SERIES = false;
+var CHARTJS_3 = false;
 
   /**
  * Model helper functions with general utility.
@@ -1299,7 +1183,9 @@ function nonFieldColumns() {
   timeSeriesAttributes.forEach(function(tsAttribute) {
     columns.push(tsAttribute.field);
   });
-  columns.push(SERIES_COLUMN);
+  if (SERIES_TOGGLE) {
+    columns.push(SERIES_COLUMN);
+  }
   return columns;
 }
 
@@ -1367,6 +1253,7 @@ function getMatchesByUnitSeries(items, selectedUnit, selectedSeries) {
   return matches;
 }
 
+  var arrayMove = deprecated('utils.arrayMove');
   /**
  * Model helper functions related to units.
  */
@@ -1887,7 +1774,7 @@ function selectFieldsFromStartValues(startValues, selectableFieldNames) {
   return Object.keys(valuesByField).map(function(field) {
     return {
       field: field,
-      values: _.uniq(valuesByField[field]),
+      values: valuesByField[field],
     };
   });
 }
@@ -2100,9 +1987,13 @@ function getChartTitle(currentTitle, allTitles, selectedUnit, selectedSeries) {
  * @param {Array} allTypes Objects containing 'unit', 'series', and 'type'
  * @param {String} selectedUnit
  * @param {String} selectedSeries
+ * @param {Boolean} chartjs3
  * @return {String} Updated type
  */
-function getChartType(currentType, allTypes, selectedUnit, selectedSeries) {
+function getChartType(currentType, allTypes, selectedUnit, selectedSeries, chartjs3) {
+  if (!chartjs3) {
+    return currentType;
+  }
   if (!currentType) {
     currentType = 'line';
   }
@@ -2580,14 +2471,14 @@ function getHeadline(selectableFields, rows) {
  * @param {Array} rows
  * @return {Array} Prepared rows
  */
-function prepareData(rows, context) {
+function prepareData(rows) {
   return rows.map(function(item) {
 
     if (item[VALUE_COLUMN] != 0) {
       // For rounding, use a function that can be set on the global opensdg
       // object, for easier control: opensdg.dataRounding()
       if (typeof opensdg.dataRounding === 'function') {
-        item.Value = opensdg.dataRounding(item.Value, context);
+        item.Value = opensdg.dataRounding(item.Value);
       }
     }
 
@@ -2629,9 +2520,7 @@ function getPrecision(precisions, selectedUnit, selectedSeries) {
  */
 function inputData(data) {
   var dropKeys = [];
-  if (opensdg.ignoredDisaggregations && opensdg.ignoredDisaggregations.length > 0) {
-    dropKeys = opensdg.ignoredDisaggregations;
-  }
+  
   return convertJsonFormatToRows(data, dropKeys);
 }
 
@@ -2641,15 +2530,7 @@ function inputData(data) {
  */
 function inputEdges(edges) {
   var edgesData = convertJsonFormatToRows(edges);
-  if (opensdg.ignoredDisaggregations && opensdg.ignoredDisaggregations.length > 0) {
-    var ignoredDisaggregations = opensdg.ignoredDisaggregations;
-    edgesData = edgesData.filter(function(edge) {
-      if (ignoredDisaggregations.includes(edge.To) || ignoredDisaggregations.includes(edge.From)) {
-        return false;
-      }
-      return true;
-    });
-  }
+  
   return edgesData;
 }
 
@@ -2690,7 +2571,9 @@ function getTimeSeriesAttributes(rows) {
     GEOCODE_COLUMN: GEOCODE_COLUMN,
     YEAR_COLUMN: YEAR_COLUMN,
     VALUE_COLUMN: VALUE_COLUMN,
+    SERIES_TOGGLE: SERIES_TOGGLE,
     GRAPH_TITLE_FROM_SERIES: GRAPH_TITLE_FROM_SERIES,
+    CHARTJS_3: CHARTJS_3,
     convertJsonFormatToRows: convertJsonFormatToRows,
     getUniqueValuesByProperty: getUniqueValuesByProperty,
     dataHasUnits: dataHasUnits,
@@ -2735,10 +2618,11 @@ function getTimeSeriesAttributes(rows) {
     inputEdges: inputEdges,
     getTimeSeriesAttributes: getTimeSeriesAttributes,
     inputData: inputData,
+    // Backwards compatibility.
+    footerFields: deprecated('helpers.footerFields'),
   }
 })();
 
-  this.helpers = helpers;
 
   // events:
   this.onDataComplete = new event(this);
@@ -2819,9 +2703,9 @@ function getTimeSeriesAttributes(rows) {
   }
 
   // Before continuing, we may need to filter by Series, so set up all the Series stuff.
-  this.allData = helpers.prepareData(this.data, { indicatorId: this.indicatorId });
+  this.allData = helpers.prepareData(this.data);
   this.allColumns = helpers.getColumnsFromData(this.allData);
-  this.hasSerieses = helpers.dataHasSerieses(this.allColumns);
+  this.hasSerieses = helpers.SERIES_TOGGLE && helpers.dataHasSerieses(this.allColumns);
   this.serieses = this.hasSerieses ? helpers.getUniqueValuesByProperty(helpers.SERIES_COLUMN, this.allData) : [];
   this.hasStartValues = Array.isArray(this.startValues) && this.startValues.length > 0;
   if (this.hasSerieses) {
@@ -2872,7 +2756,7 @@ function getTimeSeriesAttributes(rows) {
   }
 
   this.updateChartType = function() {
-    this.graphType = helpers.getChartType(this.graphType, this.graphTypes, this.selectedUnit, this.selectedSeries);
+    this.graphType = helpers.getChartType(this.graphType, this.graphTypes, this.selectedUnit, this.selectedSeries, helpers.CHARTJS_3);
   }
 
   this.updateSelectedUnit = function(selectedUnit) {
@@ -3013,9 +2897,6 @@ function getTimeSeriesAttributes(rows) {
         indicatorId: this.indicatorId,
         showMap: this.showMap,
         precision: helpers.getPrecision(this.precision, this.selectedUnit, this.selectedSeries),
-        precisionItems: this.precision,
-        dataSchema: this.dataSchema,
-        chartTitles: this.chartTitles,
       });
     }
 
@@ -3096,19 +2977,14 @@ var mapView = function () {
 
   "use strict";
 
-  this.initialise = function(indicatorId, precision, precisionItems, decimalSeparator, dataSchema, viewHelpers, modelHelpers, chartTitles) {
+  this.initialise = function(indicatorId, precision, decimalSeparator) {
     $('.map').show();
     $('#map').sdgMap({
       indicatorId: indicatorId,
       mapOptions: {"minZoom":5,"maxZoom":10,"tileURL":"","tileOptions":{"id":"","accessToken":"","attribution":""},"colorRange":"chroma.brewer.BuGn","noValueColor":"#f0f0f0","styleNormal":{"weight":1,"opacity":1,"fillOpacity":0.7,"color":"#888888","dashArray":""},"styleHighlighted":{"weight":1,"opacity":1,"fillOpacity":0.7,"color":"#111111","dashArray":""},"styleStatic":{"weight":2,"opacity":1,"fillOpacity":0,"color":"#172d44","dashArray":"5,5"}},
       mapLayers: [],
       precision: precision,
-      precisionItems: precisionItems,
       decimalSeparator: decimalSeparator,
-      dataSchema: dataSchema,
-      viewHelpers: viewHelpers,
-      modelHelpers: modelHelpers,
-      chartTitles: chartTitles,
     });
   };
 };
@@ -4109,6 +3985,11 @@ var indicatorView = function (model, options) {
     .appendTo(fieldGroupElement.find('#indicatorData .variable-options'));
   }
 };
+// @deprecated start
+// Some backwards compatibiliy code after Lodash migration.
+_.findWhere = _.find;
+// @deprecated end
+
 var indicatorController = function (model, view) {
   this._model = model;
   this._view = view;
@@ -4191,7 +4072,7 @@ $(document).ready(function() {
         // Allow clicking on the <li> to trigger tab click.
         tabsList.find('li').click(function(event) {
             if (event.target.tagName === 'LI') {
-                $(event.target).find('> button').click();
+                $(event.target).find('> a').click();
             }
         });
     });
@@ -4199,10 +4080,11 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('.nav-tabs').each(function() {
         var tabsList = $(this);
-        var tabs = tabsList.find('li > button');
+        var tabs = tabsList.find('li > a');
         var panes = tabsList.parent().find('.tab-pane');
 
         panes.attr({
+            'class': 'tabPanel',
             'role': 'tabpanel',
             'aria-hidden': 'true',
             'tabindex': '0',
@@ -4214,8 +4096,8 @@ $(document).ready(function() {
 
         tabs.each(function(idx) {
             var tab = $(this);
-            var tabId = 'tab-' + tab.attr('data-bs-target').slice(1);
-            var pane = tabsList.parent().find(tab.attr('data-bs-target'));
+            var tabId = 'tab-' + tab.attr('href').slice(1);
+            var pane = tabsList.parent().find(tab.attr('href'));
 
             tab.attr({
                 'id': tabId,
@@ -4224,6 +4106,8 @@ $(document).ready(function() {
                 'tabindex': '-1',
             }).parent().attr('role', 'presentation');
 
+            tab.removeAttr('href');
+
             pane.attr('aria-labelledby', tabId);
 
             tab.click(function(e) {
@@ -4231,12 +4115,11 @@ $(document).ready(function() {
 
                 tabsList.find('> li.active')
                     .removeClass('active')
-                    .find('> button')
+                    .find('> a')
                     .attr({
                         'aria-selected': 'false',
                         'tabindex': '-1',
-                    })
-                    .removeClass('active');
+                    });
 
                 panes.filter(':visible').attr({
                     'aria-hidden': 'true',
@@ -4258,32 +4141,32 @@ $(document).ready(function() {
         panes.first().attr('aria-hidden', 'false').show();
 
         // Set state for the first tabsList li
-        tabsList.find('li:first').addClass('active').find(' > button').attr({
+        tabsList.find('li:first').addClass('active').find(' > a').attr({
             'aria-selected': 'true',
             'tabindex': '0',
         });
 
         // Set keydown events on tabList item for navigating tabs
-        tabsList.delegate('button', 'keydown', function(e) {
+        tabsList.delegate('a', 'keydown', function(e) {
             var tab = $(this);
             switch (e.which) {
                 case 37:
                     if (tab.parent().prev().length != 0) {
-                        tab.parent().prev().find('> button').click();
+                        tab.parent().prev().find('> a').click();
                         e.preventDefault();
                     }
                     else {
-                        tabsList.find('li:last > button').click();
+                        tabsList.find('li:last > a').click();
                         e.preventDefault();
                     }
                     break;
                 case 39:
                     if (tab.parent().next().length != 0) {
-                        tab.parent().next().find('> button').click();
+                        tab.parent().next().find('> a').click();
                         e.preventDefault();
                     }
                     else {
-                        tabsList.find('li:first > button').click();
+                        tabsList.find('li:first > a').click();
                         e.preventDefault();
                     }
                     break;
@@ -4357,7 +4240,6 @@ var indicatorSearch = function() {
         if (opensdg.language != 'en' && lunr[opensdg.language]) {
           this.use(lunr[opensdg.language]);
         }
-        this.use(storeUnstemmed);
         this.ref('url');
         // Index the expected fields.
         this.field('title', getSearchFieldOptions('title'));
@@ -4445,7 +4327,7 @@ var indicatorSearch = function() {
     }));
 
     // Hide the normal header search.
-    $('.header-search-bar').hide();
+    $('#search').css('visibility', 'hidden');
   }
 
   // Helper function to make a search query "fuzzier", using the ~ syntax.
@@ -4461,13 +4343,9 @@ var indicatorSearch = function() {
   function getMatchedTerms(results) {
     var matchedTerms = {};
     results.forEach(function(result) {
-      Object.keys(result.matchData.metadata).forEach(function(stemmedTerm) {
-        Object.keys(result.matchData.metadata[stemmedTerm]).forEach(function(fieldName) {
-          result.matchData.metadata[stemmedTerm][fieldName].unstemmed.forEach(function(unstemmedTerm) {
-            matchedTerms[unstemmedTerm] = true;
-          });
-        });
-      });
+      Object.keys(result.matchData.metadata).forEach(function(matchedTerm) {
+        matchedTerms[matchedTerm] = true;
+      })
     });
     return Object.keys(matchedTerms);
   }
@@ -4475,6 +4353,14 @@ var indicatorSearch = function() {
   // Helper function to get a boost score, if any.
   function getSearchFieldOptions(field) {
     var opts = {}
+    // @deprecated start
+    if (opensdg.searchIndexBoost && !Array.isArray(opensdg.searchIndexBoost)) {
+      if (opensdg.searchIndexBoost[field]) {
+        opts['boost'] = parseInt(opensdg.searchIndexBoost[field])
+      }
+      return opts;
+    }
+    // @deprecated end
     var fieldBoost = opensdg.searchIndexBoost.find(function(boost) {
       return boost.field === field;
     });
@@ -4488,19 +4374,6 @@ var indicatorSearch = function() {
   function escapeRegExp(str) {
     return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/gi, "\\$&");
   };
-
-  // Define a pipeline function that keeps the unstemmed word.
-  // See: https://github.com/olivernn/lunr.js/issues/287#issuecomment-454923675
-  function storeUnstemmed(builder) {
-    function pipelineFunction(token) {
-      token.metadata['unstemmed'] = token.toString();
-      return token;
-    };
-    lunr.Pipeline.registerFunction(pipelineFunction, 'storeUnstemmed');
-    var firstPipelineFunction = builder.pipeline._stack[0];
-    builder.pipeline.before(firstPipelineFunction, pipelineFunction);
-    builder.metadataWhitelist.push('unstemmed');
-  }
 };
 
 $(function() {
@@ -4516,7 +4389,116 @@ $(function() {
 
   indicatorSearch();
 });
+$(function() {
 
+  // @deprecated start
+  if (typeof translations.search === 'undefined') {
+    translations.search = { search: 'Search' };
+  }
+  if (typeof translations.general === 'undefined') {
+    translations.general = { hide: 'Hide' };
+  }
+  if (typeof translations.cookies === 'undefined') {
+    translations.cookies = { cookie_settings: 'Cookie settings' };
+  }
+  // @deprecated end
+
+  var topLevelSearchLink = $('.top-level span:eq(1), .top-level button:eq(1)');
+
+  var resetForSmallerViewport = function() {
+    topLevelSearchLink.text('Search');
+    $('.top-level li').removeClass('active');
+    $('.top-level span').removeClass('open');
+  };
+
+  var topLevelMenuToggle = document.querySelector("#menuToggle");
+
+  topLevelMenuToggle.addEventListener("click", function(){
+    setTopLevelMenuAccessibilityActions();
+  });
+  function setTopLevelMenuAccessibilityActions(){
+    if(topLevelMenuIsOpen()){
+      setAriaExpandedStatus(true);
+      focusOnFirstMenuElement();
+    }
+    else{
+      setAriaExpandedStatus(false);
+    }
+    function topLevelMenuIsOpen(){
+      return topLevelMenuToggle.classList.contains("active");
+    }
+    function setAriaExpandedStatus(expandedStatus){
+      topLevelMenuToggle.setAttribute("aria-expanded", expandedStatus.toString());
+    }
+    function focusOnFirstMenuElement(){
+      var firstMenuElement = getFirstMenuElement();
+      firstMenuElement.focus();
+    }
+    function getFirstMenuElement(){
+      return document.querySelector("#menu .nav-link:first-child a");
+    }
+  }
+
+  $('.top-level span, .top-level button').click(function() {
+    var target = $(this).data('target');
+
+    $('.top-level li').removeClass('active');
+    topLevelSearchLink.text('Search');
+
+    var targetEl = $('#' + target);
+    var wasVisible = targetEl.is(':visible');
+
+    // hide everything:
+    $('.menu-target').hide();
+    $(".top-level li button[data-target='" + target + "']").attr("aria-expanded", "false");
+
+    if(target === 'search') {
+      // TODO: This is never used and needs to be revisited.
+      $(this).toggleClass('open');
+
+      if($(this).hasClass('open') || !wasVisible) {
+        $(this).text(translations.general.hide);
+      } else {
+        $(this).text(translations.search.search);
+      }
+    } else if (target === 'search-mobile') {
+      topLevelMenuToggle.setAttribute('aria-expanded', false);
+      $(topLevelMenuToggle).find('> button').attr('aria-expanded', false);
+    } else {
+      // menu click, always hide search:
+      topLevelSearchLink.removeClass('open');
+      topLevelSearchLink.text(translations.search.search);
+    }
+
+    if(!wasVisible) {
+      targetEl.show();
+      $(".top-level li button[data-target='" + target + "']").attr("aria-expanded", "true");
+      $(this).parent().addClass('active');
+      $('#indicator_search').focus();
+    }
+  });
+
+  $(window).on('resize', function(e) {
+    var viewportWidth = window.innerWidth,
+        previousWidth = $('body').data('vwidth'),
+        breakpointWidth = 768;
+
+    if(viewportWidth > breakpointWidth && previousWidth <= breakpointWidth) {
+      // switched to larger viewport:
+      $('.menu-target').show();
+    } else if(previousWidth >= breakpointWidth && viewportWidth < breakpointWidth) {
+      // switched to smaller viewport:
+      $('.menu-target').hide();
+      resetForSmallerViewport();
+    }
+
+    // update the viewport width:
+    $('body').data('vwidth', viewportWidth);
+  });
+
+  // Add the cookie settings link in the footer.
+  
+});
 /*! @source http://purl.eligrey.com/github/classList.js/blob/master/classList.js */
 "document"in self&&("classList"in document.createElement("_")&&(!document.createElementNS||"classList"in document.createElementNS("http://www.w3.org/2000/svg","g"))||!function(t){"use strict";if("Element"in t){var e="classList",n="prototype",i=t.Element[n],s=Object,r=String[n].trim||function(){return this.replace(/^\s+|\s+$/g,"")},o=Array[n].indexOf||function(t){for(var e=0,n=this.length;n>e;e++)if(e in this&&this[e]===t)return e;return-1},a=function(t,e){this.name=t,this.code=DOMException[t],this.message=e},c=function(t,e){if(""===e)throw new a("SYNTAX_ERR","An invalid or illegal string was specified");if(/\s/.test(e))throw new a("INVALID_CHARACTER_ERR","String contains an invalid character");return o.call(t,e)},l=function(t){for(var e=r.call(t.getAttribute("class")||""),n=e?e.split(/\s+/):[],i=0,s=n.length;s>i;i++)this.push(n[i]);this._updateClassName=function(){t.setAttribute("class",""+this)}},u=l[n]=[],h=function(){return new l(this)};if(a[n]=Error[n],u.item=function(t){return this[t]||null},u.contains=function(t){return t+="",-1!==c(this,t)},u.add=function(){var t,e=arguments,n=0,i=e.length,s=!1;do t=e[n]+"",-1===c(this,t)&&(this.push(t),s=!0);while(++n<i);s&&this._updateClassName()},u.remove=function(){var t,e,n=arguments,i=0,s=n.length,r=!1;do for(t=n[i]+"",e=c(this,t);-1!==e;)this.splice(e,1),r=!0,e=c(this,t);while(++i<s);r&&this._updateClassName()},u.toggle=function(t,e){t+="";var n=this.contains(t),i=n?e!==!0&&"remove":e!==!1&&"add";return i&&this[i](t),e===!0||e===!1?e:!n},u.toString=function(){return this.join(" ")},s.defineProperty){var f={get:h,enumerable:!0,configurable:!0};try{s.defineProperty(i,e,f)}catch(g){(void 0===g.number||-2146823252===g.number)&&(f.enumerable=!1,s.defineProperty(i,e,f))}}else s[n].__defineGetter__&&i.__defineGetter__(e,h)}}(self),function(){"use strict";var t=document.createElement("_");if(t.classList.add("c1","c2"),!t.classList.contains("c2")){var e=function(t){var e=DOMTokenList.prototype[t];DOMTokenList.prototype[t]=function(t){var n,i=arguments.length;for(n=0;i>n;n++)t=arguments[n],e.call(this,t)}};e("add"),e("remove")}if(t.classList.toggle("c3",!1),t.classList.contains("c3")){var n=DOMTokenList.prototype.toggle;DOMTokenList.prototype.toggle=function(t,e){return 1 in arguments&&!this.contains(t)==!e?e:n.call(this,t)}}t=null}());/*! modernizr 3.5.0 (Custom Build) | MIT *
  * https://modernizr.com/download/?-blobconstructor-localstorage-setclasses !*/
@@ -4556,25 +4538,16 @@ $(function() {
     },
 
     onAdd: function() {
-      var div = L.DomUtil.create('div', 'selection-legend');
-      this.legendDiv = div;
-      this.resetSwatches();
-      return div;
-    },
-
-    renderSwatches: function() {
       var controlTpl = '' +
-        '<dl id="selection-list"></dl>' +
-        '<div class="legend-footer">' +
-          '<div class="legend-swatches">' +
-            '{legendSwatches}' +
-          '</div>' +
-          '<div class="legend-values">' +
-            '<span class="legend-value left">{lowValue}</span>' +
-            '<span class="arrow left"></span>' +
-            '<span class="legend-value right">{highValue}</span>' +
-            '<span class="arrow right"></span>' +
-          '</div>' +
+        '<ul id="selection-list"></ul>' +
+        '<div class="legend-swatches">' +
+          '{legendSwatches}' +
+        '</div>' +
+        '<div class="legend-values">' +
+          '<span class="legend-value left">{lowValue}</span>' +
+          '<span class="arrow left"></span>' +
+          '<span class="legend-value right">{highValue}</span>' +
+          '<span class="arrow right"></span>' +
         '</div>';
       var swatchTpl = '<span class="legend-swatch" style="width:{width}%; background:{color};"></span>';
       var swatchWidth = 100 / this.plugin.options.colorRange.length;
@@ -4584,75 +4557,52 @@ $(function() {
           color: swatchColor,
         });
       }).join('');
-      var context = { indicatorId: this.plugin.indicatorId };
-      return L.Util.template(controlTpl, {
-        lowValue: this.plugin.alterData(opensdg.dataRounding(this.plugin.valueRanges[this.plugin.currentDisaggregation][0], context)),
-        highValue: this.plugin.alterData(opensdg.dataRounding(this.plugin.valueRanges[this.plugin.currentDisaggregation][1], context)),
+      var div = L.DomUtil.create('div', 'selection-legend');
+      div.innerHTML = L.Util.template(controlTpl, {
+        lowValue: this.plugin.alterData(opensdg.dataRounding(this.plugin.valueRange[0])),
+        highValue: this.plugin.alterData(opensdg.dataRounding(this.plugin.valueRange[1])),
         legendSwatches: swatches,
       });
-    },
-
-    resetSwatches: function() {
-      this.legendDiv.innerHTML = this.renderSwatches();
+      return div;
     },
 
     update: function() {
       var selectionList = L.DomUtil.get('selection-list');
-      var selectionTplHighValue = '' +
-        '<dt class="selection-name"><span class="selection-name-background">{name}</span></dt>' +
-        '<dd class="selection-value-item {valueStatus}">' +
-          '<span class="selection-bar" style="background-color: {color}; width: {percentage}%;">' +
-            '<span class="selection-value selection-value-high">' +
-              '<span class="selection-value-high-background">{value}</span>' +
-            '</span>' +
-          '</span>' +
+      var selectionTpl = '' +
+        '<li class="{valueStatus}">' +
+          '<span class="selection-name">{name}</span>' +
+          '<span class="selection-value" style="left: {percentage}%;">{value}</span>' +
+          '<span class="selection-bar" style="width: {percentage}%;"></span>' +
           '<i class="selection-close fa fa-remove"></i>' +
-        '</dd>';
-      var selectionTplLowValue = '' +
-      '<dt class="selection-name"><span class="selection-name-background">{name}</span></dt>' +
-      '<dd class="selection-value-item {valueStatus}">' +
-        '<span class="selection-bar" style="background-color: {color}; width: {percentage}%;"></span>' +
-        '<span class="selection-value selection-value-low" style="left: {percentage}%;">' +
-          '<span class="selection-value-low-background">{value}</span>' +
-        '</span>' +
-        '<i class="selection-close fa fa-remove"></i>' +
-      '</dd>';
+        '</li>';
       var plugin = this.plugin;
-      var valueRange = this.plugin.valueRanges[this.plugin.currentDisaggregation];
+      var valueRange = this.plugin.valueRange;
       selectionList.innerHTML = this.selections.map(function(selection) {
         var value = plugin.getData(selection.feature.properties);
-        var color = '#FFFFFF';
         var percentage, valueStatus;
-        var templateToUse = selectionTplHighValue;
-        if (typeof value === 'number') {
-          color = plugin.colorScale(value).hex();
+        if (value) {
           valueStatus = 'has-value';
           var fraction = (value - valueRange[0]) / (valueRange[1] - valueRange[0]);
           percentage = Math.round(fraction * 100);
-          if (percentage <= 50) {
-            templateToUse = selectionTplLowValue;
-          }
         }
         else {
           value = '';
           valueStatus = 'no-value';
           percentage = 0;
         }
-        return L.Util.template(templateToUse, {
+        return L.Util.template(selectionTpl, {
           name: selection.feature.properties.name,
           valueStatus: valueStatus,
           percentage: percentage,
-          value: plugin.alterData(value),
-          color: color,
+          value: plugin.alterData(opensdg.dataRounding(value)),
         });
       }).join('');
 
       // Assign click behavior.
-      var control = this,
-          clickSelector = '#selection-list dd';
-      $(clickSelector).click(function(e) {
-        var index = $(clickSelector).index(this),
-            selection = control.selections[index];
+      var control = this;
+      $('#selection-list li').click(function(e) {
+        var index = $(e.target).closest('li').index()
+        var selection = control.selections[index];
         control.removeSelection(selection);
         control.plugin.unhighlightFeature(selection);
       });
@@ -4687,7 +4637,12 @@ $(function() {
     timeSliderDragUpdate: true,
     speedSlider: false,
     position: 'bottomleft',
-    playButton: false,
+    // Player options.
+    playerOptions: {
+      transitionTime: 1000,
+      loop: false,
+      startOver: true
+    },
   };
 
   L.Control.YearSlider = L.Control.TimeDimension.extend({
@@ -4729,15 +4684,9 @@ $(function() {
           maxYear = years[years.length - 1],
           knobElement = knob._element;
 
-      control._buttonBackward.title = translations.indicator.map_slider_back;
-      control._buttonBackward.setAttribute('aria-label', control._buttonBackward.title);
-      control._buttonForward.title = translations.indicator.map_slider_forward;
-      control._buttonForward.setAttribute('aria-label', control._buttonForward.title);
-
       knobElement.setAttribute('tabindex', '0');
       knobElement.setAttribute('role', 'slider');
-      knobElement.setAttribute('aria-label', translations.indicator.map_slider_keyboard);
-      knobElement.title = translations.indicator.map_slider_mouse;
+      knobElement.setAttribute('aria-label', translations.indicator.map_year_slider);
       knobElement.setAttribute('aria-valuemin', minYear);
       knobElement.setAttribute('aria-valuemax', maxYear);
 
@@ -4791,28 +4740,14 @@ $(function() {
       // cause any problems. This converts the array of years into a comma-
       // delimited string of YYYY-MM-DD dates.
       times: years.map(function(y) { return y.time }).join(','),
-      //Set the map to the most recent year
-      currentTime: new Date(years.slice(-1)[0].time).getTime(),
+      currentTime: new Date(years[0].time).getTime(),
     });
+    // Create the player.
+    options.player = new L.TimeDimension.Player(options.playerOptions, options.timeDimension);
     // Listen for time changes.
     if (typeof options.yearChangeCallback === 'function') {
       options.timeDimension.on('timeload', options.yearChangeCallback);
     };
-    // Also pass in another callback for managing the back/forward buttons.
-    options.timeDimension.on('timeload', function(e) {
-      var currentTimeIndex = this.getCurrentTimeIndex(),
-          availableTimes = this.getAvailableTimes(),
-          $backwardButton = $('.timecontrol-backward'),
-          $forwardButton = $('.timecontrol-forward'),
-          isFirstTime = (currentTimeIndex === 0),
-          isLastTime = (currentTimeIndex === availableTimes.length - 1);
-      $backwardButton
-        .attr('disabled', isFirstTime)
-        .attr('aria-disabled', isFirstTime);
-      $forwardButton
-        .attr('disabled', isLastTime)
-        .attr('aria-disabled', isLastTime);
-    });
     // Pass in our years for later use.
     options.years = years;
     // Return the control.
@@ -4902,7 +4837,6 @@ $(function() {
       var container = L.Control.Search.prototype.onAdd.call(this, map);
 
       this._input.setAttribute('aria-label', this._input.placeholder);
-      this._input.removeAttribute('role');
       this._tooltip.setAttribute('aria-label', this._input.placeholder);
 
       this._button.setAttribute('role', 'button');
@@ -4910,7 +4844,6 @@ $(function() {
       this._button.innerHTML = '<i class="fa fa-search" aria-hidden="true"></i>';
 
       this._cancel.setAttribute('role', 'button');
-      this._cancel.title = translations.indicator.map_search_cancel;
       this._cancel.setAttribute('aria-label', this._cancel.title);
       this._cancel.innerHTML = '<i class="fa fa-close" aria-hidden="true"></i>';
 
@@ -4990,18 +4923,6 @@ $(function() {
       if ((typeof e === 'undefined' || e.type === 'keyup') && this._input.value === '') {
         return;
       }
-      if (this._tooltip.childNodes.length > 0 && this._input.value !== '') {
-        // This is a workaround for the bug where non-exact matches
-        // do not successfully search. See this Github issue:
-        // https://github.com/stefanocudini/leaflet-search/issues/264
-        var firstSuggestion = this._tooltip.childNodes[0].innerText;
-        var firstSuggestionLower = firstSuggestion.toLowerCase();
-        var userInput = this._input.value;
-        var userInputLower = userInput.toLowerCase();
-        if (firstSuggestion !== userInput && firstSuggestionLower.includes(userInputLower)) {
-          this._input.value = firstSuggestion;
-        }
-      }
       L.Control.Search.prototype._handleSubmit.call(this, e);
     },
     _handleArrowSelect: function(velocity) {
@@ -5024,488 +4945,6 @@ $(function() {
     }
   });
 }());
-/*
- * Leaflet disaggregation controls.
- *
- * This is a Leaflet control designed replicate the disaggregation
- * controls that are in the sidebar for tables and charts.
- */
-(function () {
-    "use strict";
-
-    if (typeof L === 'undefined') {
-        return;
-    }
-
-    L.Control.DisaggregationControls = L.Control.extend({
-
-        options: {
-            position: 'bottomleft'
-        },
-
-        initialize: function (plugin) {
-            this.plugin = plugin;
-            this.list = null;
-            this.form = null;
-            this.currentDisaggregation = 0;
-            this.displayedDisaggregation = 0;
-            this.seriesColumn = 'Series';
-            this.unitsColumn = 'Units';
-            this.displayForm = null;
-            this.updateDisaggregations();
-        },
-
-        updateDisaggregations: function() {
-            // TODO: Not all of this needs to be done
-            // at every update.
-            this.disaggregations = this.getVisibleDisaggregations();
-            this.fieldsInOrder = this.getFieldsInOrder();
-            this.valuesInOrder = this.getValuesInOrder();
-            this.allSeries = this.getAllSeries();
-            this.allUnits = this.getAllUnits();
-            this.allDisaggregations = this.getAllDisaggregations();
-            this.hasSeries = (this.allSeries.length > 0);
-            this.hasUnits = (this.allUnits.length > 0);
-            this.hasDisaggregations = this.hasDissagregationsWithValues();
-            this.hasDisaggregationsWithMultipleValuesFlag = this.hasDisaggregationsWithMultipleValues();
-        },
-
-        getVisibleDisaggregations: function() {
-            var features = this.plugin.getVisibleLayers().toGeoJSON().features.filter(function(feature) {
-                return typeof feature.properties.disaggregations !== 'undefined';
-            });
-            if (features.length === 0) {
-                return [];
-            }
-
-            var disaggregations = features[0].properties.disaggregations;
-            // The purpose of the rest of this function is to identiy
-            // and remove any "region columns" - ie, any columns that
-            // correspond exactly to names of map regions. These columns
-            // are useful on charts and tables but should not display
-            // on maps.
-            var allKeys = Object.keys(disaggregations[0]);
-            var relevantKeys = {};
-            var rememberedValues = {};
-            disaggregations.forEach(function(disagg) {
-                for (var i = 0; i < allKeys.length; i++) {
-                    var key = allKeys[i];
-                    if (rememberedValues[key]) {
-                        if (rememberedValues[key] !== disagg[key]) {
-                            relevantKeys[key] = true;
-                        }
-                    }
-                    rememberedValues[key] = disagg[key];
-                }
-            });
-            relevantKeys = Object.keys(relevantKeys);
-            if (features.length > 1) {
-                // Any columns not already identified as "relevant" might
-                // be region columns.
-                var regionColumnCandidates = allKeys.filter(function(item) {
-                    return relevantKeys.includes(item) ? false : true;
-                });
-                // Compare the column value across map regions - if it is
-                // different then we assume the column is a "region column".
-                // For efficiency we only check the first and second region.
-                var regionColumns = regionColumnCandidates.filter(function(candidate) {
-                    var region1 = features[0].properties.disaggregations[0][candidate];
-                    var region2 = features[1].properties.disaggregations[0][candidate];
-                    return region1 === region2 ? false : true;
-                });
-                // Now we can treat any non-region columns as relevant.
-                regionColumnCandidates.forEach(function(item) {
-                    if (!regionColumns.includes(item)) {
-                        relevantKeys.push(item);
-                    }
-                });
-            }
-            relevantKeys.push(this.seriesColumn);
-            relevantKeys.push(this.unitsColumn);
-            var pruned = [];
-            disaggregations.forEach(function(disaggregation) {
-                var clone = Object.assign({}, disaggregation);
-                Object.keys(clone).forEach(function(key) {
-                    if (!(relevantKeys.includes(key))) {
-                        delete clone[key];
-                    }
-                });
-                pruned.push(clone);
-            });
-            return pruned;
-        },
-
-        update: function() {
-            this.updateDisaggregations();
-            this.updateList();
-            if (this.displayForm) {
-                this.updateForm();
-            }
-        },
-
-        getFieldsInOrder: function () {
-            return this.plugin.dataSchema.fields.map(function(field) {
-                return field.name;
-            });
-        },
-
-        getValuesInOrder: function () {
-            var valuesInOrder = {};
-            this.plugin.dataSchema.fields.forEach(function(field) {
-                if (field.constraints && field.constraints.enum) {
-                    valuesInOrder[field.name] = field.constraints.enum;
-                }
-            });
-            return valuesInOrder;
-        },
-
-        hasDissagregationsWithValues: function () {
-            var hasDisaggregations = false;
-            this.allDisaggregations.forEach(function(disaggregation) {
-                if (disaggregation.values.length > 0 && disaggregation.values[0] !== '') {
-                    hasDisaggregations = true;
-                }
-            });
-            return hasDisaggregations;
-        },
-
-        hasDisaggregationsWithMultipleValues: function () {
-            var hasDisaggregations = false;
-            this.allDisaggregations.forEach(function(disaggregation) {
-                if (disaggregation.values.length > 1 && disaggregation.values[1] !== '') {
-                    hasDisaggregations = true;
-                }
-            });
-            return hasDisaggregations;
-        },
-
-        updateList: function () {
-            var list = this.list;
-            list.innerHTML = '';
-            if (this.hasSeries) {
-                var title = L.DomUtil.create('dt', 'disaggregation-title'),
-                    definition = L.DomUtil.create('dd', 'disaggregation-definition'),
-                    container = L.DomUtil.create('div', 'disaggregation-container');
-                title.innerHTML = translations.indicator.series;
-                definition.innerHTML = this.getCurrentSeries();
-                container.append(title);
-                container.append(definition);
-                list.append(container);
-            }
-            if (this.hasUnits) {
-                var title = L.DomUtil.create('dt', 'disaggregation-title'),
-                    definition = L.DomUtil.create('dd', 'disaggregation-definition'),
-                    container = L.DomUtil.create('div', 'disaggregation-container');
-                title.innerHTML = translations.indicator.unit;
-                definition.innerHTML = this.getCurrentUnit();
-                container.append(title);
-                container.append(definition);
-                list.append(container);
-            }
-            if (this.hasDisaggregations) {
-                var currentDisaggregation = this.disaggregations[this.currentDisaggregation];
-                this.allDisaggregations.forEach(function(disaggregation) {
-                    var title = L.DomUtil.create('dt', 'disaggregation-title'),
-                        definition = L.DomUtil.create('dd', 'disaggregation-definition'),
-                        container = L.DomUtil.create('div', 'disaggregation-container'),
-                        field = disaggregation.field;
-                    title.innerHTML = translations.t(field);
-                    var disaggregationValue = currentDisaggregation[field];
-                    if (disaggregationValue !== '') {
-                        definition.innerHTML = disaggregationValue;
-                        container.append(title);
-                        container.append(definition);
-                        list.append(container);
-                    }
-                });
-            }
-        },
-
-        updateForm: function() {
-            var seriesColumn = this.seriesColumn,
-                unitsColumn = this.unitsColumn,
-                container = this.form,
-                formInputs = L.DomUtil.create('div', 'disaggregation-form-inner'),
-                that = this;
-            container.innerHTML = '';
-            container.append(formInputs)
-            L.DomEvent.disableScrollPropagation(formInputs);
-            if (this.hasSeries) {
-                var form = L.DomUtil.create('div', 'disaggregation-fieldset-container'),
-                    legend = L.DomUtil.create('legend', 'disaggregation-fieldset-legend'),
-                    fieldset = L.DomUtil.create('fieldset', 'disaggregation-fieldset');
-                legend.innerHTML = translations.indicator.series;
-                fieldset.append(legend);
-                form.append(fieldset);
-                formInputs.append(form);
-                this.allSeries.forEach(function(series) {
-                    var input = L.DomUtil.create('input', 'disaggregation-input');
-                    input.type = 'radio';
-                    input.name = 'map-' + seriesColumn;
-                    input.value = series;
-                    input.tabindex = 0;
-                    input.checked = (series === that.getCurrentSeries()) ? 'checked' : '';
-                    var label = L.DomUtil.create('label', 'disaggregation-label');
-                    label.innerHTML = series;
-                    label.prepend(input);
-                    fieldset.append(label);
-                    input.addEventListener('change', function(e) {
-                        that.currentDisaggregation = that.getSelectedDisaggregationIndex(seriesColumn, series);
-                        that.updateForm();
-                    });
-                });
-            }
-            if (this.hasUnits) {
-                var form = L.DomUtil.create('div', 'disaggregation-fieldset-container'),
-                    legend = L.DomUtil.create('legend', 'disaggregation-fieldset-legend'),
-                    fieldset = L.DomUtil.create('fieldset', 'disaggregation-fieldset');
-                legend.innerHTML = translations.indicator.unit_of_measurement;
-                fieldset.append(legend);
-                form.append(fieldset);
-                formInputs.append(form);
-                this.allUnits.forEach(function(unit) {
-                    var input = L.DomUtil.create('input', 'disaggregation-input');
-                    if (that.isDisaggegrationValidGivenCurrent(unitsColumn, unit)) {
-                        input.type = 'radio';
-                        input.name = 'map-' + unitsColumn;
-                        input.value = unit;
-                        input.tabindex = 0;
-                        input.checked = (unit === that.getCurrentUnit()) ? 'checked' : '';
-                        var label = L.DomUtil.create('label', 'disaggregation-label');
-                        label.innerHTML = unit;
-                        label.prepend(input);
-                        fieldset.append(label);
-                        input.addEventListener('change', function(e) {
-                            that.currentDisaggregation = that.getSelectedDisaggregationIndex(unitsColumn, unit);
-                            that.updateForm();
-                        });
-                    }
-                });
-            }
-            if (this.hasDisaggregations) {
-                var currentDisaggregation = this.disaggregations[this.currentDisaggregation];
-                this.allDisaggregations.forEach(function (disaggregation) {
-                    var form = L.DomUtil.create('div', 'disaggregation-fieldset-container'),
-                        legend = L.DomUtil.create('legend', 'disaggregation-fieldset-legend'),
-                        fieldset = L.DomUtil.create('fieldset', 'disaggregation-fieldset'),
-                        field = disaggregation.field;
-                    legend.innerHTML = translations.t(field);
-                    fieldset.append(legend);
-                    form.append(fieldset);
-                    formInputs.append(form);
-                    disaggregation.values.forEach(function (value) {
-                        var input = L.DomUtil.create('input', 'disaggregation-input');
-                        if (that.isDisaggegrationValidGivenCurrent(field, value)) {
-                            input.type = 'radio';
-                            input.name = 'map-' + field;
-                            input.value = value;
-                            input.tabindex = 0;
-                            input.checked = (value === currentDisaggregation[field]) ? 'checked' : '';
-                            var label = L.DomUtil.create('label', 'disaggregation-label');
-                            label.innerHTML = (value === '') ? translations.indicator.total : value;
-                            label.prepend(input);
-                            fieldset.append(label);
-                            input.addEventListener('change', function(e) {
-                                that.currentDisaggregation = that.getSelectedDisaggregationIndex(field, value);
-                                that.updateForm();
-                            });
-                        }
-                    });
-                });
-            }
-
-            var applyButton = L.DomUtil.create('button', 'disaggregation-apply-button'),
-                cancelButton = L.DomUtil.create('button', 'disaggregation-cancel-button'),
-                buttonContainer = L.DomUtil.create('div', 'disaggregation-form-buttons');
-            applyButton.innerHTML = translations.indicator.apply;
-            buttonContainer.append(applyButton);
-            cancelButton.innerHTML = translations.indicator.cancel;
-            buttonContainer.append(cancelButton);
-            container.append(buttonContainer);
-
-            cancelButton.addEventListener('click', function(e) {
-                that.currentDisaggregation = that.displayedDisaggregation;
-                $('.disaggregation-form-outer').toggle();
-                that.updateForm();
-            });
-            applyButton.addEventListener('click', function(e) {
-                that.plugin.currentDisaggregation = that.currentDisaggregation;
-                that.plugin.updatePrecision();
-                that.plugin.setColorScale();
-                that.plugin.updateColors();
-                that.plugin.updateTooltips();
-                that.plugin.selectionLegend.resetSwatches();
-                that.plugin.selectionLegend.update();
-                that.plugin.updateTitle();
-                that.plugin.updateFooterFields();
-                that.updateList();
-                $('.disaggregation-form-outer').toggle();
-            });
-        },
-
-        onAdd: function () {
-            var div = L.DomUtil.create('div', 'disaggregation-controls'),
-                list = L.DomUtil.create('dl', 'disaggregation-list'),
-                that = this;
-
-            if (this.hasSeries || this.hasUnits || this.hasDisaggregations) {
-                this.list = list;
-                div.append(list);
-                this.updateList();
-
-                var numSeries = this.allSeries.length,
-                    numUnits = this.allUnits.length,
-                    displayForm = this.displayForm;
-
-                if (displayForm && (this.hasDisaggregationsWithMultipleValuesFlag || (numSeries > 1 || numUnits > 1))) {
-
-                    var button = L.DomUtil.create('button', 'disaggregation-button');
-                    button.innerHTML = translations.indicator.change_breakdowns;
-                    button.addEventListener('click', function(e) {
-                        that.displayedDisaggregation = that.currentDisaggregation;
-                        $('.disaggregation-form-outer').show();
-                    });
-                    div.append(button);
-
-                    var container = L.DomUtil.create('div', 'disaggregation-form');
-                    var containerOuter = L.DomUtil.create('div', 'disaggregation-form-outer');
-                    containerOuter.append(container);
-                    this.form = container;
-                    div.append(containerOuter);
-                    this.updateForm();
-                }
-            }
-
-            return div;
-        },
-
-        getCurrentSeries: function() {
-            var disaggregation = this.disaggregations[this.currentDisaggregation];
-            return disaggregation[this.seriesColumn];
-        },
-
-        getCurrentUnit: function() {
-            var disaggregation = this.disaggregations[this.currentDisaggregation];
-            return disaggregation[this.unitsColumn];
-        },
-
-        getAllSeries: function () {
-            var seriesColumn = this.seriesColumn;
-            if (typeof this.disaggregations[0][seriesColumn] === 'undefined' || !this.disaggregations[0][seriesColumn]) {
-                return [];
-            }
-            var allSeries = _.uniq(this.disaggregations.map(function(disaggregation) {
-                return disaggregation[seriesColumn];
-            }));
-            var sortedSeries = this.valuesInOrder[seriesColumn];
-            allSeries.sort(function(a, b) {
-                return sortedSeries.indexOf(a) - sortedSeries.indexOf(b);
-            });
-            return allSeries;
-        },
-
-        getAllUnits: function () {
-            var unitsColumn = this.unitsColumn;
-            if (typeof this.disaggregations[0][unitsColumn] === 'undefined' || !this.disaggregations[0][unitsColumn]) {
-                return [];
-            }
-            var allUnits = _.uniq(this.disaggregations.map(function(disaggregation) {
-                return disaggregation[unitsColumn];
-            }));
-            var sortedUnits = this.valuesInOrder[unitsColumn];
-            allUnits.sort(function(a, b) {
-                return sortedUnits.indexOf(a) - sortedUnits.indexOf(b);
-            });
-            return allUnits;
-        },
-
-        getAllDisaggregations: function () {
-            var disaggregations = this.disaggregations,
-                valuesInOrder = this.valuesInOrder,
-                validFields = Object.keys(disaggregations[0]),
-                invalidFields = [this.seriesColumn, this.unitsColumn],
-                allDisaggregations = [];
-
-            this.fieldsInOrder.forEach(function(field) {
-                if (!(invalidFields.includes(field)) && validFields.includes(field)) {
-                    var sortedValues = valuesInOrder[field],
-                        item = {
-                            field: field,
-                            values: _.uniq(disaggregations.map(function(disaggregation) {
-                                return disaggregation[field];
-                            })),
-                        };
-                    item.values.sort(function(a, b) {
-                        return sortedValues.indexOf(a) - sortedValues.indexOf(b);
-                    });
-                    allDisaggregations.push(item);
-                }
-            });
-
-            return allDisaggregations;
-        },
-
-        getSelectedDisaggregationIndex: function(changedKey, newValue) {
-            for (var i = 0; i < this.disaggregations.length; i++) {
-                var disaggregation = this.disaggregations[i],
-                    keys = Object.keys(disaggregation),
-                    matchesSelections = true;
-                for (var j = 0; j < keys.length; j++) {
-                    var key = keys[j],
-                        inputName = 'map-' + key,
-                        $inputElement = $('input[name="' + inputName + '"]:checked'),
-                        selection = $inputElement.val();
-                    if ($inputElement.length > 0 && selection !== disaggregation[key]) {
-                        matchesSelections = false;
-                        break;
-                    }
-                }
-                if (matchesSelections) {
-                    return i;
-                }
-            }
-            // If we are still here, it means that a recent change
-            // has resulted in an illegal combination. In this case
-            // we look at the recently-changed key and its value,
-            // and we pick the first disaggregation that matches.
-            for (var i = 0; i < this.disaggregations.length; i++) {
-                var disaggregation = this.disaggregations[i],
-                    keys = Object.keys(disaggregation);
-                if (keys.includes(changedKey) && disaggregation[changedKey] === newValue) {
-                    return i;
-                }
-            }
-            // If we are still here, something went wrong.
-            throw('Could not find match');
-        },
-
-        isDisaggegrationValidGivenCurrent: function(field, value) {
-            var currentDisaggregation = Object.assign({}, this.disaggregations[this.currentDisaggregation]);
-            currentDisaggregation[field] = value;
-            var keys = Object.keys(currentDisaggregation);
-            for (var i = 0; i < this.disaggregations.length; i++) {
-                var valid = true;
-                var otherDisaggregation = this.disaggregations[i];
-                for (var j = 0; j < keys.length; j++) {
-                    var key = keys[j];
-                    if (currentDisaggregation[key] !== otherDisaggregation[key]) {
-                        valid = false;
-                    }
-                }
-                if (valid) {
-                    return true;
-                }
-            }
-            return false;
-        },
-
-    });
-
-    // Factory function for this class.
-    L.Control.disaggregationControls = function (plugin) {
-        return new L.Control.DisaggregationControls(plugin);
-    };
-}());
 $(document).ready(function() {
-    $('a[href="#top"]').prepend('<svg class="app-c-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6.5 0L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path></svg>');
+    $('a[href="#top"]').prepend('<i class="fa fa-arrow-up"></i>');
 });

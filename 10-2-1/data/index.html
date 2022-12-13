@@ -26,9 +26,8 @@ var opensdg = {
   },
 
   // A hook which can be replaced to alter whether/how the values that are
-  // displayed on indicator tables/graphs get rounded. A "context" parameter
-  // is also passed which contains additional information.
-  dataRounding: function(value, context) {
+  // displayed on indicator tables/graphs get rounded.
+  dataRounding: function(value) {
     // Alterations go here.
     return value;
   },
@@ -39,11 +38,12 @@ var opensdg = {
     this.dataDisplayAlterations.push(callback);
   },
 
-  // Disaggregations which should be ignored on indicator pages.
-  ignoredDisaggregations: null,
-
   language: 'ko',
 };
+
+// For backwards compatibility, some of these might need to be global.
+// @TODO: Remove these eventually.
+var remoteDataBaseUrl = opensdg.remoteDataBaseUrl;
 
 </script>
 
@@ -118,18 +118,24 @@ var translations = {
         <script src="/site/assets/js/lib/classList.js"></script>
         <![endif]-->
 
-        <link rel="apple-touch-icon" sizes="180x180" href="/site/assets/img/favicons/apple-touch-icon.png">
+        
+
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/site/assets/img/favicons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/site/assets/img/favicons/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/site/assets/img/favicons/favicon-16x16.png">
 <link rel="icon" type="image/x-icon" href="/site/assets/img/favicons/favicon.ico" />
 
 
         
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <link res="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+        
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" crossorigin="">
+        
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" crossorigin="">
         <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.3/css/fixedColumns.dataTables.min.css" crossorigin="">
-        <link rel="stylesheet" href="/site/assets/css/style.css?v=20221213023324">
+        <link rel="stylesheet" href="/site/assets/css/style.css?v=20221213034409">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
           crossorigin=""/>
@@ -139,10 +145,6 @@ var translations = {
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-search@2.9.7/dist/leaflet-search.min.css" crossorigin="">
         <link rel="stylesheet" href="https://cdn.kiprotect.com/klaro/v0.7/klaro.min.css" crossorigin=""/>
         
-
-        <!--[if IE]>
-        <link rel="stylesheet" href="/site/assets/css/ie.css">
-        <![endif]-->
 
         <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WDLSBVZ9TJ"></script>
@@ -160,85 +162,127 @@ layout-data-editor
 ">
 <!-- <div class="container"> -->
 
+
+
 <script>translations['header'] = {"alpha":"테스트중","default_contrast":"원래대로","disable_high_contrast":"고대비 불가","disclaimer":"현재 개발 작업중인 임시 사이트입니다.","enable_high_contrast":"고대비 가능","high_contrast":"고대비","skip_link":"Skip to main content","tag_line":"17 Goals to Transform our World","toggle_menu":"Menu toggle. Click to expand or collapse the menu.","toggle_search":"Search toggle. Click to expand or collapse the search bar."};</script>
 
-<a class="sr-only-focusable" id="skiplink" href="#main-content" tabindex="0">Skip to main content</a>
-<div class="container internet-explorer-message">
-    <h2 class="internet-explorer-message-title"></h2>
-    <p class="internet-explorer-message-body"></p>
-</div>
+<a class="sr-only sr-only-focusable" id="skiplink" href="#main-content" tabindex="0">Skip to main content</a>
+
 <div id="disclaimer">
-    
+  
 </div>
 
-<header role="banner" class="">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light flex-wrap align-items-start">
-            <a class="navbar-brand" href="/site/" id="home">
+
+<header role="banner" class="header-default">
+  <div class="container">
+
+    <div class="logo-and-mobile-widgets">
+      <a class="navbar-brand" href="/site/" id="home">
     <img src="/site/assets/img/logo.png" alt="kostat logo" />
 </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="d-flex flex-wrap w-100 justify-content-between">
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav" id="menu"><li class="nav-item ">
-    <a class="nav-link" href="/site/about">수도권 광역지표 소개</a>
-</li><li class="nav-item ">
-    <a class="nav-link" href="/site/goals">수도권 광역지표</a>
-</li><li class="nav-item ">
-    <a class="nav-link" href="/site/reporting-status">데이터 제공현황</a>
-</li><li class="nav-item ">
-    <a class="nav-link" href="/site/publications">발간(참고)자료</a>
-</li><li class="nav-item ">
-    <a class="nav-link" href="/site/faq">FAQ</a>
-</li></ul>
-    
-                </div>
-                <div class="header-search-bar">
-                    <form class="align-self-lg-end" id="search" action="/site/search/">
-    <div class="input-group">
-        <label class="visually-hidden" for="indicator_search">검색</label>
-        <input class="form-control" type="search" name="q" id="indicator_search" title="검색">
-        <span class="input-group-append">
-            <button class="btn btn-outline-secondary ms-n5" aria-label="" id="search-btn" type="submit">
-                <i class="fa fa-search"></i>
-            </button>
-        </span>
-    </div>
-</form>
+      <div class="mobile-widgets">
+    <ul id='accessibility-nav' class='contrast-switcher'>
+        
 
-                </div>
-                <div class="header-toggles d-flex">
-
-                </div>
-            </div>
-        </nav>
+    </ul></div>
     </div>
+
+    <nav class="navbar navbar-default" id="main-nav">
+      <ul class="top-level">
+    <li id="menuToggle"
+        aria-label="Menu toggle. Click to expand or collapse the menu."
+        aria-haspopup="true">
+        <button data-target="menu-mobile" aria-expanded="false">메뉴</button>
+        <ul class="nav navbar-nav menu-target contrast-switcher" id="menu-mobile"><li class="nav-link ">
+    <a href="/site/about">수도권 광역지표 소개</a>
+</li><li class="nav-link ">
+    <a href="/site/goals">수도권 광역지표</a>
+</li><li class="nav-link ">
+    <a href="/site/reporting-status">데이터 제공현황</a>
+</li><li class="nav-link ">
+    <a href="/site/publications">발간(참고)자료</a>
+</li><li class="nav-link ">
+    <a href="/site/faq">FAQ</a>
+</li>
+
+
+
+
+</ul>
+
+    </li>
+    <li id="searchToggle"
+        aria-label="Search toggle. Click to expand or collapse the search bar."
+        aria-haspopup="true">
+        <button data-target="search-mobile" aria-expanded="false">검색</button>
+        <div id="search-mobile" class="menu-target">
+  <form action="/site/search/">
+    <label class="sr-only" for="indicator_search-mobile">검색</label>
+    <input type="text" name="q" id="indicator_search-mobile" title="검색" /><!--
+    --><button aria-label="검색" id="search-mobile-btn" type="submit"><i class="fa fa-search" aria-hidden="false"></i></button>
+  </form>
+</div>
+
+    </li>
+</ul>
+      <div id="search" class="menu-target">
+  <form action="/site/search/">
+    <label class="sr-only" for="indicator_search">검색</label>
+    <input type="text" name="q" id="indicator_search" title="검색" /><!--
+    --><button aria-label="검색" id="search-btn" type="submit"><i class="fa fa-search" aria-hidden="false"></i></button>
+  </form>
+</div>
+
+      <ul class="nav navbar-nav menu-target contrast-switcher" id="menu"><li class="nav-link ">
+    <a href="/site/about">수도권 광역지표 소개</a>
+</li><li class="nav-link ">
+    <a href="/site/goals">수도권 광역지표</a>
+</li><li class="nav-link ">
+    <a href="/site/reporting-status">데이터 제공현황</a>
+</li><li class="nav-link ">
+    <a href="/site/publications">발간(참고)자료</a>
+</li><li class="nav-link ">
+    <a href="/site/faq">FAQ</a>
+</li>
+
+
+
+
+</ul>
+
+    </nav>
+  </div>
+
 </header>
 <div id="top" tabindex=-1></div>
+
+
 
 
 <div id="main-content" class="container" role="main">
   <div class="row no-gutters">
     <div class="col-md-12"><h1>데이터 수정: 10.2.1</h1></div>
   </div>
-  <div class="row config-widgets">
+  <div class="col-md-12 config-widgets">
     <div class="col-md-6 data-grid-buttons">
       <label for="add-column-name">Column name</label>
       <input id="add-column-name" />
       <button class="btn btn-primary btn-download" id="add-column">Add column</a>
     </div>
     <div class="col-md-6 data-download-buttons">
-      <button class="config-download-button btn btn-primary btn-download" id="export">Download data</button>
+      <div>
+        <button class="btn btn-primary btn-download" id="export">Download data</button>
+      </div>
       
       
       
       
-      <a class="config-repository-button btn btn-primary btn-download" target="_blank" href="https://github.com/karajjang/data/tree/develop/data">
-        Go to repository
-      </a>
+      <div>
+        <a class="btn btn-primary btn-download" target="_blank" href="https://github.com/karajjang/data/tree/develop/data">
+          Go to repository
+        </a>
+      </div>
       
     </div>
   </div>
@@ -278,11 +322,7 @@ layout-data-editor
         if (csvData.data.length > 0) {
           rowData = csvData.data;
           columnDefs = Object.keys(rowData[0]).map(function(key) {
-            var columnDef = { field: key, headerName: key };
-            if (key === 'Value') {
-              columnDef['type'] = 'rightAligned';
-            }
-            return columnDef;
+            return { field: key, headerName: key };
           });
         }
         var container = document.getElementById('editor-holder');
@@ -392,12 +432,12 @@ layout-data-editor
 <script>translations['search'] = translations['search'] || {};
     translations['search']['search'] = '검색';</script>
 
-<script src='/site/assets/js/sdg.js?v=20221213023324'></script>
+<script src='/site/assets/js/sdg.js?v=20221213034409'></script>
 
 
     
     
-    <script src="/site/assets/js/custom.js?v=20221213023324"></script><script>
+    <script src="/site/assets/js/custom.js?v=20221213034409"></script><script>
 $(function() {
     if($('#indicatorData').length) {
       var domData = $('#indicatorData').data();
