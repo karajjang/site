@@ -135,7 +135,7 @@ var translations = {
         
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" crossorigin="">
         <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.3/css/fixedColumns.dataTables.min.css" crossorigin="">
-        <link rel="stylesheet" href="/site/assets/css/style.css?v=20221213034409">
+        <link rel="stylesheet" href="/site/assets/css/style.css?v=20221213041107">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
           crossorigin=""/>
@@ -345,7 +345,7 @@ layout-config-builder
 
     
     
-    var schema = {"type":"object","title":"메타데이터 수정","properties":{"SDG_INDICATOR_INFO":{"type":"string","format":"markdown","title":"Indicator information","description":"Scope: national, Field: SDG_INDICATOR_INFO"},"SDG_GOAL":{"type":"string","format":"markdown","title":"영   역","description":"Scope: national, Field: SDG_GOAL"},"SDG_TARGET":{"type":"string","format":"markdown","title":"하위영역","description":"Scope: national, Field: SDG_TARGET"},"SDG_INDICATOR":{"type":"string","format":"markdown","title":"지 표 명","description":"Scope: national, Field: SDG_INDICATOR"},"SDG_SERIES_DESCR":{"type":"string","format":"markdown","title":"Series","description":"Scope: national, Field: SDG_SERIES_DESCR"},"META_LAST_UPDATE":{"type":"string","format":"markdown","title":"Metadata update","description":"Scope: national, Field: META_LAST_UPDATE"},"SDG_RELATED_INDICATORS":{"type":"string","format":"markdown","title":"Related indicators","description":"Scope: national, Field: SDG_RELATED_INDICATORS"},"CONTACT":{"type":"string","format":"markdown","title":"Data reporter","description":"Scope: national, Field: CONTACT"},"CONTACT_ORGANISATION":{"type":"string","format":"markdown","title":"Organisation","description":"Scope: national, Field: CONTACT_ORGANISATION"},"CONTACT_NAME":{"type":"string","format":"markdown","title":"Contact person(s)","description":"Scope: national, Field: CONTACT_NAME"},"ORGANISATION_UNIT":{"type":"string","format":"markdown","title":"Contact organisation unit","description":"Scope: national, Field: ORGANISATION_UNIT"},"CONTACT_FUNCT":{"type":"string","format":"markdown","title":"Contact person function","description":"Scope: national, Field: CONTACT_FUNCT"},"CONTACT_PHONE":{"type":"string","format":"markdown","title":"Contact phone","description":"Scope: national, Field: CONTACT_PHONE"},"CONTACT_MAIL":{"type":"string","format":"markdown","title":"Contact mail","description":"Scope: national, Field: CONTACT_MAIL"},"CONTACT_EMAIL":{"type":"string","format":"markdown","title":"Contact email","description":"Scope: national, Field: CONTACT_EMAIL"},"IND_DEF_CON_CLASS":{"type":"string","format":"markdown","title":"Definition, concepts, and classifications","description":"Scope: national, Field: IND_DEF_CON_CLASS"},"STAT_CONC_DEF":{"type":"string","format":"markdown","title":"Definition and concepts","description":"Scope: national, Field: STAT_CONC_DEF"},"UNIT_MEASURE":{"type":"string","format":"markdown","title":"Unit of measure","description":"Scope: national, Field: UNIT_MEASURE"},"CLASS_SYSTEM":{"type":"string","format":"markdown","title":"Classifications","description":"Scope: national, Field: CLASS_SYSTEM"},"SRC_TYPE_COLL_METHOD":{"type":"string","format":"markdown","title":"Data source type and collection method","description":"Scope: national, Field: SRC_TYPE_COLL_METHOD"},"SOURCE_TYPE":{"type":"string","format":"markdown","title":"Data sources","description":"Scope: national, Field: SOURCE_TYPE"},"COLL_METHOD":{"type":"string","format":"markdown","title":"Data collection method","description":"Scope: national, Field: COLL_METHOD"},"FREQ_COLL":{"type":"string","format":"markdown","title":"Data collection calendar","description":"Scope: national, Field: FREQ_COLL"},"REL_CAL_POLICY":{"type":"string","format":"markdown","title":"Data release calendar","description":"Scope: national, Field: REL_CAL_POLICY"},"DATA_SOURCE":{"type":"string","format":"markdown","title":"Data providers","description":"Scope: national, Field: DATA_SOURCE"},"COMPILING_ORG":{"type":"string","format":"markdown","title":"Data compilers","description":"Scope: national, Field: COMPILING_ORG"},"INST_MANDATE":{"type":"string","format":"markdown","title":"Institutional mandate","description":"Scope: national, Field: INST_MANDATE"},"OTHER_METHOD":{"type":"string","format":"markdown","title":"Other methodological considerations","description":"Scope: national, Field: OTHER_METHOD"},"RATIONALE":{"type":"string","format":"markdown","title":"Rationale","description":"Scope: national, Field: RATIONALE"},"REC_USE_LIM":{"type":"string","format":"markdown","title":"Comment and limitations","description":"Scope: national, Field: REC_USE_LIM"},"DATA_COMP":{"type":"string","format":"markdown","title":"Method of computation","description":"Scope: national, Field: DATA_COMP"},"DATA_VALIDATION":{"type":"string","format":"markdown","title":"Validation","description":"Scope: national, Field: DATA_VALIDATION"},"DOC_METHOD":{"type":"string","format":"markdown","title":"Methods and guidance available to countries for the compilation of the data at the national level","description":"Scope: national, Field: DOC_METHOD"},"QUALITY_MGMNT":{"type":"string","format":"markdown","title":"Quality management","description":"Scope: national, Field: QUALITY_MGMNT"},"QUALITY_ASSURE":{"type":"string","format":"markdown","title":"Quality assurance","description":"Scope: national, Field: QUALITY_ASSURE"},"QUALITY_ASSMNT":{"type":"string","format":"markdown","title":"Quality assessment","description":"Scope: national, Field: QUALITY_ASSMNT"},"COVERAGE":{"type":"string","format":"markdown","title":"Data availability and disaggregation","description":"Scope: national, Field: COVERAGE"},"COMPARABILITY":{"type":"string","format":"markdown","title":"Comparability/deviation from international standards","description":"Scope: national, Field: COMPARABILITY"},"OTHER_DOC":{"type":"string","format":"markdown","title":"References and Documentation","description":"Scope: national, Field: OTHER_DOC"},"national_data_updated_date":{"type":"string","format":"markdown","title":"데이터 갱신 이력","description":"Scope: national, Field: national_data_updated_date"},"national_metadata_updated_date":{"type":"string","format":"markdown","title":"메타데이터 갱신 이력","description":"Scope: national, Field: national_metadata_updated_date"}},"additionalProperties":true};
+    var schema = {"type":"object","title":"메타데이터 수정","properties":{"computation_definitions":{"type":"string","format":"markdown","title":"지표분류","description":"Scope: national, Field: computation_definitions"},"indicator_name_sub":{"type":"string","format":"markdown","title":"지 표 명","description":"Scope: national, Field: indicator_name_sub"},"indicator_definition":{"type":"string","format":"markdown","title":"정   의","description":"Scope: national, Field: indicator_definition"},"indicator_importance":{"type":"string","format":"markdown","title":"의   의","description":"Scope: national, Field: indicator_importance"},"computation_calculations":{"type":"string","format":"markdown","title":"측   정","description":"Scope: national, Field: computation_calculations"},"statistics_name":{"type":"string","format":"markdown","title":"자료출처","description":"Scope: national, Field: statistics_name"},"computation_units":{"type":"string","format":"markdown","title":"공표단위","description":"Scope: national, Field: computation_units"},"computation_coverage":{"type":"string","format":"markdown","title":"공표범위","description":"Scope: national, Field: computation_coverage"},"data_download":{"type":"string","format":"markdown","title":"자료다운일자/<br>자료갱신일","description":"Scope: national, Field: data_download"},"data_provision_year":{"type":"string","format":"markdown","title":"자료제공년도","description":"Scope: national, Field: data_provision_year"},"data_preparation_year":{"type":"string","format":"markdown","title":"자료작성년도","description":"Scope: national, Field: data_preparation_year"},"data_generation_cycle":{"type":"string","format":"markdown","title":"자료생성주기","description":"Scope: national, Field: data_generation_cycle"},"update_cycle":{"type":"string","format":"markdown","title":"업데이트시기","description":"Scope: national, Field: update_cycle"},"SDG_SERIES_DESCR":{"type":"string","format":"markdown","title":"Series","description":"Scope: national, Field: SDG_SERIES_DESCR"},"META_LAST_UPDATE":{"type":"string","format":"markdown","title":"Metadata update","description":"Scope: national, Field: META_LAST_UPDATE"},"SDG_RELATED_INDICATORS":{"type":"string","format":"markdown","title":"Related indicators","description":"Scope: national, Field: SDG_RELATED_INDICATORS"},"CONTACT":{"type":"string","format":"markdown","title":"Data reporter","description":"Scope: national, Field: CONTACT"},"CONTACT_ORGANISATION":{"type":"string","format":"markdown","title":"Organisation","description":"Scope: national, Field: CONTACT_ORGANISATION"},"CONTACT_NAME":{"type":"string","format":"markdown","title":"Contact person(s)","description":"Scope: national, Field: CONTACT_NAME"},"CONTACT_FUNCT":{"type":"string","format":"markdown","title":"Contact person function","description":"Scope: national, Field: CONTACT_FUNCT"},"CONTACT_PHONE":{"type":"string","format":"markdown","title":"Contact phone","description":"Scope: national, Field: CONTACT_PHONE"},"CONTACT_MAIL":{"type":"string","format":"markdown","title":"Contact mail","description":"Scope: national, Field: CONTACT_MAIL"},"CONTACT_EMAIL":{"type":"string","format":"markdown","title":"Contact email","description":"Scope: national, Field: CONTACT_EMAIL"},"IND_DEF_CON_CLASS":{"type":"string","format":"markdown","title":"Definition, concepts, and classifications","description":"Scope: national, Field: IND_DEF_CON_CLASS"},"STAT_CONC_DEF":{"type":"string","format":"markdown","title":"Definition and concepts","description":"Scope: national, Field: STAT_CONC_DEF"},"UNIT_MEASURE":{"type":"string","format":"markdown","title":"Unit of measure","description":"Scope: national, Field: UNIT_MEASURE"},"CLASS_SYSTEM":{"type":"string","format":"markdown","title":"Classifications","description":"Scope: national, Field: CLASS_SYSTEM"},"SRC_TYPE_COLL_METHOD":{"type":"string","format":"markdown","title":"Data source type and collection method","description":"Scope: national, Field: SRC_TYPE_COLL_METHOD"},"SOURCE_TYPE":{"type":"string","format":"markdown","title":"Data sources","description":"Scope: national, Field: SOURCE_TYPE"},"COLL_METHOD":{"type":"string","format":"markdown","title":"Data collection method","description":"Scope: national, Field: COLL_METHOD"},"FREQ_COLL":{"type":"string","format":"markdown","title":"Data collection calendar","description":"Scope: national, Field: FREQ_COLL"},"REL_CAL_POLICY":{"type":"string","format":"markdown","title":"Data release calendar","description":"Scope: national, Field: REL_CAL_POLICY"},"DATA_SOURCE":{"type":"string","format":"markdown","title":"Data providers","description":"Scope: national, Field: DATA_SOURCE"},"COMPILING_ORG":{"type":"string","format":"markdown","title":"Data compilers","description":"Scope: national, Field: COMPILING_ORG"},"INST_MANDATE":{"type":"string","format":"markdown","title":"Institutional mandate","description":"Scope: national, Field: INST_MANDATE"},"OTHER_METHOD":{"type":"string","format":"markdown","title":"Other methodological considerations","description":"Scope: national, Field: OTHER_METHOD"},"RATIONALE":{"type":"string","format":"markdown","title":"Rationale","description":"Scope: national, Field: RATIONALE"},"REC_USE_LIM":{"type":"string","format":"markdown","title":"Comment and limitations","description":"Scope: national, Field: REC_USE_LIM"},"DATA_COMP":{"type":"string","format":"markdown","title":"Method of computation","description":"Scope: national, Field: DATA_COMP"},"DATA_VALIDATION":{"type":"string","format":"markdown","title":"Validation","description":"Scope: national, Field: DATA_VALIDATION"},"DOC_METHOD":{"type":"string","format":"markdown","title":"Methods and guidance available to countries for the compilation of the data at the national level","description":"Scope: national, Field: DOC_METHOD"},"QUALITY_MGMNT":{"type":"string","format":"markdown","title":"Quality management","description":"Scope: national, Field: QUALITY_MGMNT"},"QUALITY_ASSURE":{"type":"string","format":"markdown","title":"Quality assurance","description":"Scope: national, Field: QUALITY_ASSURE"},"QUALITY_ASSMNT":{"type":"string","format":"markdown","title":"Quality assessment","description":"Scope: national, Field: QUALITY_ASSMNT"},"COVERAGE":{"type":"string","format":"markdown","title":"Data availability and disaggregation","description":"Scope: national, Field: COVERAGE"},"COMPARABILITY":{"type":"string","format":"markdown","title":"Comparability/deviation from international standards","description":"Scope: national, Field: COMPARABILITY"},"OTHER_DOC":{"type":"string","format":"markdown","title":"References and Documentation","description":"Scope: national, Field: OTHER_DOC"},"national_data_update_url":{"type":"string","format":"markdown","title":"데이터 갱신 이력","description":"Scope: national, Field: national_data_update_url"},"data_name":{"type":"string","format":"markdown","title":"데이터명","description":"Scope: national, Field: data_name"},"SDG_GOAL":{"type":"string","format":"markdown","title":"영   역","description":"Scope: national, Field: SDG_GOAL"},"SDG_TARGET":{"type":"string","format":"markdown","title":"하위영역","description":"Scope: national, Field: SDG_TARGET"}},"additionalProperties":true};
     
       
         
@@ -513,13 +513,151 @@ layout-config-builder
     }
 
     // Set values according to this site's configuration.
-    propertyEditorAccessibilityFixes(editor.getEditor('root.SDG_INDICATOR_INFO'));
+    
+      try {
+        var currentValue = normalizeCurrentValue('computation_definitions', "<b>영   역</b>: 자원<br> <b>하위영역</b>: 인적 자원");
+        var propertyEditor = editor.getEditor('root.computation_definitions');
+        propertyEditor.setValue(null);
+        propertyEditor.setValue(currentValue);
+        
+      }
+      catch (e) {
+        console.log(e.message);
+        console.log('Unable to set config key: computation_definitions');
+      }
+    propertyEditorAccessibilityFixes(editor.getEditor('root.computation_definitions'));
 
-    propertyEditorAccessibilityFixes(editor.getEditor('root.SDG_GOAL'));
+    
+      try {
+        var currentValue = normalizeCurrentValue('indicator_name_sub', "고등교육이수자 비율");
+        var propertyEditor = editor.getEditor('root.indicator_name_sub');
+        propertyEditor.setValue(null);
+        propertyEditor.setValue(currentValue);
+        
+      }
+      catch (e) {
+        console.log(e.message);
+        console.log('Unable to set config key: indicator_name_sub');
+      }
+    propertyEditorAccessibilityFixes(editor.getEditor('root.indicator_name_sub'));
 
-    propertyEditorAccessibilityFixes(editor.getEditor('root.SDG_TARGET'));
+    
+      try {
+        var currentValue = normalizeCurrentValue('indicator_definition', "경제활동인구 중 대졸이상의 학력을 가진 경제활동인구수가 차지하는 비율을 의미함");
+        var propertyEditor = editor.getEditor('root.indicator_definition');
+        propertyEditor.setValue(null);
+        propertyEditor.setValue(currentValue);
+        
+      }
+      catch (e) {
+        console.log(e.message);
+        console.log('Unable to set config key: indicator_definition');
+      }
+    propertyEditorAccessibilityFixes(editor.getEditor('root.indicator_definition'));
 
-    propertyEditorAccessibilityFixes(editor.getEditor('root.SDG_INDICATOR'));
+    
+      try {
+        var currentValue = normalizeCurrentValue('indicator_importance', "국민 가운데 대학을 졸업한 인구가 많다는 것은 개인 차원에서는 교육기회가 충족되고 국가 차원에서는 우수한 인적자원을 많이 보유하고 있음을 의미함");
+        var propertyEditor = editor.getEditor('root.indicator_importance');
+        propertyEditor.setValue(null);
+        propertyEditor.setValue(currentValue);
+        
+      }
+      catch (e) {
+        console.log(e.message);
+        console.log('Unable to set config key: indicator_importance');
+      }
+    propertyEditorAccessibilityFixes(editor.getEditor('root.indicator_importance'));
+
+    
+      try {
+        var currentValue = normalizeCurrentValue('computation_calculations', "(대졸이상경제활동인구수/전체 경제활동인구수) x 100");
+        var propertyEditor = editor.getEditor('root.computation_calculations');
+        propertyEditor.setValue(null);
+        propertyEditor.setValue(currentValue);
+        
+      }
+      catch (e) {
+        console.log(e.message);
+        console.log('Unable to set config key: computation_calculations');
+      }
+    propertyEditorAccessibilityFixes(editor.getEditor('root.computation_calculations'));
+
+    
+      try {
+        var currentValue = normalizeCurrentValue('statistics_name', "통계청, 경제활동인구조사<br> https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1DA7016S&conn_path=I3");
+        var propertyEditor = editor.getEditor('root.statistics_name');
+        propertyEditor.setValue(null);
+        propertyEditor.setValue(currentValue);
+        
+      }
+      catch (e) {
+        console.log(e.message);
+        console.log('Unable to set config key: statistics_name');
+      }
+    propertyEditorAccessibilityFixes(editor.getEditor('root.statistics_name'));
+
+    
+      try {
+        var currentValue = normalizeCurrentValue('computation_units', "%");
+        var propertyEditor = editor.getEditor('root.computation_units');
+        propertyEditor.setValue(null);
+        propertyEditor.setValue(currentValue);
+        
+      }
+      catch (e) {
+        console.log(e.message);
+        console.log('Unable to set config key: computation_units');
+      }
+    propertyEditorAccessibilityFixes(editor.getEditor('root.computation_units'));
+
+    
+      try {
+        var currentValue = normalizeCurrentValue('computation_coverage', "시도");
+        var propertyEditor = editor.getEditor('root.computation_coverage');
+        propertyEditor.setValue(null);
+        propertyEditor.setValue(currentValue);
+        
+      }
+      catch (e) {
+        console.log(e.message);
+        console.log('Unable to set config key: computation_coverage');
+      }
+    propertyEditorAccessibilityFixes(editor.getEditor('root.computation_coverage'));
+
+    propertyEditorAccessibilityFixes(editor.getEditor('root.data_download'));
+
+    propertyEditorAccessibilityFixes(editor.getEditor('root.data_provision_year'));
+
+    
+      try {
+        var currentValue = normalizeCurrentValue('data_preparation_year', "2001년 ~ 2021년");
+        var propertyEditor = editor.getEditor('root.data_preparation_year');
+        propertyEditor.setValue(null);
+        propertyEditor.setValue(currentValue);
+        
+      }
+      catch (e) {
+        console.log(e.message);
+        console.log('Unable to set config key: data_preparation_year');
+      }
+    propertyEditorAccessibilityFixes(editor.getEditor('root.data_preparation_year'));
+
+    
+      try {
+        var currentValue = normalizeCurrentValue('data_generation_cycle', "분기, 년");
+        var propertyEditor = editor.getEditor('root.data_generation_cycle');
+        propertyEditor.setValue(null);
+        propertyEditor.setValue(currentValue);
+        
+      }
+      catch (e) {
+        console.log(e.message);
+        console.log('Unable to set config key: data_generation_cycle');
+      }
+    propertyEditorAccessibilityFixes(editor.getEditor('root.data_generation_cycle'));
+
+    propertyEditorAccessibilityFixes(editor.getEditor('root.update_cycle'));
 
     propertyEditorAccessibilityFixes(editor.getEditor('root.SDG_SERIES_DESCR'));
 
@@ -532,8 +670,6 @@ layout-config-builder
     propertyEditorAccessibilityFixes(editor.getEditor('root.CONTACT_ORGANISATION'));
 
     propertyEditorAccessibilityFixes(editor.getEditor('root.CONTACT_NAME'));
-
-    propertyEditorAccessibilityFixes(editor.getEditor('root.ORGANISATION_UNIT'));
 
     propertyEditorAccessibilityFixes(editor.getEditor('root.CONTACT_FUNCT'));
 
@@ -593,31 +729,23 @@ layout-config-builder
 
     
       try {
-        var currentValue = normalizeCurrentValue('national_data_updated_date', "2022-12-13");
-        var propertyEditor = editor.getEditor('root.national_data_updated_date');
+        var currentValue = normalizeCurrentValue('national_data_update_url', "https://github.com/karajjang/data/commit/5219672ccd61f08b2c17f414929042ea0f76a1a5");
+        var propertyEditor = editor.getEditor('root.national_data_update_url');
         propertyEditor.setValue(null);
         propertyEditor.setValue(currentValue);
         
       }
       catch (e) {
         console.log(e.message);
-        console.log('Unable to set config key: national_data_updated_date');
+        console.log('Unable to set config key: national_data_update_url');
       }
-    propertyEditorAccessibilityFixes(editor.getEditor('root.national_data_updated_date'));
+    propertyEditorAccessibilityFixes(editor.getEditor('root.national_data_update_url'));
 
-    
-      try {
-        var currentValue = normalizeCurrentValue('national_metadata_updated_date', "2022-12-13");
-        var propertyEditor = editor.getEditor('root.national_metadata_updated_date');
-        propertyEditor.setValue(null);
-        propertyEditor.setValue(currentValue);
-        
-      }
-      catch (e) {
-        console.log(e.message);
-        console.log('Unable to set config key: national_metadata_updated_date');
-      }
-    propertyEditorAccessibilityFixes(editor.getEditor('root.national_metadata_updated_date'));
+    propertyEditorAccessibilityFixes(editor.getEditor('root.data_name'));
+
+    propertyEditorAccessibilityFixes(editor.getEditor('root.SDG_GOAL'));
+
+    propertyEditorAccessibilityFixes(editor.getEditor('root.SDG_TARGET'));
 
     
 
@@ -731,12 +859,12 @@ layout-config-builder
 <script>translations['search'] = translations['search'] || {};
     translations['search']['search'] = '검색';</script>
 
-<script src='/site/assets/js/sdg.js?v=20221213034409'></script>
+<script src='/site/assets/js/sdg.js?v=20221213041107'></script>
 
 
     
     
-    <script src="/site/assets/js/custom.js?v=20221213034409"></script><script>
+    <script src="/site/assets/js/custom.js?v=20221213041107"></script><script>
 $(function() {
     if($('#indicatorData').length) {
       var domData = $('#indicatorData').data();
