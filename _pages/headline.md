@@ -47,7 +47,7 @@ layout: page
                 <span class="status-inner">이용가능</span>
             </span>
         </span>
-        <a href="/site/5-1-1">
+        <a href="/site/5-1-2">
             {{ page.t.global_indicators.5-1-2-title }}
         </a>
     </div>
