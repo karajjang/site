@@ -42,13 +42,13 @@ layout: page
 <div class="indicator-cards col-md-6 row no-gutters">
     <div class="col-md-12  goal-indicator">
         <span class="indicator-card-number">
-            5.1.1
+            5.1.2
             <span class="status complete">
                 <span class="status-inner">이용가능</span>
             </span>
         </span>
         <a href="/site/5-1-1">
-            {{ page.t.global_indicators.5-1-1-title }}
+            {{ page.t.global_indicators.5-1-2-title }}
         </a>
     </div>
 </div>
