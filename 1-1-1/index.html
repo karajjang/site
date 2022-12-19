@@ -138,7 +138,7 @@ var translations = {
         
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" crossorigin="">
         <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.3/css/fixedColumns.dataTables.min.css" crossorigin="">
-        <link rel="stylesheet" href="/site/assets/css/style.css?v=20221219074621">
+        <link rel="stylesheet" href="/site/assets/css/style.css?v=20221219192955">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
           crossorigin=""/>
@@ -534,7 +534,7 @@ function copyUrl(){
   data-country="Korea"
   data-charttitle="국토계수당 도로연장"
   data-charttitles="[]"
-  data-measurementunit="2001년 = 100"
+  data-measurementunit="%"
   data-xaxislabel=""
   data-showdata="true"
   data-graphtype="line"
@@ -548,7 +548,7 @@ function copyUrl(){
   data-graphtargetlines="null"
   data-graphseriesbreaks="null"
   data-indicatordownloads="null"
-  data-dataschema="{&quot;fields&quot;:[{&quot;name&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;number&quot;,&quot;title&quot;:&quot;Value&quot;},{&quot;name&quot;:&quot;Year&quot;,&quot;type&quot;:&quot;number&quot;,&quot;title&quot;:&quot;Year&quot;}]}"
+  data-dataschema="{&quot;fields&quot;:[{&quot;name&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;number&quot;,&quot;title&quot;:&quot;Value&quot;},{&quot;name&quot;:&quot;Year&quot;,&quot;type&quot;:&quot;integer&quot;,&quot;title&quot;:&quot;Year&quot;},{&quot;name&quot;:&quot;지역&quot;,&quot;type&quot;:&quot;string&quot;,&quot;constraints&quot;:{&quot;enum&quot;:[&quot;&quot;,&quot;0.전국&quot;,&quot;1.수도권&quot;,&quot;2.충청권&quot;,&quot;3.호남권&quot;,&quot;4.대경권&quot;,&quot;5.동남권&quot;,&quot;6.강원권&quot;,&quot;7.제주권&quot;]},&quot;title&quot;:&quot;지역&quot;}]}"
   data-compositebreakdownlabel=""
   data-precision="[]"
 >
@@ -598,7 +598,7 @@ function copyUrl(){
     <p>지역: </p>
     
     
-    <p>세부지표: 2001년 = 100</p>
+    <p>세부지표: %</p>
     
     
     <p>주석: </p>
@@ -955,7 +955,7 @@ opensdg.chartConfigAlter(function(config, info) {
 
         
         <dt>단위:</dt>
-        <dd>2001년 = 100</dd>
+        <dd>%</dd>
         
 
         
@@ -998,7 +998,7 @@ opensdg.chartConfigAlter(function(config, info) {
 
         
         <dt>단위:</dt>
-        <dd>2001년 = 100</dd>
+        <dd>%</dd>
         
 
         
@@ -1127,7 +1127,7 @@ data-event-label="Change to indicator.national_metadata tab"
         <th scope="row" style="white-space: nowrap">지 표 명 </th>
         <td>
           
-            <p>인구성장지수: growth/shrinking index of the total population(2001=100)</p>
+            <p>고등교육이수자 비율</p>
 
           
         </td>
@@ -1143,7 +1143,7 @@ data-event-label="Change to indicator.national_metadata tab"
         <th scope="row" style="white-space: nowrap">정   의 </th>
         <td>
           
-            <p>인구성장률은 자연증가율과 사회적 증가율의 합으로 특정시점(2001년)을 기준으로 인구의 증감률을 나타내는 지표임</p>
+            <p>경제활동인구 중 대졸이상의 학력을 가진 경제활동인구수가 차지하는 비율을 의미함</p>
 
           
         </td>
@@ -1159,7 +1159,7 @@ data-event-label="Change to indicator.national_metadata tab"
         <th scope="row" style="white-space: nowrap">의   의 </th>
         <td>
           
-            <p>한 국가의 인구 및 인구성장률은 그 국가의  장·단기 국가발전 계획수립에 있어 가장 기본적이고 근원적인 기초자료로서 인구와 관련된 각종 경제·사회 정책을 수립하는데 활용됨</p>
+            <p>국민 가운데 대학을 졸업한 인구가 많다는 것은 개인 차원에서는 교육기회가 충족되고 국가 차원에서는 우수한 인적자원을 많이 보유하고 있음을 의미함</p>
 
           
         </td>
@@ -1175,7 +1175,7 @@ data-event-label="Change to indicator.national_metadata tab"
         <th scope="row" style="white-space: nowrap">측   정 </th>
         <td>
           
-            <p>(당해년 전체인구수÷2001년 전체인구수) x 100</p>
+            <p>(대졸이상경제활동인구수/전체 경제활동인구수) x 100</p>
 
           
         </td>
@@ -1191,7 +1191,7 @@ data-event-label="Change to indicator.national_metadata tab"
         <th scope="row" style="white-space: nowrap">자료출처 </th>
         <td>
           
-            <p>OECD.stat &gt; Regions and Cities &gt; Regional Statistics &gt; Regional Demography &gt; demographic indicators by access to city typology. country level</p>
+            <p>통계청, 경제활동인구조사<br /> https://kosis.kr/statHtml/statHtml.do?orgId=101&amp;tblId=DT_1DA7016S&amp;conn_path=I3</p>
 
           
         </td>
@@ -1207,7 +1207,7 @@ data-event-label="Change to indicator.national_metadata tab"
         <th scope="row" style="white-space: nowrap">공표단위 </th>
         <td>
           
-            <p>2001년 = 100</p>
+            <p>%</p>
 
           
         </td>
@@ -1217,7 +1217,20 @@ data-event-label="Change to indicator.national_metadata tab"
   
       
         
+      
+      
+      <tr>
+        <th scope="row" style="white-space: nowrap">공표범위 </th>
+        <td>
           
+            <p>시도</p>
+
+          
+        </td>
+        </tr>
+        
+      
+  
       
         
           
@@ -1242,7 +1255,20 @@ data-event-label="Change to indicator.national_metadata tab"
   
       
         
+      
+      
+      <tr>
+        <th scope="row" style="white-space: nowrap">자료생성주기 </th>
+        <td>
           
+            <p>분기, 년</p>
+
+          
+        </td>
+        </tr>
+        
+      
+  
       
         
           
@@ -1350,7 +1376,29 @@ data-event-label="Change to indicator.national_metadata tab"
           
       
         
+      
+      
+      <tr>
+        <th scope="row" style="white-space: nowrap">데이터 갱신 이력 </th>
+        <td>
           
+            
+            
+            
+            
+
+            
+              <a href="https://github.com/karajjang/data/commit/ee4934b3e417b6ff27175390e67e0c97fd9d5289" target="_blank">
+                2022-12-19: see changes on GitHub <span class="visuallyhidden">새 창에서 열기</span>
+              </a>
+            
+
+          
+        </td>
+        </tr>
+        
+      
+  
   
   
   
@@ -1538,12 +1586,12 @@ document.getElementById('date').innerText = today.toLocaleDateString();
 <script>translations['search'] = translations['search'] || {};
     translations['search']['search'] = '검색';</script>
 
-<script src='/site/assets/js/sdg.js?v=20221219074621'></script>
+<script src='/site/assets/js/sdg.js?v=20221219192955'></script>
 
 
     
     
-    <script src="/site/assets/js/custom.js?v=20221219074621"></script><script>
+    <script src="/site/assets/js/custom.js?v=20221219192955"></script><script>
 $(function() {
     if($('#indicatorData').length) {
       var domData = $('#indicatorData').data();
