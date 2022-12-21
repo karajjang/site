@@ -862,6 +862,14 @@
           "status": "complete"
         },
         {
+          "id": "11-1-5",
+          "title": "global_indicators.11-1-5-title",
+          "description": "",
+          "keywords": "",
+          "href": "/site/11-1-5",
+          "status": "complete"
+        },
+        {
           "id": "11-2-1",
           "title": "인구 천 명당 범죄 발생 건수",
           "description": "",
@@ -871,7 +879,7 @@
         },
         {
           "id": "11-2-2",
-          "title": "강력볌죄 발생률",
+          "title": "강력범죄 발생률",
           "description": "",
           "keywords": "",
           "href": "/site/11-2-2",
@@ -899,22 +907,6 @@
           "description": "",
           "keywords": "",
           "href": "/site/11-2-5",
-          "status": "complete"
-        }]
-    }
-  },
-  {
-    "goal": {
-      "id": "12",
-      "title": "global_goals.12-title",
-      "indicators": [
-        
-        {
-          "id": "12-1-1",
-          "title": "인구 천 명당 범죄 발생 건수",
-          "description": "",
-          "keywords": "",
-          "href": "/site/12-1-1",
           "status": "complete"
         }]
     }
