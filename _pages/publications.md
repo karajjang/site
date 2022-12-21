@@ -1,5 +1,5 @@
 ---
-title: 발간(참고)자료
+title: 발간자료
 language: ko
 permalink: /publications/
 layout: page
