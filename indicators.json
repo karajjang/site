@@ -863,7 +863,7 @@
         },
         {
           "id": "11-1-5",
-          "title": "global_indicators.11-1-5-title",
+          "title": "인구 천 명당 범죄 발생 건수",
           "description": "",
           "keywords": "",
           "href": "/site/11-1-5",
@@ -871,7 +871,7 @@
         },
         {
           "id": "11-2-1",
-          "title": "인구 천 명당 범죄 발생 건수",
+          "title": "global_indicators.11-2-1-title",
           "description": "",
           "keywords": "",
           "href": "/site/11-2-1",
@@ -879,7 +879,7 @@
         },
         {
           "id": "11-2-2",
-          "title": "강력범죄 발생률",
+          "title": "global_indicators.11-2-2-title",
           "description": "",
           "keywords": "",
           "href": "/site/11-2-2",
@@ -887,7 +887,7 @@
         },
         {
           "id": "11-2-3",
-          "title": "소방공무원 1인당 담당 주민 수",
+          "title": "global_indicators.11-2-3-title",
           "description": "",
           "keywords": "",
           "href": "/site/11-2-3",
@@ -895,7 +895,7 @@
         },
         {
           "id": "11-2-4",
-          "title": "사회 안전에 대한 인식",
+          "title": "global_indicators.11-2-4-title",
           "description": "",
           "keywords": "",
           "href": "/site/11-2-4",
@@ -903,7 +903,7 @@
         },
         {
           "id": "11-2-5",
-          "title": "교통사고 발생 건수",
+          "title": "global_indicators.11-2-5-title",
           "description": "",
           "keywords": "",
           "href": "/site/11-2-5",
