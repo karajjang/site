@@ -494,8 +494,8 @@ layout: page
         </a>
     </div>
 </div>  
-    
-<div class="indicator-cards target goal-target col-md-6">
+
+<!-- <div class="indicator-cards target goal-target col-md-6">
     <span class="indicator-card-number">
         <label class="hidden-md hidden-lg">{{ page.t.global_goals.11-short }} - </label>
         11.2
@@ -503,7 +503,7 @@ layout: page
     {{ page.t.global_targets.11-2-title }}
 </div>
 
-<!--  <div class="indicator-cards col-md-6 row no-gutters">
+ <div class="indicator-cards col-md-6 row no-gutters">
     <div class="col-md-12  goal-indicator">
         <span class="indicator-card-number">
             11.2.1
