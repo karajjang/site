@@ -503,7 +503,7 @@ layout: page
     {{ page.t.global_targets.11-2-title }}
 </div>
 
-\\<!-- <div class="indicator-cards col-md-6 row no-gutters">
+<!--  <div class="indicator-cards col-md-6 row no-gutters">
     <div class="col-md-12  goal-indicator">
         <span class="indicator-card-number">
             11.2.1
@@ -515,6 +515,6 @@ layout: page
             {{ page.t.global_indicators.11-2-1-title }}
         </a>
     </div>
-</div> -->  
+</div>  -->
         
 </div>
